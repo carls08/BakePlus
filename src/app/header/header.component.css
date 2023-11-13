@@ -1,0 +1,13 @@
+.barra{
+    background-color: #EEE1BA;
+    
+}
+/* Cambiar el color del texto del enlace del navbar */
+.navbar-nav .nav-link {
+    color: rgb(0, 0, 0); /* Cambia el color a tu preferencia */
+}
+
+/* Cambiar el color del texto del botón del menú */
+.btn.btn-outline-primary {
+    color: rgb(0, 0, 0); /* Cambia el color a tu preferencia */
+}
