@@ -15,7 +15,8 @@ const routes:Routes=[
   {path:'login',component:LoginComponent},
   {path:'receta',component:RecetasComponent},
   {path:'descripcion',component:DescripcionRecetaComponent},
-  {path:'formularioReceta',component:FormularioRecetasComponent}
+  {path:'formularioReceta',component:FormularioRecetasComponent},
+  {path:'home',component:HomeComponent}
 ]
 @NgModule({
  
