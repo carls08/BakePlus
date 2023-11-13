@@ -22,4 +22,7 @@ export class HeaderComponent {
   receta(){
     this.router.navigate(['receta'])
   }
+  formularioReceta(){
+    this.router.navigate(['formularioReceta'])
+  }
 }

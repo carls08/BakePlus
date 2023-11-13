@@ -6,6 +6,7 @@ import { RegistroComponent } from './registro/registro.component';
 import { LoginComponent } from './login/login.component';
 import { RecetasComponent } from './recetas/recetas.component';
 import { DescripcionRecetaComponent } from './descripcion-receta/descripcion-receta.component';
+import { FormularioRecetasComponent } from './formulario-recetas/formulario-recetas.component';
 
 
 const routes:Routes=[
@@ -14,6 +15,7 @@ const routes:Routes=[
   {path:'login',component:LoginComponent},
   {path:'receta',component:RecetasComponent},
   {path:'descripcion',component:DescripcionRecetaComponent},
+  {path:'formularioReceta',component:FormularioRecetasComponent}
 ]
 @NgModule({
  

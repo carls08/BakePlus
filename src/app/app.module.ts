@@ -15,6 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { RecetasComponent } from './recetas/recetas.component';
 import { DescripcionRecetaComponent } from './descripcion-receta/descripcion-receta.component';
+import { FormularioRecetasComponent } from './formulario-recetas/formulario-recetas.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { DescripcionRecetaComponent } from './descripcion-receta/descripcion-rec
     RegistroComponent,
     LoginComponent,
     RecetasComponent,
-    DescripcionRecetaComponent
+    DescripcionRecetaComponent,
+    FormularioRecetasComponent
   ],
   imports: [
     BrowserModule,

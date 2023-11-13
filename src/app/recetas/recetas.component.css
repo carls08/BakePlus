@@ -1,5 +1,5 @@
 .color-b{
-    background-color:#C37960 ;
+    background-color: #894E3F ;
 }
 .carta{
     display: grid;
@@ -9,4 +9,8 @@
 }
 .card{
     margin-top: 4%;
+}
+.color-boton{
+    background-color:#C37960;
+    
 }
