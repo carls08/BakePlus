@@ -13,6 +13,8 @@ import { RegistroComponent } from './registro/registro.component';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
+import { RecetasComponent } from './recetas/recetas.component';
+import { DescripcionRecetaComponent } from './descripcion-receta/descripcion-receta.component';
 
 
 @NgModule({
@@ -22,7 +24,9 @@ import { LoginComponent } from './login/login.component';
     FooterComponent,
     HomeComponent,
     RegistroComponent,
-    LoginComponent
+    LoginComponent,
+    RecetasComponent,
+    DescripcionRecetaComponent
   ],
   imports: [
     BrowserModule,

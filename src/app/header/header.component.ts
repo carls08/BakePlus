@@ -13,10 +13,13 @@ export class HeaderComponent {
     private router:Router
   ){
   }
-  agregar(){
+  registro(){
     this.router.navigate(['registro'])
   }
   login(){
     this.router.navigate(['login'])
+  }  
+  receta(){
+    this.router.navigate(['receta'])
   }
 }
