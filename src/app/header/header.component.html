@@ -13,7 +13,7 @@
             <a class="nav-link" href="#">Recetas</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Ventas</a>
+            <a class="nav-link" (click)="login()">Login</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" aria-disabled="true"></a>
@@ -26,7 +26,7 @@
                         Más
                     </button>
                     <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                        <button ngbDropdownItem (click)="agregar()" >Registrar</button>
+                        <button ngbDropdownItem (click)="agregar ()" >Registrar</button>
                         <button ngbDropdownItem>Contactanos</button>
                         <button ngbDropdownItem>Acerca de</button>
                     </div>

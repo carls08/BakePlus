@@ -16,4 +16,7 @@ export class HeaderComponent {
   agregar(){
     this.router.navigate(['registro'])
   }
+  login(){
+    this.router.navigate(['login'])
+  }
 }
