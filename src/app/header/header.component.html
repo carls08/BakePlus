@@ -1,49 +1,80 @@
 <nav class="navbar navbar-expand-lg barra">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">BakePlus</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="btn nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-          </li>
-          <li class="btn nav-item">
-            <a class="nav-link" (click)="receta()">Recetas</a>
-          </li>
-          <li class=" btn nav-item">
-            <a class="nav-link" (click)="login()">Login</a>
-          </li>
-          <li class=" btn nav-item">
-            <a class="nav-link" (click)="formularioReceta()">Registrar receta</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" aria-disabled="true"></a>
-          </li>
-        </ul>
-        <div class="row">
-            <div class="col">
-                <div ngbDropdown class="d-inline-block">
-                    <button type="button" class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
-                        Más
-                    </button>
-                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                        <button ngbDropdownItem (click)="registro ()" >Registrar</button>
-                        <button ngbDropdownItem>Contactanos</button>
-                        <button ngbDropdownItem>Acerca de</button>
-                    </div>
-                </div>
+  <div class="container-fluid">
+    <a class="navbar-brand" (click)="login()">BakePlus</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <div class="row">
+        <div class="col">
+          <div ngbDropdown class="d-inline-block">
+            <button
+              type="button"
+              class="btn"
+              id="dropdownBasic1"
+              ngbDropdownToggle
+            >
+              Registros
+            </button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button ngbDropdownItem>Usuarios</button>
+              <button ngbDropdownItem>Marcas</button>
+              <button ngbDropdownItem>Unidades</button>
+              <button ngbDropdownItem>Roles</button>
+              <button ngbDropdownItem>Ingredientes</button>
             </div>
-    
+          </div>
         </div>
       </div>
-
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit" >Search</button>
-      </form>
-
+      <div class="row">
+        <div class="col">
+          <div ngbDropdown class="d-inline-block">
+            <button
+              type="button"
+              class="btn"
+              id="dropdownBasic1"
+              ngbDropdownToggle
+            >
+              Produccion
+            </button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button ngbDropdownItem>Agregar Producto</button>
+              <button ngbDropdownItem (click)="formularioReceta()">
+                Agregar Receta
+              </button>
+              <button ngbDropdownItem>Agregar Produccion</button>
+              <button ngbDropdownItem (click)="receta()">Ver Recetas</button>
+              <button ngbDropdownItem>Roles</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div ngbDropdown class="d-inline-block">
+            <button
+              type="button"
+              class="btn"
+              id="dropdownBasic1"
+              ngbDropdownToggle
+            >
+              Ventas
+            </button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button ngbDropdownItem>Agregar Venta</button>
+              <button ngbDropdownItem>Ver Ventas</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
-  </nav>
+  </div>
+</nav>
