@@ -1,53 +1,68 @@
 <body class="color-b d-flex justify-content-center align-items-center">
-    <div class="bg-white p-5 rounded-5 text-secondary shadow caja" style=" width:30rem;">
+    <div class="bg-white p-5 rounded-5 text-secondary shadow caja" style=" width:50rem;">
         <div class="d-flex justify-content-center ">
             <img src="https://cdn-icons-png.flaticon.com/512/2478/2478542.png" alt="registropan-icon" style="height: 7rem;">
         </div>
         <div class="text-center fs-1 fw-bold">Formulario de registro de recetas</div>
-        <div class="input-group mt-4">
-          <div class="input-group-text color-b">
-              <img src="https://cdn-icons-png.flaticon.com/512/88/88670.png" alt="icon" style="height: 1rem;">
-          </div>
-          <input  class="form-control"type="text" placeholder="Nombre de producto">
-      </div>
-      <div class="input-group mt-1">
-          <div class="input-group-text color-b">
-              <img src="https://cdn-icons-png.flaticon.com/512/88/88670.png" alt="icon" style="height: 1rem;">
-          </div>
-          <input class="form-control" type="" placeholder="Cantidad de agua">
-      </div>
-        <div class="input-group mt-1">
+        <div class="input-group mb-3 mt-4">
+            <input type="text" class="form-control" placeholder="Nombre de receta" aria-label="Username">
             <div class="input-group-text color-b">
                 <img src="https://cdn-icons-png.flaticon.com/512/88/88670.png" alt="icon" style="height: 1rem;">
             </div>
-            <input  class="form-control"type="text" placeholder="Cantidad de Harina">
-        </div>
-        <div class="input-group mt-1">
+            <input type="number" class="form-control" placeholder="Cantidad de receta" aria-label="Server">
+          </div>
+        <div class="input-group mt-3">
             <div class="input-group-text color-b">
                 <img src="https://cdn-icons-png.flaticon.com/512/88/88670.png" alt="icon" style="height: 1rem;">
             </div>
-            <input class="form-control" type="text" placeholder="Cantidad de levadura">
+            <textarea class="form-control" placeholder="Descripcion de la receta" id="floatingTextarea2" style="height: 100px"></textarea>
+
         </div>
-      <div class="input-group mt-1">
-          <div class="input-group-text color-b">
-              <img src="https://cdn-icons-png.flaticon.com/512/88/88670.png" alt="icon" style="height: 1rem;">
+        <div class=" mb-3 mt-4 ingrediente">
+            <select class="form-select"id="floatingSelect"  name="tipoIngrediente" aria-label="Floating label select example" [(ngModel)]="inputTipo" required>
+                <option selected></option>
+                <option value="Harina">Harina</option>
+                <option value="Huevo">Huevo</option>
+                <option value="Levadura">Levadura</option>
+                <option value="Malta">Malta</option>
+                <option value=">Masa previa">Masa previa</option>
+                <option value="Sa">Sal</option>
+              </select>
+           
+            <input class="form-control" type="number" placeholder="Cantidad de ingrediente"  [(ngModel)]="inputCantidad" required>
+           
+            <select class="form-select" id="floatingSelect" name="tipoUnidad" aria-label="Floating label select example" [(ngModel)]="inputUnidad" required>
+                <option selected>Unidad</option>
+                <option value="Kg">Kg</option>
+                <option value="Gr">Gr</option>
+                <option value="Lt">Litros</option>
+                <option value="ml">Mililitros</option>
+                <option value="cc">Centimetros cubicos</option>
+                
+                </select>
+                
+                <div class="btn color-b text-white  fw-semibold shadows-semibold" (click)="agregar()" >Agregar</div> 
           </div>
-          <input class="form-control" type="text" placeholder="Cantidad de Malta">
-      </div>
-        <div class="input-group mt-1">
-          <div class="input-group-text color-b">
-              <img src="https://cdn-icons-png.flaticon.com/512/88/88670.png" alt="icon" style="height: 1rem;">
+          <div class="ingredientes_receta">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Ingredientes</th>
+                  <th scope="col">Cantidad</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of prueba">
+                    <td>{{data.Ingrediente}}</td>
+                    <td>{{data.Cantidad}}</td>
+                </tr>
+                
+              </tbody>
+            </table>
           </div>
-          <input  class="form-control"type="text" placeholder="Cantidad Masa previa">
-      </div>
-      <div class="input-group mt-1">
-        <div class="input-group-text color-b">
-            <img src="https://cdn-icons-png.flaticon.com/512/88/88670.png" alt="icon" style="height: 1rem;">
-        </div>
-        <input class="form-control" type="text" placeholder="Cantidad de sal">
-    </div>
-      
-        <div class="btn color-b text-white w-100 mt-4 fw-semibold shadows-semibold" >Registrar</div>
+            
+            <div class="btn color-b text-white w-100 mt-4 fw-semibold shadows-semibold" >Registrar</div>
+       
         <div class="d-flex gap-1 justify-content-center mt-1">
             
         </div>
