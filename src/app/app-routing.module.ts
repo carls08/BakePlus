@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { RegistroComponent } from './registro/registro.component';
+import { HomeComponent } from './layout/home/home.component';
+import { RegistroComponent } from './layout/registro/registro.component';
 import { LoginComponent } from './login/login.component';
-import { RecetasComponent } from './recetas/recetas.component';
-import { DescripcionRecetaComponent } from './descripcion-receta/descripcion-receta.component';
-import { FormularioRecetasComponent } from './formulario-recetas/formulario-recetas.component';
+import { RecetasComponent } from './layout/recetas/recetas.component';
+import { DescripcionRecetaComponent } from './layout/descripcion-receta/descripcion-receta.component';
+import { FormularioRecetasComponent } from './layout/formulario-recetas/formulario-recetas.component';
 
 
 const routes:Routes=[

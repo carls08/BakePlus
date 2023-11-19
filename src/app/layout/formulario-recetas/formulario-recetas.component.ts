@@ -15,14 +15,16 @@ export class FormularioRecetasComponent {
 
    agregar(){
     this.prueba.push({"Ingrediente":this.inputTipo, "Cantidad":this.inputCantidad+" "+this.inputUnidad});
-    Swal.fire({
-    
-      icon: "success",
-      title: "Se ha agregado correctamemte",
-      showConfirmButton: false,
-      timer: 1500
-    });
+  
    }
-
+registrar(){
+  Swal.fire({
+    
+    icon: "success",
+    title: "Se ha registrado correctamemte",
+    showConfirmButton: false,
+    timer: 1500
+  });
+}
    
 }

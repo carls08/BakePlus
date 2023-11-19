@@ -1,3 +1,4 @@
+<app-header></app-header>
 <body class="color-b d-flex justify-content-center align-items-center">
     <div class="bg-white p-5 rounded-5 text-secondary shadow caja" style=" width:50rem;">
         <div class="d-flex justify-content-center ">
@@ -26,7 +27,8 @@
                 <option value="Levadura">Levadura</option>
                 <option value="Malta">Malta</option>
                 <option value=">Masa previa">Masa previa</option>
-                <option value="Sa">Sal</option>
+                <option value="Sal">Sal</option>
+                <option value="Agua">Agua</option>
               </select>
            
             <input class="form-control" type="number" placeholder="Cantidad de ingrediente"  [(ngModel)]="inputCantidad" required>
@@ -34,7 +36,7 @@
             <select class="form-select" id="floatingSelect" name="tipoUnidad" aria-label="Floating label select example" [(ngModel)]="inputUnidad" required>
                 <option selected>Unidad</option>
                 <option value="Kg">Kg</option>
-                <option value="Gr">Gr</option>
+                <option value="Gr">gr</option>
                 <option value="Lt">Litros</option>
                 <option value="ml">Mililitros</option>
                 <option value="cc">Centimetros cubicos</option>
@@ -61,7 +63,7 @@
             </table>
           </div>
             
-            <div class="btn color-b text-white w-100 mt-4 fw-semibold shadows-semibold" >Registrar</div>
+            <div class="btn color-b text-white w-100 mt-4 fw-semibold shadows-semibold" (click)="registrar()" >Registrar</div>
        
         <div class="d-flex gap-1 justify-content-center mt-1">
             
