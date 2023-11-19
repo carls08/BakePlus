@@ -4,6 +4,7 @@ import { FormGroup,FormControl,Validators, FormBuilder } from '@angular/forms';
 import { ApiService } from 'src/app/services/api/api.service';
 import { LoginI } from 'src/app/models/login.interface';
 import { ResponseI } from 'src/app/models/response.interface';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -26,12 +27,24 @@ export class LoginComponent {
   registro(){
     this.router.navigate(['registro'])
   }
-  home(){this.router.navigate(['home'])
+  home(){this.router.navigate(['home']
+  )
+  Swal.fire({
+      
+    icon: "success",
+    title: "Se ha registrado correctamemte",
+    showConfirmButton: false,
+    timer: 1500
+  });
 
   }
   plantillas(){
     this.router.navigate(['plantillas']);
   }
+  registrar(){
+    
+  }
+    
 
   //onLogin(form:LoginI){
   //  console.log(form)
