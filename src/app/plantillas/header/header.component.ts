@@ -17,7 +17,7 @@ export class HeaderComponent {
     this.router.navigate(['registro'])
   }
   login(){
-    this.router.navigate(['login'])
+    this.router.navigate([''])
   }  
   receta(){
     this.router.navigate(['receta'])
