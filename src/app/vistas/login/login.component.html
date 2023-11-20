@@ -12,7 +12,7 @@
       />
     </div>
     <h2 class="text-center fw-bold">INICIAR SESION</h2>
-<form [formGroup]="loginForm">
+<form [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)">
   <div class="input-group mt-4">
     <div class="input-group-text color-boton">
       <img
@@ -37,7 +37,7 @@
 
     <div class="">
       
-      <input type="submit"  class="text-white shadows-semibold btn color-boton  w-100 mt-4 fw-semibold shadows-semibold" value="INGRESAR" (click)="home()">
+      <input type="submit"  class="text-white shadows-semibold btn color-boton  w-100 mt-4 fw-semibold shadows-semibold" value="INGRESAR" >
     </div>
     </form>
   </div>

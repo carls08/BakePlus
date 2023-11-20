@@ -46,15 +46,13 @@ export class LoginComponent {
   }
     
 
-  //onLogin(form:LoginI){
-  //  console.log(form)
-  //  this.api.loginByEmail(form).subscribe(data => {console.log(data) 
-  //  let dataResponse:ResponseI=data;
-  //  if(dataResponse.status=='ok'){localStorage.setItem("token",dataResponse.response.token);
- // this.router.navigate(['home'])
- // }
-   // });
+  onLogin(form:LoginI){
+   console.log(form)
+   this.api.loginByEmail(form).subscribe(data =>{
+    console.log(data)
+   })
+   
     
 
-  //}
+  }
 }

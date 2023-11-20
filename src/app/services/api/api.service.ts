@@ -9,15 +9,15 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
 
-  //url:string ="http://solodata.es/";
+  url:string ="http://127.0.0.1:5000/";
 
-  //constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
-    //loginByEmail(form:LoginI):Observable<ResponseI>{
-   // let direccion = this.url + "auth";
-    //return this.http.post<ResponseI>(direccion, form);
+    loginByEmail(form:LoginI):Observable<ResponseI>{
+    let direccion = this.url + "usuarios/login";
+    return this.http.post<ResponseI>(direccion, form);
      
 
-    //} 
+    } 
   }
 
