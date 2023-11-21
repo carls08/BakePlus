@@ -1,0 +1,9 @@
+.color-b{
+    background-color:#894E3F ;}
+    .caja {
+        margin: 20px auto;
+    }
+.form_unidad{
+    grid-template-columns: repeat(4,1fr);
+    column-gap: 10px;
+}

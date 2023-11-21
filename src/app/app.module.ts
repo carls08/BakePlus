@@ -18,7 +18,11 @@ import { DescripcionRecetaComponent } from './plantillas/descripcion-receta/desc
 import { FormularioRecetasComponent } from './plantillas/formulario-recetas/formulario-recetas.component';
 import { VistasComponent } from './vistas/vistas.component';
 import {HttpClientModule} from '@angular/common/http';
-import { PlantillasComponent } from './plantillas/plantillas.component'
+import { PlantillasComponent } from './plantillas/plantillas.component';
+import { UnidadesComponent } from './plantillas/unidades/unidades.component';
+import { MarcasComponent } from './plantillas/marcas/marcas.component';
+import { IngredientesComponent } from './plantillas/ingredientes/ingredientes.component';
+import { VentasComponent } from './plantillas/ventas/ventas.component'
 
 
 @NgModule({
@@ -34,7 +38,11 @@ import { PlantillasComponent } from './plantillas/plantillas.component'
     DescripcionRecetaComponent,
     FormularioRecetasComponent,
     VistasComponent,
-    PlantillasComponent
+    PlantillasComponent,
+    UnidadesComponent,
+    MarcasComponent,
+    IngredientesComponent,
+    VentasComponent
   ],
   imports: [
     BrowserModule,

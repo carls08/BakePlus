@@ -25,4 +25,13 @@ export class HeaderComponent {
   formularioReceta(){
     this.router.navigate(['formularioReceta'])
   }
+  unidades(){
+    this.router.navigate(['unidades'])
+  }
+  marcas(){
+    this.router.navigate(['marcas'])
+  }
+  ingredientes(){
+this.router.navigate(['ingredientes'])
+  }
 }

@@ -3,6 +3,9 @@ import { LoginI } from 'src/app/models/login.interface';
 import { ResponseI } from 'src/app/models/response.interface';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { marcasI } from 'src/app/models/marcas.interface';
+import { UnidadesI } from 'src/app/models/unidades.interface';
+import { ingredienteI } from 'src/app/models/ingrediente.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -19,5 +22,18 @@ export class ApiService {
      
 
     } 
+    getAllMarcas():Observable<marcasI[]>{
+      let direccion=this.url +"marcas/getAll";
+       return this.http.get<marcasI[]>(direccion);
+
+    }
+    getAllUnidades():Observable<UnidadesI[]>{
+      let direccion=this.url + "unidades_medidas/getAll";
+      return this.http.get<UnidadesI[]>(direccion)
+    }
+    getAllIngredientes():Observable<ingredienteI[]>{
+      let direccion =this.url +"ingredientes/getAll";
+      return this.http.get<ingredienteI[]>(direccion)
+    }
   }
 
