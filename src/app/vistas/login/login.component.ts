@@ -21,35 +21,42 @@ export class LoginComponent {
   ){
     this.loginForm=this.fb.group({
       usuario:['',Validators.required],
-      password:['',Validators.required]
+      contraseña:['',Validators.required]
     })
   }
-  registro(){
-    this.router.navigate(['registro'])
+ ngOnInit():void {
+  this.checkLocalStorage();
+ }
+  checkLocalStorage(){
+    if(localStorage.getItem('token')){
+      this.router.navigate(['home'])
+    }
   }
-  home(){this.router.navigate(['home']
-  )
-  Swal.fire({
-      
-    icon: "success",
-    title: "Se ha registrado correctamemte",
-    showConfirmButton: false,
-    timer: 1500
-  });
-
-  }
-  plantillas(){
-    this.router.navigate(['plantillas']);
-  }
-  registrar(){
-    
-  }
-    
 
   onLogin(form:LoginI){
    console.log(form)
    this.api.loginByEmail(form).subscribe(data =>{
     console.log(data)
+    let dataResponse:ResponseI=data;
+    if(dataResponse.response){
+      console.log(dataResponse.response.token)
+      localStorage.setItem("token",dataResponse.response.token);
+      this.router.navigate(['home'])
+      Swal.fire({
+        icon: "success",
+        title: "Has ingresado",
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }else{
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Usuario o contraseña incorrecto",
+        footer: '<a href="">Intenta nuevamente</a>'
+      });
+
+    }
    })
    
     

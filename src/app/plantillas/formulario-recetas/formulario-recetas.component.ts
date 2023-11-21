@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import Swal from 'sweetalert2';
+import { FormGroup,FormControl,Validators, FormBuilder } from '@angular/forms';
+import { ApiService } from 'src/app/services/api/api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-formulario-recetas',
@@ -7,24 +10,32 @@ import Swal from 'sweetalert2';
   styleUrls: ['./formulario-recetas.component.css']
 })
 export class FormularioRecetasComponent {
-   prueba=[{"Ingrediente":"", "Cantidad":""}]
-    
-   inputTipo:string="";
-   inputCantidad:number = 0;
-   inputUnidad:string=""; 
+  nuevoFormReceta: FormGroup;
+  ingredientes_receta:any=[]
 
-   agregar(){
-    this.prueba.push({"Ingrediente":this.inputTipo, "Cantidad":this.inputCantidad+" "+this.inputUnidad});
+  constructor(private api:ApiService, private router:Router,private fb:FormBuilder){
+    this.nuevoFormReceta=this.fb.group({
+      nombre:['',Validators.required],
+      cantidad:['',Validators.required],
+      descripcion:['',Validators.required],
+
+      
+
+    })
+  }
+
+  agregar(){
+   this.ingredientes_receta.push({
+    'ingrediente_id':1,
+    'cantidad':1,
+    'unidad_medida':1
+   })
   
    }
-registrar(){
-  Swal.fire({
-    
-    icon: "success",
-    title: "Se ha registrado correctamemte",
-    showConfirmButton: false,
-    timer: 1500
-  });
+
+
+postForm(form:any){
+console.log(form)
 }
    
 }
