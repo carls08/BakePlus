@@ -2,13 +2,9 @@
 <body class="color-b d-flex justify-content-center align-items-center">
   
   <main class="contenido">
-    <h1>Pan Frances</h1>
+    <h1>{{recetaidpan.nombre_receta}}</h1>
     <div class="imagen_receta">
-      <img
-        src="https://www.bakels.com.ec/wp-content/uploads/sites/32/2020/03/Bakels-pan-frances.jpg"
-        alt=""
-        class="receta"
-      />
+      
     </div>
     <div class="ingredientes_receta">
       <table class="table">
@@ -18,41 +14,17 @@
             <th scope="col">Cantidad</th>
           </tr>
         </thead>
-        <tbody>
-          <tr >
-              <th scope="row">Agua</th>
-              <th scope="row">600cc</th>
+        <tbody >
+          <tr *ngFor="let id of recetaidpan.receta_ingrediente">
+              <th scope="row">{{id.cantidad_ingrediente}}</th>
+              <th scope="row">{{id.ingrediente}} - {{id.unidad_medida}}</th>
           </tr>
           
         </tbody>
-        <tbody>
-          <tr >
-              <th scope="row">Harina</th>
-              <th scope="row">1Kilo</th>
-          </tr>
+       
+        
+       
           
-        </tbody>
-        <tbody>
-          <tr >
-              <th scope="row">Levadura</th>
-              <th scope="row">30grs</th>
-          </tr>
-          
-        </tbody>
-        <tbody>
-          <tr >
-              <th scope="row">Malta</th>
-              <th scope="row">150grs</th>
-          </tr>
-          
-        </tbody>
-        <tbody>
-          <tr >
-              <th scope="row">Sal</th>
-              <th scope="row">14 grs</th>
-          </tr>
-          
-        </tbody>
       </table>
     </div>
     
@@ -60,27 +32,7 @@
       <h2>Preparacion de la receta</h2>
       <ul>
         <li>
-          En la mesada hacer un hoyo con la harina, en el centro volcar la masa
-          previa, la sal, la levadura y el agua.
-        </li>
-        <li>Amasar hasta que la masa quede suave y homogénea.</li>
-        <li>
-          Dejar reposar el bollo en el bol cubierto con un lienzo húmedo por 20
-          minutos.
-        </li>
-        <li>
-          Cortar la masa en porciones del tamaño que se desee y bollar (mignon
-          30 gramos, flautita 100 gramos y Felipe 200 gramos)
-        </li>
-        <li>Tapar nuevamente los bollos y dejar reposar 15 minutos.</li>
-        <li>Dar la forma a los panes y colocarlos en placas.</li>
-        <li>Tapar y dejar fermentar al doble de su volumen.</li>
-        <li>
-          Con un cúter hacer cortes transversales en la superficie de cada pan.
-        </li>
-        <li>
-          Hornear a 200 °C, con abundante vapor al comienzo de la cocción, de 20
-          a 30 minutos, según el tamaño de los panes.
+          {{recetaidpan.descripcion_receta}}
         </li>
       </ul>
     </div>

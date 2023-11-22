@@ -19,7 +19,7 @@ const routes:Routes=[
   {path:'registro',component:RegistroComponent},
   {path:'',component:LoginComponent},
   {path:'receta',component:RecetasComponent},
-  {path:'descripcion',component:DescripcionRecetaComponent},
+  {path:'descripcion/:id',component:DescripcionRecetaComponent},
   {path:'formularioReceta',component:FormularioRecetasComponent},
   {path:'home',component:HomeComponent},
   {path:'plantillas',component:PlantillasComponent},

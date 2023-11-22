@@ -25,4 +25,8 @@ ngOnInit():void{
     this.recetas=data;
   })
 }
+verReceta(){
+  this.router.navigate(['descripcion'])
+
+}
 }

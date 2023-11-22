@@ -46,13 +46,17 @@ export class ApiService {
       let direccion = this.url + "recetas/getAll";
       return this.http.get<any>(direccion)
        
-      };
+    };
 
     postRecetas(form:any):Observable<any>{
       let direccion = this.url + "/recetas/insert";
       return this.http.post<formularioRecetaI>(direccion,form);
     }
     
+    getSingleReceta(id:any) {
+      let direccion = this.url + "/recetas/getOne/" +id;
+      return this.http.get(direccion);
+    }
     
     
   }
