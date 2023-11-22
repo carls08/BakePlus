@@ -8,6 +8,7 @@ import { UnidadesI } from 'src/app/models/unidades.interface';
 import { ingredienteI } from 'src/app/models/ingrediente.interface';
 import { RegistroI } from 'src/app/models/registro.interface';
 import { formularioRecetaI } from 'src/app/models/formulario-receta.interface';
+import { FormBuilder } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class ApiService {
 
   url:string ="http://127.0.0.1:5000/";
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private fb: FormBuilder) {}
 
     loginByEmail(form:LoginI):Observable<ResponseI>{
     let direccion = this.url + "usuarios/login";
@@ -46,6 +47,11 @@ export class ApiService {
       return this.http.get<formularioRecetaI[]>(direccion)
         // Aquí ya puedes usar miReceta en tu componente
       };
+
+    postRecetas(form:any):Observable<any>{
+      let direccion = this.url + "/recetas/insert";
+      return this.http.post<formularioRecetaI>(direccion,form);
+    }
     
     
   }
