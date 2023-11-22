@@ -13,9 +13,11 @@ import { formularioRecetaI } from 'src/app/models/formulario-receta.interface';
 export class FormularioRecetasComponent {
   nuevoFormReceta: FormGroup;
   ingredientes_receta:any=[]
-  valorI:string='';
-  valorU:string='';
+  valorI:any=[];
+  valorU:any=[];
   valorC:string='';
+  ingredientes:any=[]
+  unidades:any=[]
 
   datos:any ={
     "nombre_receta":"",
@@ -24,62 +26,68 @@ export class FormularioRecetasComponent {
     "receta_ingrediente" : []
   }
 
-  constructor(private api:ApiService, private router:Router,private fb:FormBuilder){
+  constructor(
+      private api:ApiService,
+      private router:Router,
+      private fb:FormBuilder
+    ){
     this.nuevoFormReceta=this.fb.group({
       nombre_receta:['',Validators.required],
       cantidad_receta:['',Validators.required],
       descripcion_receta:['',Validators.required],
-
-      
-
     })
   }
-  onValorC(){
-    return this.valorC
-    
-  }
-  onValorI(){
-   return this.valorI
-  }
-  onValorU(){
-    return this.valorU
-    
-  }
-  ngOnInit():void {
 
+  ngOnInit():void {
+    this.api.getAllIngredientes().subscribe(data =>{
+      this.ingredientes = data
+    })
+
+    this.api.getAllUnidades().subscribe(data =>{
+      this.unidades = data
+    })
+  }
+
+  onValorC(){
+    return this.valorC  
+  }
+
+  onValorI(){
+   this.valorI = this.valorI.split(',')
+  }
+
+  onValorU(){
+    this.valorU = this.valorU.split(',')
   }
 
   agregar() {
     // Asegúrate de que la propiedad se llame 'ingrediente_receta' como en tu objeto inicial
     this.datos.receta_ingrediente.push({
-      'id_ingrediente': this.valorI,
+      'id_ingrediente': this.valorI[0],
       'cantidad_ingrediente': this.valorC,
-      'id_unidad_medida': this.valorU
+      'id_unidad_medida': this.valorU[0]
     });
-  
-    console.log(this.datos);
+
+    this.ingredientes_receta.push({
+      'ingrediente': this.valorI[1],
+      'cantidad': this.valorC,
+      'unidad': this.valorU[1]
+    })
   }
 
 postForm(form:any){
-
-console.log(form)
 this.datos.nombre_receta=form.nombre_receta
 this.datos.cantidad_receta=form.cantidad_receta
 this.datos.descripcion_receta=form.descripcion_receta
 
-console.log(this.datos
-  )
 this.api.postRecetas(this.datos).subscribe(data =>{
-  console.log(data)
   if(data){
-    
     Swal.fire({
       icon: "success",
       title: "Registro Exitoso",
       showConfirmButton: false,
       timer: 1500
     });
-
   }else{
     Swal.fire({
       icon: "error",

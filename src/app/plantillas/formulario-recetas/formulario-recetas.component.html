@@ -67,13 +67,7 @@
           aria-label="Floating label select example"
         >
           <option selected></option>
-          <option value="1">Harina</option>
-          <option value="2">Huevo</option>
-          <option value="3">Levadura</option>
-          <option value="4">Malta</option>
-          <option value="5">Masa previa</option>
-          <option value="6">Sal</option>
-          <option value="7">Agua</option>
+          <option *ngFor="let ingrediente of ingredientes" [value]="ingrediente">{{ingrediente[1]}}</option>
         </select>
 
         <input
@@ -95,11 +89,7 @@
           aria-label="Floating label select example"
         >
           <option selected>Unidad</option>
-          <option value="1">Kg</option>
-          <option value="2">gr</option>
-          <option value="3">Litros</option>
-          <option value="4">Mililitros</option>
-          <option value="5">Centimetros cubicos</option>
+          <option *ngFor="let unidad of unidades" [value]="unidad">{{unidad[1]}}</option>
         </select>
 
         <div class="btn color-b text-white fw-semibold shadows-semibold" (click)="agregar()">
@@ -116,9 +106,9 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td></td>
-              <td></td>
+            <tr *ngFor="let ingrediente_r of ingredientes_receta">
+              <td>{{ingrediente_r.ingrediente}}</td>
+              <td>{{ingrediente_r.cantidad}} {{ingrediente_r.unidad}}</td>
             </tr>
           </tbody>
         </table>
