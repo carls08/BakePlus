@@ -7,6 +7,7 @@ import { marcasI } from 'src/app/models/marcas.interface';
 import { UnidadesI } from 'src/app/models/unidades.interface';
 import { ingredienteI } from 'src/app/models/ingrediente.interface';
 import { RegistroI } from 'src/app/models/registro.interface';
+import { formularioRecetaI } from 'src/app/models/formulario-receta.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,11 @@ export class ApiService {
       let direccion = this.url + "/usuarios/insertar";
       return this.http.post<RegistroI>(direccion,form);
     }
+    obtenerReceta() {
+      let direccion = this.url + "recetas/getAll";
+      return this.http.get<formularioRecetaI[]>(direccion)
+        // Aquí ya puedes usar miReceta en tu componente
+      };
     
     
   }

@@ -59,7 +59,9 @@
         ></textarea>
       </div>
       <div class="mb-3 mt-4 ingrediente">
-        <select
+        <select [(ngModel)]="valorI"
+        (change)="onValorI()"
+        [ngModelOptions]="{standalone: true}"
           class="form-select"
           id="ingrediente"
           aria-label="Floating label select example"
@@ -75,12 +77,19 @@
         </select>
 
         <input
-          class="form-control"
+        [(ngModel)]="valorC"
+        (change)="onValorC()"
+        [ngModelOptions]="{standalone: true}"
+         class="form-control"
           type="number"
+          id="cantidad"
           placeholder="Cantidad de ingrediente"
         />
 
         <select
+        [(ngModel)]="valorU"
+        (change)="onValorU()"
+        [ngModelOptions]="{standalone: true}"
           class="form-select"
           id="unidad"
           aria-label="Floating label select example"

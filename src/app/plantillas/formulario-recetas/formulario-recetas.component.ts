@@ -12,6 +12,9 @@ import { Router } from '@angular/router';
 export class FormularioRecetasComponent {
   nuevoFormReceta: FormGroup;
   ingredientes_receta:any=[]
+  valorI:string='';
+  valorU:string='';
+  valorC:string='';
 
   constructor(private api:ApiService, private router:Router,private fb:FormBuilder){
     this.nuevoFormReceta=this.fb.group({
@@ -23,17 +26,28 @@ export class FormularioRecetasComponent {
 
     })
   }
+  onValorC(){
+    console.log('valor',this.valorC)
+    
+  }
+  onValorI(){
+    console.log('valor',this.valorI)
+    
+  }
+  onValorU(){
+    console.log('valor',this.valorU)
+    
+  }
   ngOnInit():void {
 
   }
 
   agregar(){
-    let idIngrediente = document.getElementById('ingrediente');
-    let idUnidadMedida = document.getElementById('unidad');
+    
    this.ingredientes_receta.push({
-    'id_ingrediente':idIngrediente,
-    'cantidad_ingrediente':1,
-    'id_unidad_medida':idUnidadMedida
+    'id_ingrediente':this.onValorI,
+    'cantidad_ingrediente':this.onValorC,
+    'id_unidad_medida':this.onValorU
    })
   
    }
