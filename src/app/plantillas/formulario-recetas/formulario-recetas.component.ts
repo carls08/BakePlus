@@ -55,6 +55,7 @@ export class FormularioRecetasComponent {
 
 postForm(form:any){
 console.log(form)
+
 }
 salir(){
   this.router.navigate(['home'])

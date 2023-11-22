@@ -41,11 +41,12 @@ export class ApiService {
       let direccion = this.url + "/usuarios/insertar";
       return this.http.post<RegistroI>(direccion,form);
     }
-    obtenerReceta() {
+    getAllReceta() {
       let direccion = this.url + "recetas/getAll";
-      return this.http.get<formularioRecetaI[]>(direccion)
-        // Aquí ya puedes usar miReceta en tu componente
+      return this.http.get<any>(direccion)
+       
       };
+    
     
     
   }
