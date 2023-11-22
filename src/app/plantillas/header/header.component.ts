@@ -34,4 +34,8 @@ export class HeaderComponent {
   ingredientes(){
 this.router.navigate(['ingredientes'])
   }
+  salir(){
+    localStorage.removeItem('token')
+    this.router.navigate([''])
+  }
 }
