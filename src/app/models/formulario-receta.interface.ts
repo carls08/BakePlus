@@ -1,11 +1,11 @@
 export interface formularioRecetaI{
-    nombre: string;
-    cantidad: number;
-    descripcion: string;
-    ingredientes_receta: {
+        nombre_receta: string;
+        cantidad_receta: number;
+        descripcion_receta: string;
+    receta_ingrediente: {
         ingrediente_id: number,
-        cantidad:number,
-        unidad_medida:number
+        cantidad_ingrediente:number,
+        id_unidad_medida:number
     }
 
   

@@ -38,9 +38,10 @@ export class LoginComponent {
    this.api.loginByEmail(form).subscribe(data =>{
     console.log(data)
     let dataResponse:ResponseI=data;
-    if(dataResponse.response){
-      console.log(dataResponse.response.token)
-      localStorage.setItem("token",dataResponse.response.token);
+    if(dataResponse){
+      console.log("token: "+dataResponse.token)
+      localStorage.setItem("token",dataResponse.token);
+      
       this.router.navigate(['home'])
       Swal.fire({
         icon: "success",

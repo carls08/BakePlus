@@ -15,20 +15,25 @@ export class FormularioRecetasComponent {
 
   constructor(private api:ApiService, private router:Router,private fb:FormBuilder){
     this.nuevoFormReceta=this.fb.group({
-      nombre:['',Validators.required],
-      cantidad:['',Validators.required],
-      descripcion:['',Validators.required],
+      nombre_receta:['',Validators.required],
+      cantidad_receta:['',Validators.required],
+      descripcion_receta:['',Validators.required],
 
       
 
     })
   }
+  ngOnInit():void {
+
+  }
 
   agregar(){
+    let idIngrediente = document.getElementById('ingrediente');
+    let idUnidadMedida = document.getElementById('unidad');
    this.ingredientes_receta.push({
-    'ingrediente_id':1,
-    'cantidad':1,
-    'unidad_medida':1
+    'id_ingrediente':idIngrediente,
+    'cantidad_ingrediente':1,
+    'id_unidad_medida':idUnidadMedida
    })
   
    }
@@ -36,6 +41,9 @@ export class FormularioRecetasComponent {
 
 postForm(form:any){
 console.log(form)
+}
+salir(){
+  this.router.navigate(['home'])
 }
    
 }

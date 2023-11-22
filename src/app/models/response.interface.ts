@@ -1,4 +1,4 @@
 export interface ResponseI{
    
-    response:any;
+    token:any;
 }

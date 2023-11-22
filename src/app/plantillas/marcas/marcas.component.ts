@@ -12,26 +12,25 @@ import { Router } from '@angular/router';
 export class MarcasComponent {
 
   nuevoMarca: FormGroup;
-  marcas: marcasI[] = []
-  constructor(private fb: FormBuilder, private api: ApiService) {
+  marcas: any = []
+  constructor(private fb: FormBuilder, private api: ApiService, private router: Router) {
     this.nuevoMarca = this.fb.group({
       nombre_marca: ['', Validators.required]
     })
 
   }
   ngOnInit(): void {
-    this.getAllMarcas()
-  }
-
-  getAllMarcas(): void {
     this.api.getAllMarcas().subscribe(data => {
-      this.marcas = data;
-      console.log(this.marcas);
-
+      console.log(data);
+      this.marcas=data;
     })
   }
+
   postMarca(form: any) {
     console.log(form)
+  }
+  salir(){
+    this.router.navigate(['home'])
   }
 
 }

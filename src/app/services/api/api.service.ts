@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { marcasI } from 'src/app/models/marcas.interface';
 import { UnidadesI } from 'src/app/models/unidades.interface';
 import { ingredienteI } from 'src/app/models/ingrediente.interface';
+import { RegistroI } from 'src/app/models/registro.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -32,8 +33,14 @@ export class ApiService {
       return this.http.get<UnidadesI[]>(direccion)
     }
     getAllIngredientes():Observable<ingredienteI[]>{
-      let direccion =this.url +"ingredientes/getAll";
+      let direccion =this.url + "ingredientes/getAll";
       return this.http.get<ingredienteI[]>(direccion)
     }
+    postUsuarios(form:RegistroI):Observable<RegistroI>{
+      let direccion = this.url + "/usuarios/insertar";
+      return this.http.post<RegistroI>(direccion,form);
+    }
+    
+    
   }
 

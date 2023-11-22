@@ -27,5 +27,32 @@
 
             <div class="d-flex gap-1 justify-content-center mt-1"></div>
         </form>
+        <table class="table table-bordered mt-4">
+            <thead>
+              <tr>
+               
+                <th scope="col">ID</th>
+                <th scope="col">Aberviatura</th>
+                <th scope="col">Nombre</th>
+           
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let unidad of unidad_medida">
+                <th scope="row">{{unidad_medida[0][0]}}</th>
+             
+                <td>{{unidad_medida[1][1]}}</td>
+                <td>{{unidad_medida[0][2]}}</td>
+               
+              </tr>
+             
+              
+            </tbody>
+          </table>
+          <input
+          type="button"
+          class="text-white shadows-semibold btn color-boton w-100 mt-4 fw-semibold shadows-semibold color-b"
+          value="Salir" (click)="salir()"
+        />
     </div>
 </body>

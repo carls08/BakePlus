@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ingredienteI } from 'src/app/models/ingrediente.interface';
 import { ApiService } from 'src/app/services/api/api.service';
 
@@ -10,8 +11,8 @@ import { ApiService } from 'src/app/services/api/api.service';
 })
 export class IngredientesComponent {
   nuevoIngrediente: FormGroup;
-  ingredientes: ingredienteI[] = []
-  constructor(private fb: FormBuilder, private api: ApiService) {
+  ingredientes:any = []
+  constructor(private fb: FormBuilder, private api: ApiService, private router: Router) {
     this.nuevoIngrediente = this.fb.group({
       nombre_ingrediente: ['', Validators.required]
     })
@@ -19,18 +20,15 @@ export class IngredientesComponent {
 
   }
   ngOnInit(): void {
-    this.getAllIngredientes()
-  }
-
-  getAllIngredientes(): void {
     this.api.getAllIngredientes().subscribe(data => {
-      this.ingredientes = data;
-      console.log(this.ingredientes);
-
+      console.log(data);
+      this.ingredientes=data;
     })
   }
   postIngrediente(form: any) {
     console.log(form)
   }
-
+  salir(){
+    this.router.navigate(['home'])
+  }
 }
