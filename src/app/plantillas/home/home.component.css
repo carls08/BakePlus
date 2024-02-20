@@ -91,3 +91,55 @@ input:nth-child(2):checked  .carousel-images{
 input:nth-child(3):checked  .carousel-images{
     translate:-200vw;
 }
+
+.background {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right bottom, #ffa43a, #ffa946, #ffae51, #ffb35c, #ffb867, #ffaf74, #ffa781, #ffa18e, #ff93a9, #ee8ecb, #c393eb, #759eff);
+}
+
+.carousel-container {
+    position: relative;
+}
+
+.carousel-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffbf75;
+    opacity: 0.0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-overlay h1,
+.carousel-overlay p,
+.carousel-overlay a {
+    color: white;
+}
+
+.carousel-inner img {
+    object-fit: cover;
+}
+.opacity-img {
+    opacity: 0.9; /* Opacidad del 50% */
+}
+.color-boton {
+    background-color: #C37960;
+}
+
+
+  .custom-btn {
+    background-color: #ffbf75;
+    transition: background-color 0.3s ease;
+  }
+
+  .custom-btn:hover {
+    background-color: #ffa43a;
+  }

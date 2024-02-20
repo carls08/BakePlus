@@ -11,3 +11,11 @@
 .btn.btn-outline-primary {
     color: rgb(0, 0, 0); /* Cambia el color a tu preferencia */
 }
+        /* Añade estilos adicionales según sea necesario */
+        .body {
+            padding-top: 56px; /* Ajusta el espacio para evitar que el contenido se oculte detrás de la barra de navegación */
+        }
+
+        .transparent-navbar {
+            background-color: transparent !important; /* Hace que el fondo sea transparente */
+        }

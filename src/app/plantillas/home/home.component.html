@@ -1,22 +1,39 @@
 <app-header></app-header>
-<div id="carouselExample" class="carousel slide barra">
-    <div class="carousel-inner">
+<div id="carouselExample" class="carousel slide barra background position-relative">
+  <!-- Fondo con opacidad -->
+  <div class="carousel-overlay"></div>
+
+  <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="https://www.levapan.com/wp-content/uploads/2023/01/Tipos_de_panes_colombianos.jpg" class="d-block w-100" alt="...">
+          <img src="assets/panes_1.jpg" class="d-block w-100 opacity-img" alt="...">
       </div>
       <div class="carousel-item">
-        <img src="https://i0.wp.com/extrategiamedios.com/wp-content/uploads/2023/09/assortment-of-baked-bread-2021-12-09-15-04-00-utc.jpg?resize=800%2C400&ssl=1    " class="d-block w-100" alt="...">
+          <img src="assets/panes_5.jpg" class="d-block w-100 opacity-img" alt="...">
       </div>
       <div class="carousel-item">
-        <img src="https://www.saposyprincesas.com/wp-content/uploads/2017/01/receta-de-pan-relleno-de-queso-ajo-y-perejil.jpg" class="d-block w-100" alt="...">
+          <img src="assets/panes_3.jpg" class="d-block w-100 opacity-img" alt="...">
       </div>
+      <div class="carousel-item">
+        <img src="assets/panes_4.jpg" class="d-block w-100 opacity-img" alt="...">
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+  </div>
+
+  <!-- Mensaje centrado con enlace -->
+  <div class="carousel-caption position-absolute top-50 start-50 translate-middle text-center text-white">
+      <h1 class="font-weight-bold">Descubre un Festín de Sabores en Nuestro Recetario de Panes</h1>
+      <hr class="divider" />
+      <p class="mb-5">Deliciosas Recetas, Combinaciones Únicas y Consejos para Transformar tus Creaciones en Verdaderas Obras Maestras. ¡Sumérgete en el Arte de Hacer Pan y Déjate Seducir por Nuestras Irresistibles Recomendaciones!</p>
+      <a class="btn btn-warning btn-lg btn-block custom-btn text-white" href="#about">Ver recetas</a>
+  </div>
+
+  <!-- Controles de navegación -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
-    </button>
-  </div>
+  </button>
+</div>
+
