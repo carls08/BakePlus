@@ -1,7 +1,6 @@
-.barra{
-    background-color: #EEE1BA;
-    
-}
-.footer{
-    margin-top:20px;
+/* Añade un color de fondo al footer */
+.footer-background{
+    background-color: #525558;
+    color: white; /* Cambia el color del texto si es necesario para que sea visible en el fondo */
+    padding: 20px; /* Añade espacio interno al footer */
 }

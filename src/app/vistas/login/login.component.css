@@ -1,21 +1,32 @@
-.background-login{
+.background {
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100%;
-    background-color:#C37960 ;
+    background: linear-gradient(to right bottom, #ffa43a, #ffa946, #ffae51, #ffb35c, #ffb867, #ffaf74, #ffa781, #ffa18e, #ff93a9, #ee8ecb, #c393eb, #759eff);
 }
-.color-b{
-    
-    background-color: #894E3F ; ;
-}.text-c{
-color: #C37960;
+
+.color-b {
+    background-color: #894E3F;
 }
-.color-boton{
-    background-color:#C37960;
-    
+
+.text-c {
+    color: #C37960;
+}
+
+.color-boton {
+    background-color: #C37960;
 }
 
 .login {
     margin: 20px auto;
 }
+
+  .custom-btn {
+    background-color: #ffbf75;
+    transition: background-color 0.3s ease;
+  }
+
+  .custom-btn:hover {
+    background-color: #ffa43a;
+  }
