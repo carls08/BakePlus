@@ -1,39 +1,149 @@
 <app-header></app-header>
-<div id="carouselExample" class="carousel slide barra background position-relative">
-  <!-- Fondo con opacidad -->
-  <div class="carousel-overlay"></div>
-
-  <div class="carousel-inner">
-      <div class="carousel-item active">
-          <img src="assets/panes_1.jpg" class="d-block w-100 opacity-img" alt="...">
-      </div>
-      <div class="carousel-item">
-          <img src="assets/panes_5.jpg" class="d-block w-100 opacity-img" alt="...">
-      </div>
-      <div class="carousel-item">
-          <img src="assets/panes_3.jpg" class="d-block w-100 opacity-img" alt="...">
-      </div>
-      <div class="carousel-item">
-        <img src="assets/panes_4.jpg" class="d-block w-100 opacity-img" alt="...">
+<div class="background">
+    <div id="carouselExample" class="carousel slide barra background position-relative">
+        <!-- Fondo con opacidad -->
+        <div class="carousel-overlay"></div>
+    
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="assets/panes_1.jpg" class="d-block w-100 opacity-img" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="assets/panes_5.jpg" class="d-block w-100 opacity-img" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="assets/panes_3.jpg" class="d-block w-100 opacity-img" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="assets/panes_4.jpg" class="d-block w-100 opacity-img" alt="...">
+            </div>
+        </div>
+    
+        <!-- Mensaje centrado con enlace -->
+        <div class="carousel-caption position-absolute top-50 start-50 translate-middle text-center text-white">
+            <h1 class="font-weight-bold">Descubre un Festín de Sabores en Nuestro Recetario de Panes</h1>
+            <hr class="divider" />
+            <p class="mb-5">Deliciosas Recetas, Combinaciones Únicas y Consejos para Transformar tus Creaciones en
+                Verdaderas Obras Maestras. ¡Sumérgete en el Arte de Hacer Pan y Déjate Seducir por Nuestras Irresistibles
+                Recomendaciones!</p>
+            <a class="btn btn-warning btn-lg btn-block custom-btn text-white" href="#about">Ver recetas</a>
+        </div>
+    
+        <!-- Controles de navegación -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
-  </div>
+    <hr class="text-white">
+    <br><br>
+    <h1 class="display-4 font-weight-bold text-center text-light">Visualiza y Gestiona Tu Experiencia</h1>
+    <!-- dasboard-->
+    <br>
+    <div class="container  py-5">
+      <div class="container">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
+               <div class="col">
+                 <div class="card radius-10 border-start border-0 border-3 border-info">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <p class="mb-0 text-secondary">Total Ventas</p>
+                                <h4 class="my-1 text-info">4805</h4>
+                                <p class="mb-0 font-13">+2.5% Respecto a la semana pasada</p>
+                            </div>
+                            <div class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto"><i class="fa fa-shopping-cart"></i>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+               </div>
+               <div class="col">
+                <div class="card radius-10 border-start border-0 border-3 border-danger">
+                   <div class="card-body">
+                       <div class="d-flex align-items-center">
+                           <div>
+                               <p class="mb-0 text-secondary">Total Ingesos</p>
+                               <h4 class="my-1 text-danger">$550.000</h4>
+                               <p class="mb-0 font-13">+5.4% Respecto a la semana pasada</p>
+                           </div>
+                           <div class="widgets-icons-2 rounded-circle bg-gradient-bloody text-white ms-auto"><i class="fa fa-dollar"></i>
+                           </div>
+                       </div>
+                   </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card radius-10 border-start border-0 border-3 border-success">
+                   <div class="card-body">
+                       <div class="d-flex align-items-center">
+                           <div>
+                               <p class="mb-0 text-secondary">Produccion actual</p>
+                               <h4 class="my-1 text-success">34.6%</h4>
+                               <p class="mb-0 font-13">-4.5% Respecto a la semana pasada</p>
+                           </div>
+                           <div class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto"><i class="fa fa-bar-chart"></i>
+                           </div>
+                       </div>
+                   </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card radius-10 border-start border-0 border-3 border-warning">
+                   <div class="card-body">
+                       <div class="d-flex align-items-center">
+                           <div>
+                               <p class="mb-0 text-secondary">Total Recetas</p>
+                               <h4 class="my-1 text-warning">35</h4>
+                               <p class="mb-0 font-13">+8.4% Respecto a la semana pasada</p>
+                           </div>
+                           <div class="widgets-icons-2 rounded-circle bg-gradient-blooker text-white ms-auto"><i class="fa fa-users"></i>
+                           </div>
+                       </div>
+                   </div>
+                </div>
+              </div> 
+            </div>
+        </div>
+        <div class="container py-5">
+            <br>
+            <!-- DEMO 4 -->
+            <header class="text-center">
+                <h1 class="display-4 font-weight-bold text-light">Descubre Nuestros Servicios</h1>
+                <p class="font-italic text-muted mb-0">Explora nuestra colección de panadería con deliciosos y exquisitos productos que harán deleitar tu paladar.</p>
+            </header>
+            <br>
+            <br>
+            <div class="py-5">
+              <div class="row">
+                <!-- DEMO 4 Item-->
+                <div class="col-lg-6 mb-3 mb-lg-0">
+                  <div class="hover hover-4 text-white rounded"><img src="assets/registros.jpg" alt="">
+                    <div class="hover-overlay"></div>
+                    <div class="hover-4-content">
+                      <h3 class="hover-4-title text-uppercase font-weight-bold mb-0">Recetas</h3>
+                      <p class="hover-4-description text-uppercase mb-0 small">Descubre el arte y déjate inspirar por nuestras recomendaciones irresistibles.</p>
+                    </div>
+                  </div>
+                </div>
+                <!-- DEMO 4 Item            -->
+                <div class="col-lg-6">
+                  <div class="hover hover-4 text-white rounded"><img src="assets/productos.jpg" alt="">
+                    <div class="hover-overlay"></div>
+                    <div class="hover-4-content">
+                      <h3 class="hover-4-title text-uppercase font-weight-bold mb-0">Productos</h3>
+                      <p class="hover-4-description text-uppercase mb-0 small">Disfruta de nuestros deliciosos y exquisitos productos de panadería</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>          
+          </div>
 
-  <!-- Mensaje centrado con enlace -->
-  <div class="carousel-caption position-absolute top-50 start-50 translate-middle text-center text-white">
-      <h1 class="font-weight-bold">Descubre un Festín de Sabores en Nuestro Recetario de Panes</h1>
-      <hr class="divider" />
-      <p class="mb-5">Deliciosas Recetas, Combinaciones Únicas y Consejos para Transformar tus Creaciones en Verdaderas Obras Maestras. ¡Sumérgete en el Arte de Hacer Pan y Déjate Seducir por Nuestras Irresistibles Recomendaciones!</p>
-      <a class="btn btn-warning btn-lg btn-block custom-btn text-white" href="#about">Ver recetas</a>
-  </div>
-
-  <!-- Controles de navegación -->
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-  </button>
 </div>
 
+ 

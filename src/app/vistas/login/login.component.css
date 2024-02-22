@@ -3,8 +3,8 @@
     padding: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to right bottom, #ffa43a, #ffa946, #ffae51, #ffb35c, #ffb867, #ffaf74, #ffa781, #ffa18e, #ff93a9, #ee8ecb, #c393eb, #759eff);
-}
+    background-image: linear-gradient(to bottom, #ffa43a, #f57878, #b66e98, #6e6888, #525558);
+  }
 
 .color-b {
     background-color: #894E3F;

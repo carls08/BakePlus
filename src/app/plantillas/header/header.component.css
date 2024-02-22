@@ -1,21 +1,128 @@
-.barra{
+.barra {
     background-color: #EEE1BA;
-    
+
 }
+
 /* Cambiar el color del texto del enlace del navbar */
 .navbar-nav .nav-link {
-    color: rgb(0, 0, 0); /* Cambia el color a tu preferencia */
+    color: rgb(0, 0, 0);
+    /* Cambia el color a tu preferencia */
 }
 
 /* Cambiar el color del texto del botón del menú */
 .btn.btn-outline-primary {
-    color: rgb(0, 0, 0); /* Cambia el color a tu preferencia */
+    color: rgb(0, 0, 0);
+    /* Cambia el color a tu preferencia */
 }
-        /* Añade estilos adicionales según sea necesario */
-        .body {
-            padding-top: 56px; /* Ajusta el espacio para evitar que el contenido se oculte detrás de la barra de navegación */
-        }
 
-        .transparent-navbar {
-            background-color: transparent !important; /* Hace que el fondo sea transparente */
-        }
+/* Añade estilos adicionales según sea necesario */
+.body {
+    padding-top: 56px;
+    /* Ajusta el espacio para evitar que el contenido se oculte detrás de la barra de navegación */
+}
+
+.transparent-navbar {
+    background-color: transparent !important;
+    /* Hace que el fondo sea transparente */
+}
+
+@media screen and (min-width:992px) {
+    .nav-item {
+        line-height: 80px;
+    }
+}
+
+
+/*================================================================*/
+
+.navbar-nav .nav-item .nav-link {
+    position: relative;
+    color: rgba(255, 255, 255, 0.5);
+    transition: color 0.3s;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+    color: rgba(255, 255, 255, 1);
+}
+
+.navbar-nav .nav-item .nav-link::after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 30px; /* Ajusta según tu diseño */
+    left: 0;
+    width: 0%;
+    height: 1px;
+    background-color: #ffa43a;
+    transition: width 0.3s;
+}
+
+
+.navbar-nav .nav-item .nav-link:hover::after {
+    width: 100%;
+}
+
+/* Estilos para los enlaces del menú desplegable */
+.dropdown-item {
+    position: relative;
+    color: rgba(255, 255, 255, 0.5);
+    transition: color 0.3s;
+}
+
+.dropdown-item:hover {
+    color: rgba(255, 255, 255, 1);
+}
+
+.dropdown-item::after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -5px; /* Ajusta según tu diseño */
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #ffa43a;
+    transition: width 0.3s;
+}
+
+.dropdown-item:hover::after {
+    width: 100%;
+}
+
+/* Estilos para la línea por debajo de los elementos del menú */
+.dropdown-item::after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -5px; /* Ajusta según tu diseño */
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #ffa43a;
+    transition: width 0.3s;
+}
+
+.dropdown-item:hover::after {
+    width: 100%;
+}
+
+/* Estilo para hacer transparente el fondo del dropdown */
+.dropdown-menu {
+    background-color: rgba(255, 255, 255, 0); /* Fondo transparente */
+}
+/* Anula el estilo de fondo al pasar el mouse para evitar que se vuelva blanco */
+.dropdown-item:focus, .dropdown-item:hover {
+    background-color: transparent !important;
+}
+/* Estilo para hacer transparente el fondo del botón principal del dropdown */
+.btn.text-white.dropdown-toggle {
+    background-color: transparent;
+    border: none;
+    color: white;
+}
+/* Estilo para cambiar el color del botón principal al pasar el mouse */
+.btn.text-white.dropdown-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Ajusta la opacidad según sea necesario */
+    color: white;
+}
+
