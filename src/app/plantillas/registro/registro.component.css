@@ -8,3 +8,35 @@ color: #C37960;
     background-color:#C37960;
     
 }
+.background {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to bottom, #ffa43a, #f57878, #b66e98, #6e6888, #525558);
+  }
+
+.color-b {
+    background-color: #894E3F;
+}
+
+.text-c {
+    color: #C37960;
+}
+
+.color-boton {
+    background-color: #C37960;
+}
+
+.login {
+    margin: 20px auto;
+}
+
+  .custom-btn {
+    background-color: #ffbf75;
+    transition: background-color 0.3s ease;
+  }
+
+  .custom-btn:hover {
+    background-color: #ffa43a;
+  }
