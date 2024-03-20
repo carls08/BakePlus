@@ -40,3 +40,17 @@ color: #C37960;
   .custom-btn:hover {
     background-color: #ffa43a;
   }
+/* Estilos para los elementos select */
+.form-select-lg {
+
+  padding: 0.5rem; /* Ajusta el padding según sea necesario */
+  font-size: 1.2rem; /* Ajusta el tamaño de la fuente según sea necesario */
+  border-radius: 0.3rem; /* Ajusta el radio de borde según sea necesario */
+  border: 1px solid #ced4da; /* Color del borde */
+  color: #6c757d; /* Color del texto */
+}
+
+/* Estilo para el texto seleccionado en el select */
+.form-select-lg option:checked {
+  color: #6c757d; /* Color del texto seleccionado */
+}

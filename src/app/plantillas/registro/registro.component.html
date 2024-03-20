@@ -1,5 +1,6 @@
 <app-header></app-header>
-<!--<body class="color-b d-flex justify-content-center align-items-center vh-100">
+
+<body class="color-b d-flex justify-content-center align-items-center vh-100">
   <div class="bg-white p-5 rounded-5 text-secondary shadow" style="width: 30rem">
     <div class="d-flex justify-content-center">
       <img src="https://cdn-icons-png.flaticon.com/512/5146/5146927.png" alt="registro-icon" style="height: 7rem" />
@@ -12,12 +13,14 @@
         </div>
         <input class="form-control" type="text" placeholder="Rol" formControlName="id_rol" />
       </div>
+      <!---Tipo de documento-->
       <div class="input-group mt-1">
         <div class="input-group-text color-boton">
           <img src="https://cdn-icons-png.flaticon.com/512/88/88670.png" alt="icon" style="height: 1rem" />
         </div>
         <input class="form-control" type="text" placeholder="Tipo de Documento" formControlName="id_tipo_documento" />
       </div>
+      <!---Numero de Documento-->
       <div class="input-group mt-1">
         <div class="input-group-text color-boton">
           <img src="https://cdn-icons-png.flaticon.com/512/88/88670.png" alt="icon" style="height: 1rem" />
@@ -70,7 +73,6 @@
     <div class="d-flex gap-1 justify-content-center mt-1"></div>
   </div>
 </body>
--->
 <section class="vh-100 background">
   <div class="container py-5 h-100">
     <br>
@@ -96,15 +98,21 @@
 
                   <div class="row">
                     <div class="col-md-6">
-                      <!---Nombre-->
-                      <div class="form-outline mb-4">
-                        <input type="text" type="text" placeholder="Nombre" formControlName="nombre_usuario"
-                          class="form-control form-control-lg" />
-                      </div>
 
                       <!---TipoDoc-->
                       <div class="form-outline mb-4">
-                        <input type="text" placeholder="Tipo de Documento" formControlName="id_tipo_documento"
+                        <div class="form-outline mb-4">
+                          <select formControlName="id_tipo_documento" class="form-select form-select-lg">
+                            <option value="">Tipo de Documento</option>
+                            <option value="1">CC</option>
+                            <option value="2">TI</option>
+                            <!-- Agrega más opciones según sea necesario -->
+                          </select>
+                        </div>
+                      </div>
+                      <!---Nombre-->
+                      <div class="form-outline mb-4">
+                        <input type="text" type="text" placeholder="Nombre" formControlName="nombre_usuario"
                           class="form-control form-control-lg" />
                       </div>
 
@@ -115,21 +123,30 @@
                       </div>
                       <!---password-->
                       <div class="form-outline mb-4">
-                        <input type="password" placeholder="Password" formControlName="password_usuario"
+                        <input type="password" placeholder="Contraseña" formControlName="password_usuario"
                           class="form-control form-control-lg" />
+                      </div>
+                      <!---Rol-->
+                      <div class="form-outline mb-4">
+                        <div class="form-outline mb-4">
+                          <select formControlName="id_tipo_documento" class="form-select form-select-lg">
+                            <option value="">Rol</option>
+                            <option value="1">Administrador</option>
+                            <option value="2">Cliente</option>
+                            <!-- Agrega más opciones según sea necesario -->
+                          </select>
+                        </div>
                       </div>
                     </div>
-
                     <div class="col-md-6">
-                      <!---Apellido-->
-                      <div class="form-outline mb-4">
-                        <input type="text" placeholder="Apellido" formControlName="apellido_usuario"
-                          class="form-control form-control-lg" />
-                      </div>
-
                       <!---Documento-->
                       <div class="form-outline mb-4">
                         <input type="number" placeholder="Documento" formControlName="doc_usuario"
+                          class="form-control form-control-lg" />
+                      </div>
+                      <!---Apellido-->
+                      <div class="form-outline mb-4">
+                        <input type="text" placeholder="Apellido" formControlName="apellido_usuario"
                           class="form-control form-control-lg" />
                       </div>
 
@@ -138,9 +155,14 @@
                         <input type="text" placeholder="Email" formControlName="email_usuario"
                           class="form-control form-control-lg" />
                       </div>
+                      <!--- confirmar password-->
+                      <div class="form-outline mb-4">
+                        <input type="password" placeholder="Confirmar Contraseña" formControlName="password_usuario"
+                          class="form-control form-control-lg" />
+                      </div>
                       <!---Registrar-->
                       <div class="col-md-6">
-                        <button class="btn btn-warning btn-lg btn-block custom-btn" type="button">Registrar</button>
+                        <button class="btn btn-warning btn-lg btn-block custom-btn" type="submit">Registrar</button>
                       </div>
 
                     </div>
