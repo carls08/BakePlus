@@ -22,8 +22,9 @@
 }
 
 .transparent-navbar {
-    background-color: transparent !important;
-    /* Hace que el fondo sea transparente */
+    background-color: rgba(0, 0, 0, 0.5) !important; /* Fondo semi-transparente */
+    color: white; /* Color de texto */
+    padding: 0.1px 15px; /* Ajusta el padding según sea necesario */
 }
 
 @media screen and (min-width:992px) {
@@ -108,11 +109,11 @@
 
 /* Estilo para hacer transparente el fondo del dropdown */
 .dropdown-menu {
-    background-color: rgba(255, 255, 255, 0); /* Fondo transparente */
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
 }
 /* Anula el estilo de fondo al pasar el mouse para evitar que se vuelva blanco */
 .dropdown-item:focus, .dropdown-item:hover {
-    background-color: transparent !important;
+    background-color: rgba(0, 0, 0, 0.5) !important; /* Fondo semi-transparente */
 }
 /* Estilo para hacer transparente el fondo del botón principal del dropdown */
 .btn.text-white.dropdown-toggle {
