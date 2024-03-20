@@ -8,10 +8,12 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent {
   isLooggedIn: boolean = false;
+  loggedInUsername: string | null = null;
 
-  constructor(
-    private router:Router
-  ){
+  constructor(private router:Router){
+
+    this.loggedInUsername = this.getLoggedInUsername()
+
   }
   registro(){
     this.router.navigate(['registro'])
@@ -36,6 +38,10 @@ this.router.navigate(['ingredientes'])
   }
   salir(){
     localStorage.removeItem('token')
+    localStorage.removeItem('nombre_usuario');
     this.router.navigate([''])
+  }
+  getLoggedInUsername(): string | null {
+    return localStorage.getItem('nombre_usuario');
   }
 }

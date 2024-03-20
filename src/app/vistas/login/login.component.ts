@@ -41,13 +41,15 @@ export class LoginComponent {
     if(dataResponse){
       console.log("token: "+dataResponse.token)
       localStorage.setItem("token",dataResponse.token);
+      console.log("nombre_usuario: "+dataResponse.nombre_usuario)
+      localStorage.setItem("nombre_usuario",dataResponse.nombre_usuario);
       
       this.router.navigate(['home'])
       Swal.fire({
         icon: "success",
         title: "Has ingresado",
         showConfirmButton: false,
-        timer: 1500
+        timer: 1000
       });
     }else{
       Swal.fire({
