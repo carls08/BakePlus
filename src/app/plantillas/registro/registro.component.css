@@ -54,3 +54,6 @@ color: #C37960;
 .form-select-lg option:checked {
   color: #6c757d; /* Color del texto seleccionado */
 }
+.prueba{
+  margin-top: 50px;
+}

@@ -1,134 +1,145 @@
 <app-header></app-header>
-<body class="color-b d-flex justify-content-center align-items-center">
-  <div
-    class="bg-white p-5 rounded-5 text-secondary shadow caja"
-    style="width: 50rem"
-  >
-    <div class="d-flex justify-content-center">
-      <img
-        src="https://cdn-icons-png.flaticon.com/512/2478/2478542.png"
-        alt="registropan-icon"
-        style="height: 7rem"
-      />
-    </div>
 
-    <div class="text-center fs-1 fw-bold">
-      Formulario de registro de recetas
-    </div>
-    <form
-      [formGroup]="nuevoFormReceta"
-      (ngSubmit)="postForm(nuevoFormReceta.value)"
-    >
-    <div class="input-group mb-3 mt-4">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Nombre de receta"
+<section class="vh-100 background">
+  <div class="container py-6 h-100 ">
+    <br>
+    <div class="row d-flex justify-content-center align-items-center h-100 prueba">
+      <div class="col col-xl-7">
+        <div class="card" style="border-radius: 1rem;">
+          <div class="row g-0">
+            <div class="col-md-5 col-lg-5 d-none d-md-block">
+              <img src="assets/r-recetas.jpeg" alt="reform" class="img-fluid"
+                style="border-radius: 1rem 0 0 1rem; height: 100%;" />
+            </div>
+            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+              <div class="card-body p-4 p-lg-5 text-black">
+
+                <form [formGroup]="nuevoFormReceta"
+                (ngSubmit)="postForm(nuevoFormReceta.value)">
+                  <!---Logo-->
+                  <div class="text-center">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2478/2478542.png" alt="login-icon" height="120" width="120" class="img-fluid"
+                      style="max-width:210px;">
+                  </div>
+                  <br><br>
+                  <h5 class="text-center fs-1 fw-bold" style="letter-spacing: 1px;">Registro de recetas:</h5>
+
+                  <div class="row">
+                  
+                    <div class="col-md-10 ">
+                      <!---Marca-->
+                      <div class="form-outline mb-4">
+                        <input type="text"  placeholder="Nombre de receta"
         
-        formControlName="nombre_receta"
-      />
-      <div class="input-group-text color-b">
-        <img
-          src="https://cdn-icons-png.flaticon.com/512/88/88670.png"
-          alt="icon"
-          style="height: 1rem"
-        />
-      </div>
-      <input
-        type="number"
-        class="form-control"
-        placeholder="Cantidad de receta"
+                        formControlName="nombre_receta"
+                          class="form-control form-control-lg" />
+                      </div>
+                      
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-outline mb-4">
+                        <input type="number" placeholder="Cantidad de receta"
         
-        formControlName="cantidad_receta"
-      />
+                        formControlName="cantidad_receta"
+                          class="form-control form-control-lg" />
+                      </div>
+                      
+                      <div class="form-outline mb-4">
+                        <textarea
+                        class="form-control"
+                        placeholder="Descripcion de la receta"
+                        id="floatingTextarea2"
+                        style="height: 100px"
+                        formControlName="descripcion_receta"
+                      ></textarea>
+                       </div>
+                    </div>
+               
+                  
+                  <div class="col-md-6">
+                    <div class="">
+                    <div class="form-outline mb-4">
+                    <select [(ngModel)]="valorI"
+                    (change)="onValorI()"
+                    [ngModelOptions]="{standalone: true}"
+                      class="form-select"
+                      id="ingrediente"
+                      aria-label="Floating label select example"
+                    >
+                      <option selected></option>
+                      <option *ngFor="let ingrediente of ingredientes" [value]="ingrediente">{{ingrediente[1]}}</option>
+                    </select>
+            
+                    </div>
+                    <div class="form-outline mb-4">
+                      <input
+                    [(ngModel)]="valorC"
+                    (change)="onValorC()"
+                    [ngModelOptions]="{standalone: true}"
+                     class="form-control"
+                      type="number"
+                      id="cantidad"
+                      placeholder="Cantidad de ingrediente"
+                    />
+                    </div>
+            
+                    <div class="form-outline mb-4">
+                      <select
+                    [(ngModel)]="valorU"
+                    (change)="onValorU()"
+                    [ngModelOptions]="{standalone: true}"
+                      class="form-select"
+                      id="unidad"
+                      aria-label="Floating label select example"
+                    >
+                      <option selected>Unidad</option>
+                      <option *ngFor="let unidad of unidades" [value]="unidad">{{unidad[1]}}</option>
+                    </select>
+                    </div>
+                    <div>
+                      <div class="btn color-b text-white fw-semibold shadows-semibold" (click)="agregar()">
+                        Agregar
+                      </div> 
+                    </div>
+            
+                    
+                  </div>
+                  </div>
+               <div class="col-md-10">
+                <div class="form-outline mb-4">
+                  <button class="text-black  btn  fw-semibold w-100 mt-4  custom-btn " type="submit" value="registrar">Registrar</button>
+                </div>
+                <div class="form-outline mb-4">
+                  <input
+              type="button"
+                class="text-black  btn  fw-semibold w-100 mt-4  custom-btn"
+               value="Salir" (click)="salir()"
+                     />
+                </div>
+               </div>
+                  </div>
+                </form> 
+                
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Ingredientes</th>
+            <th scope="col">Cantidad</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ingrediente_r of ingredientes_receta">
+            <td>{{ingrediente_r.ingrediente}}</td>
+            <td>{{ingrediente_r.cantidad}} {{ingrediente_r.unidad}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-      <div class="input-group mt-3">
-        <div class="input-group-text color-b">
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/88/88670.png"
-            alt="icon"
-            style="height: 1rem"
-          />
-        </div>
-        <textarea
-          class="form-control"
-          placeholder="Descripcion de la receta"
-          id="floatingTextarea2"
-          style="height: 100px"
-          formControlName="descripcion_receta"
-        ></textarea>
-      </div>
-      <div class="mb-3 mt-4 ingrediente">
-        <select [(ngModel)]="valorI"
-        (change)="onValorI()"
-        [ngModelOptions]="{standalone: true}"
-          class="form-select"
-          id="ingrediente"
-          aria-label="Floating label select example"
-        >
-          <option selected></option>
-          <option *ngFor="let ingrediente of ingredientes" [value]="ingrediente">{{ingrediente[1]}}</option>
-        </select>
-
-        <input
-        [(ngModel)]="valorC"
-        (change)="onValorC()"
-        [ngModelOptions]="{standalone: true}"
-         class="form-control"
-          type="number"
-          id="cantidad"
-          placeholder="Cantidad de ingrediente"
-        />
-
-        <select
-        [(ngModel)]="valorU"
-        (change)="onValorU()"
-        [ngModelOptions]="{standalone: true}"
-          class="form-select"
-          id="unidad"
-          aria-label="Floating label select example"
-        >
-          <option selected>Unidad</option>
-          <option *ngFor="let unidad of unidades" [value]="unidad">{{unidad[1]}}</option>
-        </select>
-
-        <div class="btn color-b text-white fw-semibold shadows-semibold" (click)="agregar()">
-          Agregar
-        </div>
-      </div>
-
-      <div class="ingredientes_receta">
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Ingredientes</th>
-              <th scope="col">Cantidad</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let ingrediente_r of ingredientes_receta">
-              <td>{{ingrediente_r.ingrediente}}</td>
-              <td>{{ingrediente_r.cantidad}} {{ingrediente_r.unidad}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div>
-        <input
-          type="submit"
-          class="btn color-b text-white w-100 mt-4 fw-semibold shadows-semibold"
-          value="Registrar"
-        />
-        <input
-          type="button"
-          class="text-white shadows-semibold btn color-boton w-100 mt-4 fw-semibold shadows-semibold color-b"
-          value="Salir"
-          (click)="salir()"
-        />
-      </div>
-
-      <div class="d-flex gap-1 justify-content-center mt-1"></div>
-    </form>
   </div>
-</body>
+</section>

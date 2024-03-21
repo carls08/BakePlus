@@ -7,3 +7,24 @@
     grid-template-columns: repeat(4,1fr);
     column-gap: 10px;
 }
+
+.custom-btn {
+    background-color: #ffbf75;
+    transition: background-color 0.3s ease;
+  }
+
+  .custom-btn:hover {
+    background-color: #ffa43a;
+  }
+
+  .background {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to bottom, #ffa43a, #f57878, #b66e98, #6e6888, #525558);
+    
+  }
+.prueba{
+    margin-top: 50px;
+  }
