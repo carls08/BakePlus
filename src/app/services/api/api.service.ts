@@ -48,12 +48,10 @@ export class ApiService {
       return this.http.get<any>(direccion)
        
     }
+    
     getAllRoles():Observable<RolesI[]> {
-      const headers = this.createHeaders();
-      console.log(headers.get("Authorization"))
       let direccion = this.url + "roles/getAll";
-      return this.http.get<RolesI[]>(direccion,{ headers })
-      //return this.http.get<RolesI[]>(direccion)
+      return this.http.get<RolesI[]>(direccion)
        
     }
     getAllTipoDoc() {

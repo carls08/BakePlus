@@ -17,11 +17,12 @@
                 <form [formGroup]="nuevoForm" (ngSubmit)="postForm(nuevoForm.value)">
                   <!---Logo-->
                   <div class="text-center">
-                    <img src="assets/register.png" alt="login-icon" height="120" width="120" class="img-fluid" style="max-width: 210px;">
+                    <img src="assets/register.png" alt="login-icon" height="120" width="120" class="img-fluid"
+                      style="max-width: 210px;">
                   </div>
                   <br><br>
                   <h5 class="text-center fs-1 fw-bold" style="letter-spacing: 1px;">Registro de usuario:</h5>
-                
+
                   <div class="row">
                     <div class="col-md-6">
                       <!---TipoDoc-->
@@ -30,27 +31,33 @@
                           <option value="">Tipo de documento</option>
                           <option *ngFor="let tipoDoc of tipoDocs" [value]="tipoDoc.id">{{ tipoDoc.nombre }}</option>
                         </select>
-                      </div>  
+                      </div>
                       <!---Nombre-->
-                      <div class="form-outline mb-4 ">
-                        <input type="text" type="text" placeholder="Nombre" formControlName="nombre_usuario" class="form-control form-control-lg" />
-                        <div class="text-danger mt-1" *ngIf="nuevoForm.get('nombre_usuario')?.invalid">
-                          Nombre es requerido!
+                      <div class="form-outline mb-4" [ngClass]="{ 'has-error': validateNombre() }">
+                        <input type="text" type="text" placeholder="Nombre" formControlName="nombre_usuario"
+                          class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateNombre() }"
+                          (click)="onNombreClicked()" />
+                        <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateNombre()">
+                          <p class="fs-6">{{ validateNombre() }}</p>
                         </div>
                       </div>
-                
+
                       <!---Telefono-->
-                      <div class="form-outline mb-4">
-                        <input type="number" placeholder="Telefono" formControlName="telefono_usuario" class="form-control form-control-lg" />
-                        <div class="text-danger mt-1" *ngIf="nuevoForm.get('telefono_usuario')?.invalid && (nuevoForm.get('telefono_usuario')?.dirty || nuevoForm.get('telefono_usuario')?.touched)">
-                          Teléfono es requerido!
+                      <div class="form-outline mb-4" [ngClass]="{ 'has-error': validateTel() }">
+                        <input type="number" placeholder="Telefono" formControlName="telefono_usuario"
+                          class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateTel() }"
+                          (click)="onTelClicked()" />
+                        <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateTel()">
+                          <p class="fs-6">{{ validateTel() }}</p>
                         </div>
                       </div>
                       <!---password-->
-                      <div class="form-outline mb-4">
-                        <input type="password" placeholder="Contraseña" formControlName="password_usuario" class="form-control form-control-lg" />
-                        <div class="text-danger mt-1" *ngIf="nuevoForm.get('password_usuario')?.invalid && (nuevoForm.get('password_usuario')?.dirty || nuevoForm.get('password_usuario')?.touched)">
-                          Contraseña es requerida!
+                      <div class="form-outline mb-4" [ngClass]="{ 'has-error': validatePassword() }">
+                        <input type="password" placeholder="Contraseña" formControlName="password_usuario"
+                          class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validatePassword() }"
+                          (click)="onPassClicked()" />
+                        <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validatePassword()">
+                          <p class="fs-6">{{ validatePassword() }}</p>
                         </div>
                       </div>
                       <!---Rol-->
@@ -63,47 +70,52 @@
                     </div>
                     <div class="col-md-6">
                       <!---Documento-->
-                      <div class="form-outline mb-4" [ngClass]="{ 'has-error': nuevoForm.get('doc_usuario')?.invalid && (nuevoForm.get('doc_usuario')?.dirty || nuevoForm.get('doc_usuario')?.touched) }">
-                        <input type="number" placeholder="Documento" formControlName="doc_usuario" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': nuevoForm.get('doc_usuario')?.invalid && (nuevoForm.get('doc_usuario')?.dirty || nuevoForm.get('doc_usuario')?.touched) }" />
-                        <div class="text-danger mt-1" *ngIf="nuevoForm.get('doc_usuario')?.invalid">
-                          Documento es requerido y debe ser de al menos 6 caracteres de longitud.
+                      <div class="form-outline mb-4" [ngClass]="{ 'has-error': validateDocument() }">
+                        <input type="number" placeholder="Documento" formControlName="doc_usuario"
+                          class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateDocument() }"
+                          (click)="onDocClicked()" />
+                        <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateDocument()">
+                          <p class="fs-6">{{ validateDocument() }}</p>
                         </div>
                       </div>
-                      
+
                       <!---Apellido-->
-                      <div class="form-outline mb-4" [ngClass]="{ 'has-error': validateApellido() }" >
-                        <input type="text" placeholder="Apellido" formControlName="apellido_usuario" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateApellido() }"/>
+                      <div class="form-outline mb-4" [ngClass]="{ 'has-error': validateApellido() }">
+                        <input type="text" placeholder="Apellido" formControlName="apellido_usuario"
+                          class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateApellido() }"
+                          (click)="onApellidoClicked()" />
                         <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateApellido()">
-                          <p class="fs-6">Error apellido no valido</p>
+                          <p class="fs-6">{{ validateApellido() }}</p>
                         </div>
                       </div>
-                
+
                       <!---Email-->
                       <div class="form-outline mb-4" [ngClass]="{ 'has-error': validateEmail() }">
-                        <input type="text" placeholder="Email" formControlName="email_usuario" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateEmail() }" />
+                        <input type="text" placeholder="Email" formControlName="email_usuario"
+                          class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateEmail() }" />
                         <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateEmail()">
                           <p class="fs-6">Email ingresado no es válido!</p>
                         </div>
-                      </div>                      
-                      
+                      </div>
+
                       <!--- confirmar password-->
-                      <div class="form-outline mb-4">
-                        <input type="password" placeholder="Confirmar Contraseña" formControlName="password_usuario" class="form-control form-control-lg" />
-                        <div class="text-danger mt-1" *ngIf="nuevoForm.get('password_usuario')?.invalid && (nuevoForm.get('password_usuario')?.dirty || nuevoForm.get('password_usuario')?.touched)">
-                          Confirmar Contraseña es requerido!
+                      <div class="form-outline mb-4" [ngClass]="{ 'has-error': validateCPassword() }">
+                        <input type="password" placeholder="Confirmar Contraseña" formControlName="cPassword_usuario"
+                          class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateCPassword() }"
+                          (click)="onCPassClicked()" />
+                        <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateCPassword()">
+                          <p class="fs-6">{{ validateCPassword() }}</p>
                         </div>
                       </div>
                       <!---Registrar-->
                       <div class="form-outline mb-4">
-                        <button class="text-black  btn  fw-semibold w-100 mt-4  custom-btn" type="submit">Registrar</button>
-                      </div>
-                      <div class="form-outline mb-4 ">
-                        <input type="button" class="text-black  btn  w-100  fw-semibold  custom-btn" value="Salir" (click)="salir()" />
+                        <button class="text-black btn btn-lg fw-semibold w-100 mt-6 custom-btn"
+                          type="submit">Registrar</button>
                       </div>
                     </div>
                   </div>
                 </form>
-                
+
               </div>
             </div>
           </div>
