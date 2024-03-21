@@ -17,93 +17,93 @@
                 <form [formGroup]="nuevoForm" (ngSubmit)="postForm(nuevoForm.value)">
                   <!---Logo-->
                   <div class="text-center">
-                    <img src="assets/register.png" alt="login-icon" height="120" width="120" class="img-fluid"
-                      style="max-width: 210px;">
+                    <img src="assets/register.png" alt="login-icon" height="120" width="120" class="img-fluid" style="max-width: 210px;">
                   </div>
                   <br><br>
                   <h5 class="text-center fs-1 fw-bold" style="letter-spacing: 1px;">Registro de usuario:</h5>
-
+                
                   <div class="row">
                     <div class="col-md-6">
-
                       <!---TipoDoc-->
                       <div class="form-outline mb-4">
-                        <div class="form-outline mb-4">
-                          <select formControlName="id_tipo_documento" class="form-select form-select-lg">
-                            <option value="">Tipo de Documento</option>
-                            <option value="1">CC</option>
-                            <option value="2">TI</option>
-                            <!-- Agrega más opciones según sea necesario -->
-                          </select>
+                        <select formControlName="id_tipo_documento" class="form-select form-select-lg">
+                          <option value="">Tipo de documento</option>
+                          <option *ngFor="let tipoDoc of tipoDocs" [value]="tipoDoc.id">{{ tipoDoc.nombre }}</option>
+                        </select>
+                      </div>  
+                      <!---Nombre-->
+                      <div class="form-outline mb-4 ">
+                        <input type="text" type="text" placeholder="Nombre" formControlName="nombre_usuario" class="form-control form-control-lg" />
+                        <div class="text-danger mt-1" *ngIf="nuevoForm.get('nombre_usuario')?.invalid">
+                          Nombre es requerido!
                         </div>
                       </div>
-                      <!---Nombre-->
-                      <div class="form-outline mb-4">
-                        <input type="text" type="text" placeholder="Nombre" formControlName="nombre_usuario"
-                          class="form-control form-control-lg" />
-                      </div>
-
+                
                       <!---Telefono-->
                       <div class="form-outline mb-4">
-                        <input type="number" placeholder="Telefono" formControlName="telefono_usuario"
-                          class="form-control form-control-lg" />
+                        <input type="number" placeholder="Telefono" formControlName="telefono_usuario" class="form-control form-control-lg" />
+                        <div class="text-danger mt-1" *ngIf="nuevoForm.get('telefono_usuario')?.invalid && (nuevoForm.get('telefono_usuario')?.dirty || nuevoForm.get('telefono_usuario')?.touched)">
+                          Teléfono es requerido!
+                        </div>
                       </div>
                       <!---password-->
                       <div class="form-outline mb-4">
-                        <input type="password" placeholder="Contraseña" formControlName="password_usuario"
-                          class="form-control form-control-lg" />
+                        <input type="password" placeholder="Contraseña" formControlName="password_usuario" class="form-control form-control-lg" />
+                        <div class="text-danger mt-1" *ngIf="nuevoForm.get('password_usuario')?.invalid && (nuevoForm.get('password_usuario')?.dirty || nuevoForm.get('password_usuario')?.touched)">
+                          Contraseña es requerida!
+                        </div>
                       </div>
                       <!---Rol-->
                       <div class="form-outline mb-4">
-                        <div class="form-outline mb-4">
-                          <select formControlName="id_tipo_documento" class="form-select form-select-lg">
-                            <option value="">Selecciona un rol</option>
-                            <option *ngFor="let rol of roles" [value]="rol.idRol">{{ rol.nameRol }}</option>
-                          </select>
-                        </div>
+                        <select formControlName="id_tipo_documento" class="form-select form-select-lg">
+                          <option value="">Selecciona un rol</option>
+                          <option *ngFor="let rol of roles" [value]="rol.id">{{ rol.nombre }}</option>
+                        </select>
                       </div>
                     </div>
                     <div class="col-md-6">
                       <!---Documento-->
-                      <div class="form-outline mb-4">
-                        <input type="number" placeholder="Documento" formControlName="doc_usuario"
-                          class="form-control form-control-lg" />
+                      <div class="form-outline mb-4" [ngClass]="{ 'has-error': nuevoForm.get('doc_usuario')?.invalid && (nuevoForm.get('doc_usuario')?.dirty || nuevoForm.get('doc_usuario')?.touched) }">
+                        <input type="number" placeholder="Documento" formControlName="doc_usuario" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': nuevoForm.get('doc_usuario')?.invalid && (nuevoForm.get('doc_usuario')?.dirty || nuevoForm.get('doc_usuario')?.touched) }" />
+                        <div class="text-danger mt-1" *ngIf="nuevoForm.get('doc_usuario')?.invalid">
+                          Documento es requerido y debe ser de al menos 6 caracteres de longitud.
+                        </div>
                       </div>
+                      
                       <!---Apellido-->
-                      <div class="form-outline mb-4">
-                        <input type="text" placeholder="Apellido" formControlName="apellido_usuario"
-                          class="form-control form-control-lg" />
+                      <div class="form-outline mb-4" [ngClass]="{ 'has-error': validateApellido() }" >
+                        <input type="text" placeholder="Apellido" formControlName="apellido_usuario" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateApellido() }"/>
+                        <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateApellido()">
+                          <p class="fs-6">Error apellido no valido</p>
+                        </div>
                       </div>
-
+                
                       <!---Email-->
-                      <div class="form-outline mb-4">
-                        <input type="text" placeholder="Email" formControlName="email_usuario"
-                          class="form-control form-control-lg" (input)="validateEmail()" /><!-- Aquí se agrega el evento input -->
-                          <div *ngIf="nuevoForm.get('email_usuario')?.invalid && (nuevoForm.get('email_usuario')?.dirty || nuevoForm.get('email_usuario')?.touched)" class="text-danger">
-                            <!-- Muestra el mensaje de error si el campo es inválido y ha sido tocado o modificado -->
-                            El email ingresado no es válido!
-                          </div>
-                      </div>
+                      <div class="form-outline mb-4" [ngClass]="{ 'has-error': validateEmail() }">
+                        <input type="text" placeholder="Email" formControlName="email_usuario" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateEmail() }" />
+                        <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateEmail()">
+                          <p class="fs-6">Email ingresado no es válido!</p>
+                        </div>
+                      </div>                      
+                      
                       <!--- confirmar password-->
                       <div class="form-outline mb-4">
-                        <input type="password" placeholder="Confirmar Contraseña" formControlName="password_usuario"
-                          class="form-control form-control-lg" />
+                        <input type="password" placeholder="Confirmar Contraseña" formControlName="password_usuario" class="form-control form-control-lg" />
+                        <div class="text-danger mt-1" *ngIf="nuevoForm.get('password_usuario')?.invalid && (nuevoForm.get('password_usuario')?.dirty || nuevoForm.get('password_usuario')?.touched)">
+                          Confirmar Contraseña es requerido!
+                        </div>
                       </div>
                       <!---Registrar-->
                       <div class="form-outline mb-4">
                         <button class="text-black  btn  fw-semibold w-100 mt-4  custom-btn" type="submit">Registrar</button>
                       </div>
                       <div class="form-outline mb-4 ">
-                        <input
-                    type="button"
-                      class="text-black  btn  w-100  fw-semibold  custom-btn"
-                     value="Salir" (click)="salir()"
-                           />
+                        <input type="button" class="text-black  btn  w-100  fw-semibold  custom-btn" value="Salir" (click)="salir()" />
                       </div>
-
                     </div>
                   </div>
                 </form>
+                
               </div>
             </div>
           </div>

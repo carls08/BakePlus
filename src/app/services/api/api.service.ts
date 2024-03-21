@@ -48,10 +48,19 @@ export class ApiService {
       return this.http.get<any>(direccion)
        
     }
-    getAllRoles() {
+    getAllRoles():Observable<RolesI[]> {
       const headers = this.createHeaders();
+      console.log(headers.get("Authorization"))
       let direccion = this.url + "roles/getAll";
       return this.http.get<RolesI[]>(direccion,{ headers })
+      //return this.http.get<RolesI[]>(direccion)
+       
+    }
+    getAllTipoDoc() {
+      //const headers = this.createHeaders();
+      let direccion = this.url + "tipos_documentos/getAll";
+      //return this.http.get<RolesI[]>(direccion,{ headers })
+      return this.http.get<RolesI[]>(direccion)
        
     }
 
@@ -69,7 +78,7 @@ export class ApiService {
       // Create headers with authorization token
   private createHeaders() {
     return new HttpHeaders({
-      'Authorization': `Bearer ${localStorage.getItem('token')}`
+      'token': `${localStorage.getItem('token')}`
     });
   }
     

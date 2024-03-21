@@ -39,9 +39,7 @@ export class LoginComponent {
     console.log(data)
     let dataResponse:ResponseI=data;
     if(dataResponse){
-      console.log("token: "+dataResponse.token)
       localStorage.setItem("token",dataResponse.token);
-      console.log("nombre_usuario: "+dataResponse.nombre_usuario)
       localStorage.setItem("nombre_usuario",dataResponse.nombre_usuario);
       
       this.router.navigate(['home'])

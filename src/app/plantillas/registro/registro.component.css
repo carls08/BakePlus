@@ -57,3 +57,11 @@ color: #C37960;
 .prueba{
   margin-top: 60px;
 }
+
+.has-error input {
+  border-color: red;
+}
+
+.has-error .text-danger {
+  color: red;
+}

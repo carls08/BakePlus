@@ -6,6 +6,7 @@ import { RolesI } from 'src/app/models/roles.interfaces';
 import { ApiService } from 'src/app/services/api/api.service';
 import Swal from 'sweetalert2';
 import { Observer } from 'rxjs';
+import { TipoDocI } from 'src/app/models/tipoDocument.interface';
 
 @Component({
   selector: 'app-registro',
@@ -14,21 +15,24 @@ import { Observer } from 'rxjs';
 })
 export class RegistroComponent {
   nuevoForm: FormGroup;
-  roles: RolesI[] = []; // Utiliza la interfaz para tipar el array de roles
+  roles: RolesI[] = [];
+  tipoDocs: TipoDocI[] = [];
   constructor(private fb: FormBuilder, private api: ApiService, private router: Router) {
     this.nuevoForm = this.fb.group({
       id_tipo_documento: ['', Validators.required],
-      nombre_usuario: ['', Validators.required],
-      telefono_usuario: ['', Validators.required],
-      password_usuario: ['', Validators.required],
+      nombre_usuario: ['', Validators.required, Validators.minLength(4)],
+      telefono_usuario: ['', Validators.required, Validators.minLength(10)],
+      password_usuario: ['', Validators.required, Validators.minLength(6)],
       email_usuario: ['', [Validators.required, Validators.email]],
-      doc_usuario: ['', Validators.required],
-      apellido_usuario: ['', Validators.required],
+      doc_usuario: ['', Validators.required, Validators.minLength(6)],
+      apellido_usuario: ['', Validators.required, Validators.minLength(6)],
     });
 
   }
   ngOnInit(): void {
-    this.getRoles();
+    this.getRoles()
+    this.getTipoDoc()
+
 
   }
   postForm(form: RegistroI) {
@@ -58,13 +62,29 @@ export class RegistroComponent {
   salir() {
     this.router.navigate(['home'])
   }
+  // Método para validar el email
   validateEmail() {
     const emailControl = this.nuevoForm.get('email_usuario');
     if (emailControl?.invalid && (emailControl?.dirty || emailControl?.touched)) {
-      // Marcamos el control como tocado para que el mensaje de error se muestre incluso si no se ha modificado el valor
-      emailControl.markAsTouched();
+      return true; // El email es inválido
     }
+    return false; // El email es válido
   }
+  validateNombre() {
+    const nombreControl = this.nuevoForm.get('nombre_usuario');
+    if (nombreControl?.invalid && (nombreControl?.dirty || nombreControl?.touched)) {
+      return true; // El email es inválido
+    }
+    return false; // El email es válido
+  }
+  validateApellido() {
+    const apellidoControl = this.nuevoForm.get('apellido_usuario');
+    if (apellidoControl?.invalid && (apellidoControl?.dirty || apellidoControl?.touched)) {
+      return true; // El email es inválido
+    }
+    return false; // El email es válido
+  }
+
 
   getRoles() {
     this.api.getAllRoles().subscribe({
@@ -74,6 +94,25 @@ export class RegistroComponent {
         if (Array.isArray(data)) {
           this.roles = data;
           console.log(data)
+        } else {
+          this.roles = [data];
+          console.log(data)
+        }
+      },
+      error: (error) => {
+        console.error('Error al obtener roles:', error);
+      }
+    });
+  }
+
+  getTipoDoc() {
+    this.api.getAllTipoDoc().subscribe({
+      next: (data: TipoDocI[]) => {
+        console.log(data)
+        this.roles = data;
+        if (Array.isArray(data)) {
+          this.roles = data;
+          console.log(this.roles)
         } else {
           this.roles = [data];
           console.log(data)
