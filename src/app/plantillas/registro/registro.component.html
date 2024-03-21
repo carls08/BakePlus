@@ -14,7 +14,6 @@
             </div>
             <div class="col-md-6 col-lg-7 d-flex align-items-center">
               <div class="card-body p-4 p-lg-5 text-black">
-
                 <form [formGroup]="nuevoForm" (ngSubmit)="postForm(nuevoForm.value)">
                   <!---Logo-->
                   <div class="text-center">
@@ -58,10 +57,8 @@
                       <div class="form-outline mb-4">
                         <div class="form-outline mb-4">
                           <select formControlName="id_tipo_documento" class="form-select form-select-lg">
-                            <option value="">Rol</option>
-                            <option value="1">Administrador</option>
-                            <option value="2">Cliente</option>
-                            <!-- Agrega más opciones según sea necesario -->
+                            <option value="">Selecciona un rol</option>
+                            <option *ngFor="let rol of roles" [value]="rol.idRol">{{ rol.nameRol }}</option>
                           </select>
                         </div>
                       </div>
@@ -81,7 +78,11 @@
                       <!---Email-->
                       <div class="form-outline mb-4">
                         <input type="text" placeholder="Email" formControlName="email_usuario"
-                          class="form-control form-control-lg" />
+                          class="form-control form-control-lg" (input)="validateEmail()" /><!-- Aquí se agrega el evento input -->
+                          <div *ngIf="nuevoForm.get('email_usuario')?.invalid && (nuevoForm.get('email_usuario')?.dirty || nuevoForm.get('email_usuario')?.touched)" class="text-danger">
+                            <!-- Muestra el mensaje de error si el campo es inválido y ha sido tocado o modificado -->
+                            El email ingresado no es válido!
+                          </div>
                       </div>
                       <!--- confirmar password-->
                       <div class="form-outline mb-4">

@@ -9,6 +9,7 @@ import { ingredienteI } from 'src/app/models/ingrediente.interface';
 import { RegistroI } from 'src/app/models/registro.interface';
 import { formularioRecetaI } from 'src/app/models/formulario-receta.interface';
 import { FormBuilder } from '@angular/forms';
+import { RolesI } from 'src/app/models/roles.interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +47,14 @@ export class ApiService {
       let direccion = this.url + "recetas/getAll";
       return this.http.get<any>(direccion)
        
-    };
+    }
+    getAllRoles() {
+      const headers = this.createHeaders();
+      let direccion = this.url + "roles/getAll";
+      return this.http.get<RolesI[]>(direccion,{ headers })
+       
+    }
+
 
     postRecetas(form:any):Observable<any>{
       let direccion = this.url + "/recetas/insert";
@@ -57,6 +65,13 @@ export class ApiService {
       let direccion = this.url + "/recetas/getOne/" +id;
       return this.http.get(direccion);
     }
+
+      // Create headers with authorization token
+  private createHeaders() {
+    return new HttpHeaders({
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    });
+  }
     
     
   }
