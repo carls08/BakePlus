@@ -12,21 +12,22 @@ import { UnidadesComponent } from './plantillas/unidades/unidades.component';
 import { VentasComponent } from './plantillas/ventas/ventas.component';
 import { MarcasComponent } from './plantillas/marcas/marcas.component';
 import { IngredientesComponent } from './plantillas/ingredientes/ingredientes.component';
+import { AuthGuard } from './auth.guard';
 
 
 const routes:Routes=[
-  //{path:'',redirectTo:'login', pathMatch:'full'},
-  {path:'registro',component:RegistroComponent},
+  {path:'registro',component:RegistroComponent,canActivate: [AuthGuard] },
   {path:'',component:LoginComponent},
-  {path:'receta',component:RecetasComponent},
-  {path:'descripcion/:id',component:DescripcionRecetaComponent},
-  {path:'formularioReceta',component:FormularioRecetasComponent},
+  {path:'receta',component:RecetasComponent,canActivate: [AuthGuard]},
+  {path:'descripcion/:id',component:DescripcionRecetaComponent,canActivate: [AuthGuard]},
+  {path:'formularioReceta',component:FormularioRecetasComponent,canActivate: [AuthGuard]},
   {path:'home',component:HomeComponent},
-  {path:'plantillas',component:PlantillasComponent},
-  {path:'unidades',component:UnidadesComponent},
-  {path:'ventas',component:VentasComponent},
-  {path:'marcas',component:MarcasComponent},
-  {path:'ingredientes',component:IngredientesComponent}
+  {path:'plantillas',component:PlantillasComponent,canActivate: [AuthGuard]},
+  {path:'unidades',component:UnidadesComponent,canActivate: [AuthGuard]},
+  {path:'ventas',component:VentasComponent,canActivate: [AuthGuard]},
+  {path:'marcas',component:MarcasComponent,canActivate: [AuthGuard]},
+  {path:'ingredientes',component:IngredientesComponent,canActivate: [AuthGuard]},
+  { path: '**', redirectTo: '' } // Redireccionar a la página de inicio si la ruta no coincide con ninguna de las anteriores
 ]
 @NgModule({
  

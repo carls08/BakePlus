@@ -11,5 +11,5 @@
  
 })
 export class AppComponent {
-  title = 'proyecto';
+  title = 'BakePlus';
 }

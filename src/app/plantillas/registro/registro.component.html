@@ -1,6 +1,3 @@
-<app-header></app-header>
-
-
 <section class="vh-100 background">
   <div class="container py-5 h-100">
     <br>
@@ -26,11 +23,15 @@
                   <div class="row">
                     <div class="col-md-6">
                       <!---TipoDoc-->
-                      <div class="form-outline mb-4">
-                        <select formControlName="id_tipo_documento" class="form-select form-select-lg">
+                      <div class="form-outline mb-4" [ngClass]="{ 'has-error': validaTipoDoc() }">
+                        <select formControlName="id_tipo_documento" class="form-select form-select-lg"
+                          [ngClass]="{ 'is-invalid': validaTipoDoc() }" (click)="onTipoDocClicked()">
                           <option value="">Tipo de documento</option>
                           <option *ngFor="let tipoDoc of tipoDocs" [value]="tipoDoc.id">{{ tipoDoc.nombre }}</option>
                         </select>
+                        <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validaTipoDoc()">
+                          <p class="fs-6">{{ validaTipoDoc() }}</p>
+                        </div>
                       </div>
                       <!---Nombre-->
                       <div class="form-outline mb-4" [ngClass]="{ 'has-error': validateNombre() }">
@@ -61,11 +62,14 @@
                         </div>
                       </div>
                       <!---Rol-->
-                      <div class="form-outline mb-4">
-                        <select formControlName="id_tipo_documento" class="form-select form-select-lg">
+                      <div class="form-outline mb-4" [ngClass]="{ 'has-error': validaRol() }">
+                        <select formControlName="id_rol" class="form-select form-select-lg" [ngClass]="{ 'is-invalid': validaRol() }" (click)="onRolClicked()">
                           <option value="">Selecciona un rol</option>
                           <option *ngFor="let rol of roles" [value]="rol.id">{{ rol.nombre }}</option>
                         </select>
+                        <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validaRol()">
+                          <p class="fs-6">{{ validaRol() }}</p>
+                        </div>
                       </div>
                     </div>
                     <div class="col-md-6">
@@ -109,8 +113,11 @@
                       </div>
                       <!---Registrar-->
                       <div class="form-outline mb-4">
-                        <button class="text-black btn btn-lg fw-semibold w-100 mt-6 custom-btn"
-                          type="submit">Registrar</button>
+                        <button class="text-black btn btn-lg fw-semibold w-100 mt-6 custom-btn" 
+                                type="submit" 
+                                [disabled]="!isFormValid()">
+                          Registrar
+                        </button>
                       </div>
                     </div>
                   </div>

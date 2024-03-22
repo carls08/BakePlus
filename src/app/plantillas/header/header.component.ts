@@ -18,6 +18,9 @@ export class HeaderComponent {
   registro(){
     this.router.navigate(['registro'])
   }
+  home(){
+    this.router.navigate(['home'])
+  }
   login(){
     this.router.navigate([''])
   }  

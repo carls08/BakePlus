@@ -14,6 +14,8 @@ export class MarcasComponent {
   nuevoMarca: FormGroup;
   nombre_marcaClicked: boolean = false;
   marcas: any = []
+  currentPage: number = 1;
+  pageSize: number = 10; // Tamaño de la página
   constructor(private fb: FormBuilder, private api: ApiService, private router: Router) {
     this.nuevoMarca = this.fb.group({
       nombre_marca: ['', Validators.required]
@@ -21,8 +23,8 @@ export class MarcasComponent {
 
   }
   ngOnInit(): void {
+    
     this.api.getAllMarcas().subscribe(data => {
-      console.log(data);
       this.marcas=data;
     })
   }
@@ -48,6 +50,39 @@ return null;
   onNombre_marcaClicked(){
 this.nombre_marcaClicked=true; // Marcar como true cuando se hace clic en el campo
   }
+  getCurrentPageItems(): marcasI[] {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    return this.marcas.slice(startIndex, endIndex);
   }
+  getPages(): number[] {
+    const totalPages = this.getTotalPages();
+    return Array.from({ length: totalPages }, (_, index) => index + 1);
+  }
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.getTotalPages()) {
+      this.currentPage = page;
+    }
+  }
+
+  nextPage() {
+    if (this.currentPage < this.getTotalPages()) {
+      this.currentPage++;
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  getTotalPages(): number {
+    return Math.ceil(this.marcas.length / this.pageSize);
+  }
+  }
+  
+
+  
 
 

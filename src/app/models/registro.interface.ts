@@ -1,6 +1,6 @@
 export interface RegistroI{
-    id_rol: string;
-    id_tipo_documento: string;
+    id_rol: number;
+    id_tipo_documento: number;
     doc_usuario: string;
     password_usuario: string;
     nombre_usuario: string;

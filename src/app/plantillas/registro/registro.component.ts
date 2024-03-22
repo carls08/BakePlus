@@ -23,10 +23,13 @@ export class RegistroComponent {
   passwordClicked: boolean = false;
   cPasswordClicked: boolean = false;
   emailClicked: boolean = false;
+  tipoDocClicked: boolean = false;
+  rolClicked: boolean = false;
   
   constructor(private fb: FormBuilder, private api: ApiService, private router: Router) {
     this.nuevoForm = this.fb.group({
       id_tipo_documento: ['', Validators.required],
+      id_rol: ['', Validators.required],
       nombre_usuario: ['', Validators.required],
       telefono_usuario: ['', Validators.required],
       password_usuario: ['', Validators.required],
@@ -156,19 +159,36 @@ validateNombre() {
     }
     return null; // No hay error
   }
+  validaTipoDoc() {
+    if (!this.tipoDocClicked) {
+      return false; // No mostrar error si no se ha hecho clic en el campo de apellido
+    }
+    const tipoDocControl = this.nuevoForm.get('id_tipo_documento');
+    if (tipoDocControl?.value == '') {
+      return 'Tipo de documento requerido.';
+    }
+    return null; // No hay error
+  }
+  validaRol() {
+    if (!this.rolClicked) {
+      return false; // No mostrar error si no se ha hecho clic en el campo de apellido
+    }
+    const rolControl = this.nuevoForm.get('id_rol');
+    if (rolControl?.value == '') {
+      return 'Rol es requerido.';
+    }
+    return null; // No hay error
+  }
 
 
   getRoles() {
     this.api.getAllRoles().subscribe({
       next: (data: RolesI[]) => {
-        console.log(data)
         this.roles = data;
         if (Array.isArray(data)) {
           this.roles = data;
-          console.log(data)
         } else {
           this.roles = [data];
-          console.log(data)
         }
       },
       error: (error) => {
@@ -180,14 +200,11 @@ validateNombre() {
   getTipoDoc() {
     this.api.getAllTipoDoc().subscribe({
       next: (data: TipoDocI[]) => {
-        console.log(data)
-        this.roles = data;
+        this.tipoDocs = data;
         if (Array.isArray(data)) {
-          this.roles = data;
-          console.log(this.roles)
+          this.tipoDocs = data;
         } else {
-          this.roles = [data];
-          console.log(data)
+          this.tipoDocs = [data];
         }
       },
       error: (error) => {
@@ -218,6 +235,16 @@ validateNombre() {
   }
   onEmailClicked() {
     this.emailClicked = true; // Marcar como true cuando se hace clic en el campo
+  }
+  onTipoDocClicked() {
+    this.tipoDocClicked = true; // Marcar como true cuando se hace clic en el campo
+  }
+  onRolClicked() {
+    this.rolClicked = true; // Marcar como true cuando se hace clic en el campo
+  }
+
+  isFormValid(): boolean {
+    return this.nuevoForm.valid; // Retorna true si el formulario es válido, de lo contrario retorna false
   }
 
 }

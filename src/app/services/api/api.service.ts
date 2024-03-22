@@ -10,6 +10,7 @@ import { RegistroI } from 'src/app/models/registro.interface';
 import { formularioRecetaI } from 'src/app/models/formulario-receta.interface';
 import { FormBuilder } from '@angular/forms';
 import { RolesI } from 'src/app/models/roles.interfaces';
+import { TipoDocI } from 'src/app/models/tipoDocument.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +28,9 @@ export class ApiService {
 
     } 
     getAllMarcas():Observable<marcasI[]>{
+      const headers = this.createHeaders();
       let direccion=this.url +"marcas/getAll";
-       return this.http.get<marcasI[]>(direccion);
+       return this.http.get<marcasI[]>(direccion,{ headers });
 
     }
     getAllUnidades():Observable<UnidadesI[]>{
@@ -40,8 +42,9 @@ export class ApiService {
       return this.http.get<ingredienteI[]>(direccion)
     }
     postUsuarios(form:RegistroI):Observable<RegistroI>{
-      let direccion = this.url + "/usuarios/insertar";
-      return this.http.post<RegistroI>(direccion,form);
+      const headers = this.createHeaders();
+      let direccion = this.url + "/usuarios/insert";
+      return this.http.post<RegistroI>(direccion,form,{ headers });
     }
     getAllReceta() {
       let direccion = this.url + "recetas/getAll";
@@ -50,16 +53,15 @@ export class ApiService {
     }
     
     getAllRoles():Observable<RolesI[]> {
+      const headers = this.createHeaders();
       let direccion = this.url + "roles/getAll";
-      return this.http.get<RolesI[]>(direccion)
+      return this.http.get<RolesI[]>(direccion,{ headers })
        
     }
-    getAllTipoDoc() {
-      //const headers = this.createHeaders();
+    getAllTipoDoc():Observable<TipoDocI[]> {
+      const headers = this.createHeaders();
       let direccion = this.url + "tipos_documentos/getAll";
-      //return this.http.get<RolesI[]>(direccion,{ headers })
-      return this.http.get<RolesI[]>(direccion)
-       
+      return this.http.get<TipoDocI[]>(direccion,{ headers })
     }
 
 
@@ -76,7 +78,7 @@ export class ApiService {
       // Create headers with authorization token
   private createHeaders() {
     return new HttpHeaders({
-      'token': `${localStorage.getItem('token')}`
+      'Authorization': `${localStorage.getItem('token')}`
     });
   }
     
