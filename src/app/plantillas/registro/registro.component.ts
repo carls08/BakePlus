@@ -78,7 +78,7 @@ export class RegistroComponent {
     }
     return null; // El email es válido
   }
-  validateNombre() {
+validateNombre() {
     if (!this.nombreClicked) {
       return false; // No mostrar error si no se ha hecho clic en el campo de apellido
     }

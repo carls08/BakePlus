@@ -29,18 +29,24 @@
                   
                     <div class="col-md-6 ">
                       <!---Marca-->
-                      <div class="form-outline mb-4">
+                      <div class="form-outline mb-4" [ngClass]="{'has-error': validateAbreviatura_unidad_medida()}">
                         <input type="text"  placeholder="Aberviatura de unidades" formControlName="abreviatura_unidad_medida"
-                          class="form-control form-control-lg" />
+                          class="form-control form-control-lg" [ngClass]="{ 'is-invalid':  validateAbreviatura_unidad_medida()}" (click)="onAbreviatura_unidad_medidaClicked" />
+                          <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateAbreviatura_unidad_medida()">
+                            <p class="fs-6">{{validateAbreviatura_unidad_medida()}}</p>
+                          </div>
                       </div>
                       <div class="form-outline mb-4">
                         <button class="text-black  btn  fw-semibold w-100 mt-4  custom-btn " type="submit" value="Registrar">Registrar</button>
                       </div>
                     </div>
                     <div class="col-md-6">
-                      <div class="form-outline mb-4">
+                      <div class="form-outline mb-4" [ngClass]="{'has-error': validateNombre_unidad_medida()}">
                         <input type="text" placeholder="Tipo de unidades" formControlName="nombre_unidad_medida"
-                          class="form-control form-control-lg" />
+                          class="form-control form-control-lg"  [ngClass]="{ 'is-invalid':  validateNombre_unidad_medida()}" (click)="onNombre_unidad_medidaClicked"/>
+                          <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateNombre_unidad_medida()">
+                            <p class="fs-6">{{ validateNombre_unidad_medida() }}</p>
+                          </div>
                       </div>
                       
                       <div class="form-outline mb-4">

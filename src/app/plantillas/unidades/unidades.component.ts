@@ -11,6 +11,8 @@ import { ApiService } from 'src/app/services/api/api.service';
 })
 export class UnidadesComponent {
   nuevoUnidad: FormGroup;
+abreviatura_unidad_medidaClicked: boolean = false;
+nombre_unidad_medidaClicked:boolean = false;
   unidad_medida:any = []
   constructor(private fb: FormBuilder, private api: ApiService, private router: Router) {
     this.nuevoUnidad = this.fb.group({
@@ -34,5 +36,38 @@ export class UnidadesComponent {
   salir(){
     this.router.navigate(['home'])
   }
-  
+  validateAbreviatura_unidad_medida(){
+if(!this.abreviatura_unidad_medidaClicked){
+  return false
+}
+const abreviatura_unidad_medidaControl = this.nuevoUnidad.get('abreviatura_unidad_medida');
+if(abreviatura_unidad_medidaControl?.errors && abreviatura_unidad_medidaControl?.value.length==0){
+return 'La abreviatura de la unidad es requeridad';
+}else if(abreviatura_unidad_medidaControl?.value<1){
+  return 'Al menos un caracter';
+
+}
+return null;
+  }
+  validateNombre_unidad_medida(){
+    if(!this.nombre_unidad_medidaClicked){
+      return false
+    }
+    const nombre_unidad_medidaControl = this.nuevoUnidad.get('nombre_unidad_medida');
+    if(nombre_unidad_medidaControl?.errors && nombre_unidad_medidaControl?.value.length==0){
+      console.log('prueba')
+    return 'La abreviatura de la unidad es requeridad';
+    }else if(nombre_unidad_medidaControl?.value<4){
+      return 'Al menos cuatro caracter';
+    
+    }
+    return null;
+      }
+ 
+  onAbreviatura_unidad_medidaClicked(){
+    this.abreviatura_unidad_medidaClicked=true;
+  }
+  onNombre_unidad_medidaClicked(){
+    this.nombre_unidad_medidaClicked=true;
+  }
 }

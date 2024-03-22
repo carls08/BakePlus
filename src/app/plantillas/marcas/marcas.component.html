@@ -28,9 +28,12 @@
                   
                     <div class="col-md-10 ">
                       <!---Marca-->
-                      <div class="form-outline mb-4">
+                      <div class="form-outline mb-4" [ngClass]="{'has-error': validateNombre_marca()}">
                         <input type="text" placeholder="Nombre de la marca" formControlName="nombre_marca"
-                          class="form-control form-control-lg" />
+                          class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateNombre_marca()}" (click)="onNombre_marcaClicked()" />
+                          <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateNombre_marca()">
+                            <p class="fs-6">{{validateNombre_marca()}}</p>
+                          </div>
                       </div>
                       <div class="form-outline mb-4">
                         <button class="text-black  btn  fw-semibold w-100 mt-4  custom-btn " type="submit" value="Registrar">Registrar</button>
