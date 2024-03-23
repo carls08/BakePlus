@@ -17,7 +17,7 @@ import { AuthGuard } from './auth.guard';
 
 const routes:Routes=[
   {path:'registro',component:RegistroComponent,canActivate: [AuthGuard] },
-  {path:'',component:LoginComponent},
+  {path:'login',component:LoginComponent},
   {path:'receta',component:RecetasComponent,canActivate: [AuthGuard]},
   {path:'descripcion/:id',component:DescripcionRecetaComponent,canActivate: [AuthGuard]},
   {path:'formularioReceta',component:FormularioRecetasComponent,canActivate: [AuthGuard]},
@@ -27,7 +27,7 @@ const routes:Routes=[
   {path:'ventas',component:VentasComponent,canActivate: [AuthGuard]},
   {path:'marcas',component:MarcasComponent,canActivate: [AuthGuard]},
   {path:'ingredientes',component:IngredientesComponent,canActivate: [AuthGuard]},
-  { path: '**', redirectTo: '' } // Redireccionar a la página de inicio si la ruta no coincide con ninguna de las anteriores
+  { path: '**', redirectTo: 'home' } // Redireccionar a la página de inicio si la ruta no coincide con ninguna de las anteriores
 ]
 @NgModule({
  

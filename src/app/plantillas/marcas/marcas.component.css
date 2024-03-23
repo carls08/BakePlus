@@ -188,3 +188,8 @@ line-height: 10px;
     margin-top: 10px;
     font-size: 13px;
 }
+.table-title {
+    background-color: #ffa43a;
+    padding: 15px; /* Ajusta el padding según sea necesario */
+    margin-bottom: 20px; /* Ajusta el margen inferior según sea necesario */
+  }

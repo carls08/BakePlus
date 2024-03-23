@@ -20,7 +20,8 @@ import { PlantillasComponent } from './plantillas/plantillas.component';
 import { UnidadesComponent } from './plantillas/unidades/unidades.component';
 import { MarcasComponent } from './plantillas/marcas/marcas.component';
 import { IngredientesComponent } from './plantillas/ingredientes/ingredientes.component';
-import { VentasComponent } from './plantillas/ventas/ventas.component'
+import { VentasComponent } from './plantillas/ventas/ventas.component';
+import { EditarItemModalComponent } from './plantillas/editar-item-modal/editar-item-modal.component'
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { VentasComponent } from './plantillas/ventas/ventas.component'
     UnidadesComponent,
     MarcasComponent,
     IngredientesComponent,
-    VentasComponent
+    VentasComponent,
+    EditarItemModalComponent
   ],
   imports: [
     BrowserModule,

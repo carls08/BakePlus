@@ -22,7 +22,7 @@ export class HeaderComponent {
     this.router.navigate(['home'])
   }
   login(){
-    this.router.navigate([''])
+    this.router.navigate(['login'])
   }  
   receta(){
     this.router.navigate(['receta'])
@@ -42,7 +42,7 @@ this.router.navigate(['ingredientes'])
   salir(){
     localStorage.removeItem('token')
     localStorage.removeItem('nombre_usuario');
-    this.router.navigate([''])
+    this.router.navigate(['login'])
   }
   getLoggedInUsername(): string | null {
     return localStorage.getItem('nombre_usuario');
