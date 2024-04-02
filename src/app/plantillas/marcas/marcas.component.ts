@@ -27,6 +27,7 @@ export class MarcasComponent {
   ngOnInit(): void {
 
     this.api.getAllMarcas().subscribe(data => {
+      console.log(data);
       this.marcas = data;
     })
 

@@ -34,8 +34,9 @@ export class ApiService {
 
     }
     getAllUnidades():Observable<UnidadesI[]>{
+      const headers = this.createHeaders();
       let direccion=this.url + "unidades_medidas/getAll";
-      return this.http.get<UnidadesI[]>(direccion)
+      return this.http.get<UnidadesI[]>(direccion,{ headers })
     }
     getAllIngredientes():Observable<ingredienteI[]>{
       let direccion =this.url + "ingredientes/getAll";
