@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ingredienteI } from 'src/app/models/ingrediente.interface';
+import { ingredientesI } from 'src/app/models/ingrediente.interface';
 import { ApiService } from 'src/app/services/api/api.service';
 
 @Component({
@@ -10,11 +10,14 @@ import { ApiService } from 'src/app/services/api/api.service';
   styleUrls: ['./ingredientes.component.css']
 })
 export class IngredientesComponent {
-  nuevoIngrediente: FormGroup;
-  ingredientes:any = []
+  nuevoIngredientes: FormGroup;
+  ingredientesClicked: boolean = false;
+  ingredientes:any = [];
+  currentPage: number = 1;
+  pageSize: number = 10; // Tamaño de la página
   constructor(private fb: FormBuilder, private api: ApiService, private router: Router) {
-    this.nuevoIngrediente = this.fb.group({
-      nombre_ingrediente: ['', Validators.required]
+    this.nuevoIngredientes = this.fb.group({
+      ingrediente: ['', Validators.required]
     })
 
 
@@ -30,5 +33,48 @@ export class IngredientesComponent {
   }
   salir(){
     this.router.navigate(['home'])
+  }
+  validateIngredientes(){
+    if(!this.ingredientesClicked){return false}
+    const ingredientesControl=  this.nuevoIngredientes.get('ingrediente');
+    if(ingredientesControl?.errors && ingredientesControl?.value.length==0){
+      return 'El nombre del ingrediente es requerido';
+
+    } else if (ingredientesControl?.value.length < 3){
+      return 'Al menos 3 caracteres';
+    }
+    return null
+  }
+  onIngredientesClicked(){
+    this.ingredientesClicked=true;
+  }
+  getCurrentPageItems(): ingredientesI[] {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    return this.ingredientes.slice(startIndex, endIndex);
+  }
+  getPages(): number[] {
+    const totalPages = this.getTotalPages();
+    return Array.from({ length: totalPages }, (_, index) => index + 1);
+  }
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.getTotalPages()) {
+      this.currentPage = page;
+    }
+  }
+  nextPage() {
+    if (this.currentPage < this.getTotalPages()) {
+      this.currentPage++;
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  getTotalPages(): number {
+    return Math.ceil(this.ingredientes.length / this.pageSize);
   }
 }

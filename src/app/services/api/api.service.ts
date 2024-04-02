@@ -5,7 +5,7 @@ import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { marcasI } from 'src/app/models/marcas.interface';
 import { UnidadesI } from 'src/app/models/unidades.interface';
-import { ingredienteI } from 'src/app/models/ingrediente.interface';
+import { ingredientesI } from 'src/app/models/ingrediente.interface';
 import { RegistroI } from 'src/app/models/registro.interface';
 import { formularioRecetaI } from 'src/app/models/formulario-receta.interface';
 import { FormBuilder } from '@angular/forms';
@@ -38,9 +38,10 @@ export class ApiService {
       let direccion=this.url + "unidades_medidas/getAll";
       return this.http.get<UnidadesI[]>(direccion,{ headers })
     }
-    getAllIngredientes():Observable<ingredienteI[]>{
+    getAllIngredientes():Observable<ingredientesI[]>{
+      const headers = this.createHeaders();
       let direccion =this.url + "ingredientes/getAll";
-      return this.http.get<ingredienteI[]>(direccion)
+      return this.http.get<ingredientesI[]>(direccion,{ headers })
     }
     postUsuarios(form:RegistroI):Observable<RegistroI>{
       const headers = this.createHeaders();
