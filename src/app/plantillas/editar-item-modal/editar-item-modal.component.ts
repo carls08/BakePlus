@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'; // Ajusta la importación según la librería de modals que estés utilizando
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-editar-item-modal',
@@ -7,20 +7,23 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'; // Ajusta la import
   styleUrls: ['./editar-item-modal.component.css']
 })
 export class EditarItemModalComponent {
-  
-  @Input() marca: any; // Recibe la información de la marca desde el servicio ModalService
+  @Input() item: any; // Objeto genérico para editar
 
-  constructor(public activeModal: NgbActiveModal) { } // Inyecta NgbActiveModal en el constructor
+  constructor(public activeModal: NgbActiveModal) { }
 
   guardarCambios() {
-    // Aquí puedes implementar la lógica para guardar los cambios en la marca
-    // Luego, cierra el modal
+    // Implementa la lógica para guardar los cambios en el objeto genérico
     this.activeModal.close('Guardado');
   }
 
   cerrarModal() {
     // Cierra el modal sin guardar cambios
     this.activeModal.dismiss('Cerrar');
+  }
+
+  // Función para obtener las claves de un objeto
+  getObjectKeys(obj: any): string[] {
+    return obj ? Object.keys(obj) : [];
   }
 }
 

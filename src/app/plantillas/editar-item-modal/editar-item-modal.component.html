@@ -1,21 +1,25 @@
-<div class="modal-content border">
-  <div class="color">
-    <h5 class="modal-title text-light">Editor Item</h5>
+<div class="modal-content">
+  <div class="modal-header color">
+    <h5 class="modal-title text-light">Editar Item</h5>
   </div>
   <div class="modal-body">
     <form (ngSubmit)="guardarCambios()">
-      <div class="form-group">
-        <label for="nombreMarca">Nombre de la Marca</label>
-        <input type="text" class="form-control" id="nombreMarca" [(ngModel)]="marca.nombre" name="nombreMarca">
+      <div class="form-group" *ngFor="let key of getObjectKeys(item)">
+        <label [for]="key">{{ key }}</label>
+        <!-- Verifica si la clave no es 'id' antes de mostrar el input -->
+        <input *ngIf="key !== 'id'" type="text" class="form-control" [id]="key" [(ngModel)]="item[key]" [name]="key">
+        <!-- Si la clave es 'id', muestra solo su valor pero no permite editarlo -->
+        <input *ngIf="key === 'id'" type="text" class="form-control" [id]="key" [value]="item[key]" readonly>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="cerrarModal()">Cerrar</button>
+        <button type="submit" class="btn btn-success">Guardar Cambios</button>
       </div>
     </form>
   </div>
-  <!-- Puedes agregar más contenido al modal body si es necesario -->
-  <div class="modal-footer">
-    <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="cerrarModal()">Cerrar</button>
-    <button type="submit" class="btn btn-success">Guardar Cambios</button>
-  </div>
 </div>
 
+
+  
 
   

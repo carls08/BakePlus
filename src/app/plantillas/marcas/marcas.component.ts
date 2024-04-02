@@ -84,6 +84,9 @@ export class MarcasComponent {
   getTotalPages(): number {
     return Math.ceil(this.marcas.length / this.pageSize);
   }
+  isFormValid(): boolean {
+    return this.nuevoMarca.valid; // Retorna true si el formulario es válido, de lo contrario retorna false
+  }
   abrirModalParaEditarItem(marca: any) {
     this.marcaSeleccionada = marca;
     // Abre el modal aquí, por ejemplo, utilizando el servicio ModalService
