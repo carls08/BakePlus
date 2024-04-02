@@ -1,18 +1,21 @@
-<div class="modal">
-    <div class="modal-content">
-      <h2>Editar Item</h2>
-      <form >
-        <!-- Aquí muestra los campos editables -->
-        <div *ngFor="let campo of campos">
-          <label>{{ campo.label }}</label>
-          <input type="text" [(ngModel)]="item[campo.propiedad]">
-        </div>
-        <!-- Botones de guardar y cancelar -->
-        <div>
-          <button type="submit">Guardar</button>
-          <button type="button" >Cancelar</button>
-        </div>
-      </form>
-    </div>
+<div class="modal-content border">
+  <div class="color">
+    <h5 class="modal-title text-light">Editor Item</h5>
   </div>
+  <div class="modal-body">
+    <form (ngSubmit)="guardarCambios()">
+      <div class="form-group">
+        <label for="nombreMarca">Nombre de la Marca</label>
+        <input type="text" class="form-control" id="nombreMarca" [(ngModel)]="marca.nombre" name="nombreMarca">
+      </div>
+    </form>
+  </div>
+  <!-- Puedes agregar más contenido al modal body si es necesario -->
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="cerrarModal()">Cerrar</button>
+    <button type="submit" class="btn btn-success">Guardar Cambios</button>
+  </div>
+</div>
+
+
   

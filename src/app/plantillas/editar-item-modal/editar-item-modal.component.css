@@ -1,0 +1,10 @@
+.color {
+    background-color: #ffa43a;
+    padding: 15px; /* Ajusta el padding según sea necesario */
+    margin-bottom: 10px; /* Ajusta el margen inferior según sea necesario */
+    border-radius: 5px;
+  }
+
+.border {
+    border-radius: 10px;
+  }

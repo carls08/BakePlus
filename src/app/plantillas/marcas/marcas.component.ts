@@ -84,8 +84,10 @@ export class MarcasComponent {
   getTotalPages(): number {
     return Math.ceil(this.marcas.length / this.pageSize);
   }
-  abrirModalParaEditarItem(item: any, campos: any[]) {
-    this.modalService.abrirEditarItemModal(item, campos);
+  abrirModalParaEditarItem(marca: any) {
+    this.marcaSeleccionada = marca;
+    // Abre el modal aquí, por ejemplo, utilizando el servicio ModalService
+    this.modalService.abrirModalEditar(marca);
   }
 }
 

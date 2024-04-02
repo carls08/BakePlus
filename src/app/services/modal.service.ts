@@ -1,15 +1,25 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap'; // Importa NgbModal y NgbModalRef si estás utilizando Angular Bootstrap
+import { EditarItemModalComponent } from '../plantillas/editar-item-modal/editar-item-modal.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ModalService {
-  private abrirEditarItemModalSubject = new Subject<any>();
+  private modalRef: NgbModalRef | null = null; // Referencia al modal actual, inicializada como null
 
-  abrirEditarItemModal$ = this.abrirEditarItemModalSubject.asObservable();
+  constructor(private modalService: NgbModal) { } // Inyecta NgbModal en el constructor
 
-  abrirEditarItemModal(item: any, campos: any[]) {
-    this.abrirEditarItemModalSubject.next({ item, campos });
+  abrirModalEditar(marca: any) {
+    // Abre el modal y pasa la información de la marca
+    this.modalRef = this.modalService.open(EditarItemModalComponent);
+    this.modalRef.componentInstance.marca = marca; // Pasa la marca al componente del modal
+  }
+
+  cerrarModal() {
+    // Cierra el modal si está abierto
+    if (this.modalRef !== null) {
+      this.modalRef.close();
+    }
   }
 }
