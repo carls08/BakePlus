@@ -17,4 +17,7 @@ export class AuthService {
     }
     return false; // Retorna false si no hay token o ha expirado
   }
+  getLoggedInUsername(): string | null {
+    return localStorage.getItem('nombre_usuario');
+  }
 }

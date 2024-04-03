@@ -126,4 +126,30 @@
     background-color: rgba(255, 255, 255, 0.1); /* Ajusta la opacidad según sea necesario */
     color: white;
 }
+.btn.text-white.nav-link {
+    position: relative;
+    color: rgba(255, 255, 255, 0.5);
+    transition: color 0.3s;
+}
+
+.btn.text-white.nav-link:hover {
+    color: rgba(255, 255, 255, 1);
+}
+
+.btn.text-white.nav-link::after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -5px; /* Ajusta según tu diseño */
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #ffa43a;
+    transition: width 0.3s;
+}
+
+.btn.text-white.nav-link:hover::after {
+    width: 100%;
+}
+
 

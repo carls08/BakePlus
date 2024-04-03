@@ -1,50 +1,60 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   isLooggedIn: boolean = false;
   loggedInUsername: string | null = null;
+  isAuthenticated: boolean = false;
 
-  constructor(private router:Router){
-
-    this.loggedInUsername = this.getLoggedInUsername()
+  constructor(private router: Router, private authService: AuthService) {
 
   }
-  registro(){
+  ngOnInit(): void {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+
+        // Verificar si el usuario está autenticado
+        this.isAuthenticated = this.authService.isAuthenticated();
+        if (this.isAuthenticated) {
+          // Obtener el nombre de usuario autenticado
+          this.loggedInUsername = this.authService.getLoggedInUsername();
+        }
+      }
+    });
+  }
+  registro() {
     this.router.navigate(['registro'])
   }
-  home(){
+  home() {
     this.router.navigate(['home'])
   }
-  login(){
+  login() {
     this.router.navigate(['login'])
-  }  
-  receta(){
+  }
+  receta() {
     this.router.navigate(['receta'])
   }
-  formularioReceta(){
+  formularioReceta() {
     this.router.navigate(['formularioReceta'])
   }
-  unidades(){
+  unidades() {
     this.router.navigate(['unidades'])
   }
-  marcas(){
+  marcas() {
     this.router.navigate(['marcas'])
   }
-  ingredientes(){
-this.router.navigate(['ingredientes'])
+  ingredientes() {
+    this.router.navigate(['ingredientes'])
   }
-  salir(){
+  salir() {
     localStorage.removeItem('token')
     localStorage.removeItem('nombre_usuario');
     this.router.navigate(['login'])
-  }
-  getLoggedInUsername(): string | null {
-    return localStorage.getItem('nombre_usuario');
   }
 }
