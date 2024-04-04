@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { Router } from '@angular/router';
 import { UnidadesI } from 'src/app/models/unidades.interface';
 import { ApiService } from 'src/app/services/api/api.service';
+import { ModalService } from 'src/app/services/modal.service';
 
 @Component({
   selector: 'app-unidades',
@@ -16,8 +17,8 @@ nombre_unidad_medidaClicked:boolean = false;
   unidad_medida:any = []
   currentPage: number = 1;
   pageSize: number = 10; // Tamaño de la página
-  marcaSeleccionada: any;
-  constructor(private fb: FormBuilder, private api: ApiService, private router: Router) {
+  unidad_medidaSeleccionada: any;
+  constructor(private fb: FormBuilder, private api: ApiService, private router: Router,private modalService: ModalService) {
     this.nuevoUnidad = this.fb.group({
       abreviatura_unidad_medida: ['', Validators.required],
       nombre_unidad_medida: ['', Validators.required]
@@ -100,5 +101,10 @@ previousPage(){
   if(this.currentPage > 1 ){
     this.currentPage--;
   }
+}
+abrirModalParaEditarItem(unidad_medida: any) {
+  this.unidad_medidaSeleccionada = unidad_medida;
+  // Abre el modal aquí, por ejemplo, utilizando el servicio ModalService
+  this.modalService.abrirModalEditar(unidad_medida);
 }
 }

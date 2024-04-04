@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ingredientesI } from 'src/app/models/ingrediente.interface';
 import { ApiService } from 'src/app/services/api/api.service';
+import { ModalService } from 'src/app/services/modal.service';
 
 @Component({
   selector: 'app-ingredientes',
@@ -15,7 +16,8 @@ export class IngredientesComponent {
   ingredientes:any = [];
   currentPage: number = 1;
   pageSize: number = 10; // Tamaño de la página
-  constructor(private fb: FormBuilder, private api: ApiService, private router: Router) {
+  ingredienteSeleccionada :any;
+  constructor(private fb: FormBuilder, private api: ApiService, private router: Router, private modalService: ModalService) {
     this.nuevoIngredientes = this.fb.group({
       ingrediente: ['', Validators.required]
     })
@@ -76,5 +78,10 @@ export class IngredientesComponent {
 
   getTotalPages(): number {
     return Math.ceil(this.ingredientes.length / this.pageSize);
+  }
+  abrirModalParaEditarItem(ingredientes: any) {
+    this.ingredienteSeleccionada = ingredientes;
+    // Abre el modal aquí, por ejemplo, utilizando el servicio ModalService
+    this.modalService.abrirModalEditar(ingredientes);
   }
 }

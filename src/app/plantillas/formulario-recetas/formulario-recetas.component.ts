@@ -4,6 +4,7 @@ import { FormGroup,FormControl,Validators, FormBuilder } from '@angular/forms';
 import { ApiService } from 'src/app/services/api/api.service';
 import { Router } from '@angular/router';
 import { formularioRecetaI } from 'src/app/models/formulario-receta.interface';
+import { ModalService } from 'src/app/services/modal.service';
 
 @Component({
   selector: 'app-formulario-recetas',
@@ -19,6 +20,10 @@ export class FormularioRecetasComponent {
   ingredientes:any=[]
   unidades:any=[]
 
+  currentPage: number = 1;
+  pageSize: number = 10; // Tamaño de la página
+  ingredientes_recetaSeleccionada: any;
+
   datos:any ={
     "nombre_receta":"",
     "cantidad_receta":0,
@@ -29,7 +34,8 @@ export class FormularioRecetasComponent {
   constructor(
       private api:ApiService,
       private router:Router,
-      private fb:FormBuilder
+      private fb:FormBuilder,
+      private modalService:ModalService
     ){
     this.nuevoFormReceta=this.fb.group({
       nombre_receta:['',Validators.required],
@@ -101,6 +107,45 @@ this.api.postRecetas(this.datos).subscribe(data =>{
 }
 salir(){
   this.router.navigate(['home'])
+}
+
+getCurrentPageItems(): formularioRecetaI[] {
+  const startIndex = (this.currentPage - 1) * this.pageSize;
+  const endIndex = startIndex + this.pageSize;
+  return this.ingredientes_receta.slice(startIndex, endIndex);
+}
+getPages(): number[] {
+  const totalPages = this.getTotalPages();
+  return Array.from({ length: totalPages }, (_, index) => index + 1);
+}
+goToPage(page: number) {
+  if (page >= 1 && page <= this.getTotalPages()) {
+    this.currentPage = page;
+  }
+}
+
+nextPage() {
+  if (this.currentPage < this.getTotalPages()) {
+    this.currentPage++;
+  }
+}
+
+previousPage() {
+  if (this.currentPage > 1) {
+    this.currentPage--;
+  }
+}
+
+getTotalPages(): number {
+  return Math.ceil(this.ingredientes_receta.length / this.pageSize);
+}
+isFormValid(): boolean {
+  return this.nuevoFormReceta.valid; // Retorna true si el formulario es válido, de lo contrario retorna false
+}
+abrirModalParaEditarItem(marca: any) {
+  this.ingredientes_recetaSeleccionada = marca;
+  // Abre el modal aquí, por ejemplo, utilizando el servicio ModalService
+  this.modalService.abrirModalEditar(marca);
 }
    
 }
