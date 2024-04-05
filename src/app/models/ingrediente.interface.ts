@@ -1,5 +1,5 @@
 export interface ingredientesI{
-    id:string;
-    nombre:string;
-    fecha:string;
+    fecha_vencimiento_ingrediente:string;
+    id_ingrediente:string;
+    nombre_ingrediente:string;
 }
