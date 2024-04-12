@@ -21,7 +21,7 @@ const routes:Routes=[
   {path:'receta',component:RecetasComponent,canActivate: [AuthGuard]},
   {path:'descripcion/:id',component:DescripcionRecetaComponent,canActivate: [AuthGuard]},
   {path:'formularioReceta',component:FormularioRecetasComponent,canActivate: [AuthGuard]},
-  {path:'home',component:HomeComponent,},
+  {path:'home',component:HomeComponent,canActivate: [AuthGuard]},
   {path:'plantillas',component:PlantillasComponent,canActivate: [AuthGuard]},
   {path:'unidades',component:UnidadesComponent,canActivate: [AuthGuard]},
   {path:'ventas',component:VentasComponent,canActivate: [AuthGuard]},

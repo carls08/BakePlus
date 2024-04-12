@@ -11,6 +11,7 @@ import { formularioRecetaI } from 'src/app/models/formulario-receta.interface';
 import { FormBuilder } from '@angular/forms';
 import { RolesI } from 'src/app/models/roles.interfaces';
 import { TipoDocI } from 'src/app/models/tipoDocument.interface';
+import { RecetaI } from 'src/app/models/receta.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -65,12 +66,18 @@ export class ApiService {
       let direccion = this.url + "tipos_documentos/getAll";
       return this.http.get<TipoDocI[]>(direccion,{ headers })
     }
+    getAllRecetas():Observable<RecetaI[]> {
+      const headers = this.createHeaders();
+      let direccion = this.url + "recetas/getAll";
+      return this.http.get<RecetaI[]>(direccion,{ headers })
+    }
 
 
     postRecetas(form:any):Observable<any>{
       let direccion = this.url + "/recetas/insert";
       return this.http.post<formularioRecetaI>(direccion,form);
     }
+
     
     getSingleReceta(id:any) {
       let direccion = this.url + "/recetas/getOne/" +id;
