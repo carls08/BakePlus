@@ -51,7 +51,7 @@ export class ApiService {
     }
     getAllReceta() {
       let direccion = this.url + "recetas/getAll";
-      return this.http.get<any>(direccion)
+      return this.http.get<ingredientesI>(direccion)
        
     }
     
@@ -66,6 +66,8 @@ export class ApiService {
       let direccion = this.url + "tipos_documentos/getAll";
       return this.http.get<TipoDocI[]>(direccion,{ headers })
     }
+
+    // Recetas 
     getAllRecetas():Observable<RecetaI[]> {
       const headers = this.createHeaders();
       let direccion = this.url + "recetas/getAll";
@@ -76,6 +78,11 @@ export class ApiService {
     postRecetas(form:any):Observable<any>{
       let direccion = this.url + "/recetas/insert";
       return this.http.post<formularioRecetaI>(direccion,form);
+    }
+
+    updateRecetas(form: any): Observable<any> {
+      const direccion = `${this.url}/recetas/update`;
+      return this.http.post<any>(direccion, form);
     }
 
     

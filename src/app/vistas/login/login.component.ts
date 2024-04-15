@@ -5,6 +5,9 @@ import { ApiService } from 'src/app/services/api/api.service';
 import { LoginI } from 'src/app/models/login.interface';
 import { ResponseI } from 'src/app/models/response.interface';
 import Swal from 'sweetalert2';
+import { ingredientesI } from 'src/app/models/ingrediente.interface';
+import { UnidadesComponent } from 'src/app/plantillas/unidades/unidades.component';
+import { UnidadesI } from 'src/app/models/unidades.interface';
 
 
 @Component({
@@ -16,6 +19,8 @@ export class LoginComponent {
   loginForm: FormGroup;
   usuarioClicked: boolean = false;
   passClicked: boolean = false;
+  ingredientes: ingredientesI[] = [];
+  unidades: UnidadesI[] = [];
 
   constructor(
 
@@ -45,6 +50,8 @@ export class LoginComponent {
         localStorage.setItem("nombre_usuario", dataResponse.nombre_usuario);
 
         this.router.navigate(['home'])
+        this.getAllInngredientes()
+        this.getAllUnidades()
         Swal.fire({
           icon: "success",
           title: "Has ingresado",
@@ -96,5 +103,18 @@ export class LoginComponent {
   }
   isFormValid(): boolean {
     return this.loginForm.valid; // Retorna true si el formulario es válido, de lo contrario retorna false
+  }
+
+  getAllInngredientes(){
+    this.api.getAllIngredientes().subscribe(data => {
+      this.ingredientes=data;
+      localStorage.setItem("ingredientes", JSON.stringify(this.ingredientes));
+    })
+  }
+  getAllUnidades(){
+    this.api.getAllUnidades().subscribe(data => {
+      this.unidades=data;
+      localStorage.setItem("unidades", JSON.stringify(this.unidades));
+    })
   }
 }

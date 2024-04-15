@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { RecetaI } from 'src/app/models/receta.interface';
 import { ApiService } from 'src/app/services/api/api.service';
 import { ModalService } from 'src/app/services/modal.service';
+import { EditarItemModalComponent } from '../editar-item-modal/editar-item-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap'; 
 
 @Component({
   selector: 'app-recetas',
@@ -18,7 +20,8 @@ export class RecetasComponent {
   constructor(
     private router:Router,
     private api:ApiService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private modalServiceNgb: NgbModal // Inyecta NgbModal
   ){}
 descripcion(){
   this.router.navigate(['descripcion'])
@@ -59,10 +62,27 @@ previousPage() {
     this.currentPage--;
   }
 }
-abrirModalParaEditarItem(recetas: any) {
-  this.recetaSeleccionada = recetas;
-  // Abre el modal aquí, por ejemplo, utilizando el servicio ModalService
-  this.modalService.abrirModalEditar(recetas);
+abrirModalParaEditarItem(receta: any) {
+  const modalRef = this.modalServiceNgb.open(EditarItemModalComponent);
+  modalRef.componentInstance.item = receta;
+
+  modalRef.result.then((result) => {
+    if (result) {
+      // Si se recibe un resultado (objeto modificado), puedes realizar las acciones necesarias aquí
+      console.log('Objeto modificado:', result);
+      // Por ejemplo, aquí puedes enviar los datos modificados a la API
+      this.api.updateRecetas(result).subscribe(() => {
+        console.log('Receta actualizada correctamente');
+      }, (error) => {
+        console.error('Error al actualizar la receta:', error);
+      });
+    } else {
+      // Si no se recibe un resultado (se cerró el modal sin cambios), puedes manejarlo aquí
+      console.log('Se cerró el modal sin cambios');
+    }
+  }).catch((error) => {
+    console.error('Error al cerrar el modal:', error);
+  });
 }
 
 

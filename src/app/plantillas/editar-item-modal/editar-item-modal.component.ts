@@ -8,17 +8,24 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class EditarItemModalComponent {
   @Input() item: any; // Objeto genérico para editar
+  itemModificado: any; // Objeto modificado
 
   constructor(public activeModal: NgbActiveModal) { }
 
   guardarCambios() {
     // Implementa la lógica para guardar los cambios en el objeto genérico
-    this.activeModal.close('Guardado');
+    // Aquí puedes realizar las validaciones necesarias antes de cerrar el modal
+    // Por ejemplo:
+    // if (validacionesPasadas) {
+    this.activeModal.close(this.item);
+    // } else {
+    //   // Muestra un mensaje de error o evita cerrar el modal
+    // }
   }
 
   cerrarModal() {
     // Cierra el modal sin guardar cambios
-    this.activeModal.dismiss('Cerrar');
+    this.activeModal.dismiss('Cerrar sin cambios');
   }
 
   // Función para obtener las claves de un objeto
