@@ -1,4 +1,4 @@
 export interface marcasI{
-    id:string;
-    nombre:string;
+    id_marca:string;
+    nombre_marca:string;
 }

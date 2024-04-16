@@ -21,7 +21,8 @@ import { UnidadesComponent } from './plantillas/unidades/unidades.component';
 import { MarcasComponent } from './plantillas/marcas/marcas.component';
 import { IngredientesComponent } from './plantillas/ingredientes/ingredientes.component';
 import { VentasComponent } from './plantillas/ventas/ventas.component';
-import { EditarItemModalComponent } from './plantillas/editar-item-modal/editar-item-modal.component'
+import { EditarItemModalComponent } from './plantillas/editar-item-modal/editar-item-modal.component';
+import { EstadisticasComponent } from './plantillas/estadisticas/estadisticas.component'
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { EditarItemModalComponent } from './plantillas/editar-item-modal/editar-
     MarcasComponent,
     IngredientesComponent,
     VentasComponent,
-    EditarItemModalComponent
+    EditarItemModalComponent,
+    EstadisticasComponent
   ],
   imports: [
     BrowserModule,

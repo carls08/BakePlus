@@ -1,5 +1,5 @@
 <section class="vh-100 background">
-  <br>
+  <br><br><br>
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col col-xl-10">
@@ -22,7 +22,7 @@
                   <!---Usuario-->
                   <div class="form-outline mb-4" [ngClass]="{ 'has-error': validateUsuario() }">
                     <label class="form-label" >Correo</label>
-                    <input type="email" formControlName="usuario" placeholder="usuario@mail.com" class="form-control form-control-lg" [ngClass]="{ 'is-invalid':  validateUsuario() }"
+                    <input type="email" formControlName="usuario" placeholder="usuario@mail.com" class="form-control form-control-lg item" [ngClass]="{ 'is-invalid':  validateUsuario() }"
                     (click)="onUsuarioClicked()"/>
                     <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateUsuario()">
                       <p class="fs-6">{{ validateUsuario() }}</p>
@@ -31,7 +31,7 @@
                   <!---Contraseña-->
                   <div class="form-outline mb-4"  [ngClass]="{ 'has-error': validatePass() }">
                     <label class="form-label" >Contraseña</label>
-                    <input type="password" formControlName="contraseña"placeholder="Contraseña" class="form-control form-control-lg" [ngClass]="{ 'is-invalid':  validatePass() }" 
+                    <input type="password" formControlName="contraseña"placeholder="Contraseña" class="form-control form-control-lg item" [ngClass]="{ 'is-invalid':  validatePass() }" 
                     (click)="onPassClicked()"/>
                     <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validatePass()">
                       <p class="fs-6">{{ validatePass() }}</p>

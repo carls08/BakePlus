@@ -5,6 +5,9 @@ import { ApiService } from 'src/app/services/api/api.service';
 import { marcasI } from 'src/app/models/marcas.interface';
 import { Router } from '@angular/router';
 import { ModalService } from 'src/app/services/modal.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { EditarItemModalComponent } from '../editar-item-modal/editar-item-modal.component';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-marcas',
   templateUrl: './marcas.component.html',
@@ -18,7 +21,12 @@ export class MarcasComponent {
   currentPage: number = 1;
   pageSize: number = 10; // Tamaño de la página
   marcaSeleccionada: any;
-  constructor(private fb: FormBuilder, private api: ApiService, private router: Router, private modalService: ModalService) {
+  constructor(
+    private fb: FormBuilder,
+    private api: ApiService,
+    private router: Router,
+    private modalService: ModalService,
+    private modalServiceNgb: NgbModal) {
     this.nuevoMarca = this.fb.group({
       nombre_marca: ['', Validators.required]
     })
@@ -26,16 +34,59 @@ export class MarcasComponent {
   }
   ngOnInit(): void {
 
+    this.getMarcas()
+
+  }
+
+  getMarcas(){
     this.api.getAllMarcas().subscribe(data => {
-      console.log(data);
       this.marcas = data;
     })
+  }
+
+  insertMarca(marca: marcasI) {
+    this.api.insertMarca(marca).subscribe(() => {
+      console.log('Marca insertada correctamente');
+      Swal.fire({
+        icon: "success",
+        title: "Has ingresado",
+        showConfirmButton: false,
+        timer: 1000
+      });
+      this.getMarcas()
+    }, (error) => {
+      console.error('Error al insertar la marca:', error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Usuario o contraseña incorrecto",
+        footer: '<a href="">Intenta nuevamente</a>'
+      });
+    });
+  }
+
+  deleteMarca(marca: marcasI) {
+    this.api.deleteMarca(marca).subscribe(() => {
+      console.log('Marca eliminada correctamente');
+      Swal.fire({
+        icon: "success",
+        title: "Has ingresado",
+        showConfirmButton: false,
+        timer: 1000
+      });
+      this.getMarcas()
+    }, (error) => {
+      console.error('Error al eliminar la marca:', error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Usuario o contraseña incorrecto",
+        footer: '<a href="">Intenta nuevamente</a>'
+      });
+    });
 
   }
 
-  postMarca(form: any) {
-    console.log(form)
-  }
   salir() {
     this.router.navigate(['home'])
   }
@@ -87,11 +138,30 @@ export class MarcasComponent {
   isFormValid(): boolean {
     return this.nuevoMarca.valid; // Retorna true si el formulario es válido, de lo contrario retorna false
   }
-  abrirModalParaEditarItem(marca: any) {
-    this.marcaSeleccionada = marca;
-    // Abre el modal aquí, por ejemplo, utilizando el servicio ModalService
-    this.modalService.abrirModalEditar(marca);
+  abrirModalParaEditarItem(marca: marcasI) {
+    const modalRef = this.modalServiceNgb.open(EditarItemModalComponent);
+    modalRef.componentInstance.item = marca;
+
+    modalRef.result.then((result: marcasI) => {
+      if (result) {
+        // Si se recibe un resultado (objeto modificado), puedes realizar las acciones necesarias aquí
+        console.log('Objeto modificado:', result);
+        // Por ejemplo, aquí puedes enviar los datos modificados a la API
+        this.api.updateMarcas(result).subscribe(() => {
+          console.log('Receta actualizada correctamente');
+        }, (error) => {
+          console.error('Error al actualizar la receta:', error);
+        });
+      } else {
+        // Si no se recibe un resultado (se cerró el modal sin cambios), puedes manejarlo aquí
+        console.log('Se cerró el modal sin cambios');
+      }
+    }).catch((error) => {
+      console.error('Error al cerrar el modal:', error);
+    });
+
   }
+
 }
 
 

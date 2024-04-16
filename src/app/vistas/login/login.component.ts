@@ -43,7 +43,6 @@ export class LoginComponent {
   onLogin(form: LoginI) {
     console.log(form)
     this.api.loginByEmail(form).subscribe(data => {
-      console.log(data)
       let dataResponse: ResponseI = data;
       if (dataResponse) {
         localStorage.setItem("token", dataResponse.token);

@@ -13,6 +13,7 @@ import { VentasComponent } from './plantillas/ventas/ventas.component';
 import { MarcasComponent } from './plantillas/marcas/marcas.component';
 import { IngredientesComponent } from './plantillas/ingredientes/ingredientes.component';
 import { AuthGuard } from './auth.guard';
+import { EstadisticasComponent } from './plantillas/estadisticas/estadisticas.component';
 
 
 const routes:Routes=[
@@ -27,6 +28,7 @@ const routes:Routes=[
   {path:'ventas',component:VentasComponent,canActivate: [AuthGuard]},
   {path:'marcas',component:MarcasComponent,canActivate: [AuthGuard]},
   {path:'ingredientes',component:IngredientesComponent,canActivate: [AuthGuard]},
+  {path:'estadisticas',component:EstadisticasComponent,canActivate: [AuthGuard]},
   { path: '**', redirectTo: 'home' } // Redireccionar a la página de inicio si la ruta no coincide con ninguna de las anteriores
 ]
 @NgModule({
