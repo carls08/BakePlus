@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { UnidadesI } from 'src/app/models/unidades.interface';
 import { ApiService } from 'src/app/services/api/api.service';
 import { ModalService } from 'src/app/services/modal.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-unidades',
@@ -12,8 +13,8 @@ import { ModalService } from 'src/app/services/modal.service';
 })
 export class UnidadesComponent {
   nuevoUnidad: FormGroup;
-abreviatura_unidad_medidaClicked: boolean = false;
-nombre_unidad_medidaClicked:boolean = false;
+  abreviatura_unidad_medidaClicked: boolean = false;
+  nombre_unidad_medidaClicked:boolean = false;
   unidad_medida:any = []
   currentPage: number = 1;
   pageSize: number = 10; // Tamaño de la página
@@ -27,16 +28,37 @@ nombre_unidad_medidaClicked:boolean = false;
 
   }
   ngOnInit(): void {
+    this.getUnidad()
+  }
+
+  getUnidad() {
+    
     this.api.getAllUnidades().subscribe(data => {
       console.log(data);
       this.unidad_medida=data;
     })
   }
-
-  postUnidad(form: any) {
-    console.log(form)
-
+  insertUnidad(unidad: UnidadesI) {
+    this.api. insertUnidad(unidad).subscribe(() => {
+      console.log('Marca insertada correctamente');
+      Swal.fire({
+        icon: "success",
+        title: "Has ingresado",
+        showConfirmButton: false,
+        timer: 1000
+      });
+      this.getUnidad()
+    },(error) => {
+      console.error('Error al insertar la marca:', error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Usuario o contraseña incorrecto",
+        footer: '<a href="">Intenta nuevamente</a>'
+      });
+    } );
   }
+
   salir(){
     this.router.navigate(['home'])
   }

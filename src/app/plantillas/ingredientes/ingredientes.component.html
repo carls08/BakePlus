@@ -14,7 +14,7 @@
               <div class="col-md-6 col-lg-7 d-flex align-items-center">
                 <div class="card-body p-4 p-lg-5 text-black">
   
-                  <form [formGroup]="nuevoIngredientes" (ngSubmit)="postIngrediente(nuevoIngredientes.value)">
+                  <form [formGroup]="nuevoIngredientes" (ngSubmit)="insertIngrediente(nuevoIngredientes.value)">
                     <!---Logo-->
                     <div class="text-center">
                       <img src="assets/ingredientes.png" alt="login-icon" height="120" width="120" class="img-fluid"

@@ -6,6 +6,8 @@ import { RolesI } from 'src/app/models/roles.interfaces';
 import { ApiService } from 'src/app/services/api/api.service';
 import Swal from 'sweetalert2';
 import { TipoDocI } from 'src/app/models/tipoDocument.interface';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { EditarItemModalComponent } from '../editar-item-modal/editar-item-modal.component';
 
 @Component({
   selector: 'app-registro',
@@ -14,6 +16,7 @@ import { TipoDocI } from 'src/app/models/tipoDocument.interface';
 })
 export class RegistroComponent {
   nuevoForm: FormGroup;
+  usuario: any=[];
   roles: RolesI[] = [];
   tipoDocs: TipoDocI[] = [];
   nombreClicked: boolean = false;
@@ -25,8 +28,10 @@ export class RegistroComponent {
   emailClicked: boolean = false;
   tipoDocClicked: boolean = false;
   rolClicked: boolean = false;
+  currentPage: number = 1;
+  pageSize: number = 10; // Tamaño de la página
   
-  constructor(private fb: FormBuilder, private api: ApiService, private router: Router) {
+  constructor(private fb: FormBuilder, private api: ApiService, private router: Router,private modalServiceNgb: NgbModal) {
     this.nuevoForm = this.fb.group({
       id_tipo_documento: ['', Validators.required],
       id_rol: ['', Validators.required],
@@ -43,8 +48,15 @@ export class RegistroComponent {
   ngOnInit(): void {
     this.getRoles()
     this.getTipoDoc()
+    this.getUsuarios()
 
 
+  }
+  getUsuarios() {
+    this.api.getAllUsuarios().subscribe(data => {
+      console.log(data)
+      this.usuario = data;
+    })
   }
   postForm(form: RegistroI) {
     console.log(form);
@@ -246,6 +258,61 @@ validateNombre() {
   isFormValid(): boolean {
     return this.nuevoForm.valid; // Retorna true si el formulario es válido, de lo contrario retorna false
   }
+
+  getCurrentPageItems(): RegistroI[] {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    return this.usuario.slice(startIndex, endIndex);
+  }
+  getPages(): number[] {
+    const totalPages = this.getTotalPages();
+    return Array.from({ length: totalPages }, (_, index) => index + 1);
+  }
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.getTotalPages()) {
+      this.currentPage = page;
+    }
+  }
+
+  nextPage() {
+    if (this.currentPage < this.getTotalPages()) {
+      this.currentPage++;
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  getTotalPages(): number {
+    return Math.ceil(this.usuario.length / this.pageSize);
+  }
+  abrirModalParaEditarItem(usuario: RegistroI) {
+    const modalRef = this.modalServiceNgb.open(EditarItemModalComponent);
+    modalRef.componentInstance.item = usuario;
+
+    modalRef.result.then((result: RegistroI) => {
+      if (result) {
+        // Si se recibe un resultado (objeto modificado), puedes realizar las acciones necesarias aquí
+        console.log('Objeto modificado:', result);
+        // Por ejemplo, aquí puedes enviar los datos modificados a la API
+        this.api.updateUsuarios(result).subscribe(() => {
+          console.log('Receta actualizada correctamente');
+        }, (error) => {
+          console.error('Error al actualizar la receta:', error);
+        });
+      } else {
+        // Si no se recibe un resultado (se cerró el modal sin cambios), puedes manejarlo aquí
+        console.log('Se cerró el modal sin cambios');
+      }
+    }).catch((error) => {
+      console.error('Error al cerrar el modal:', error);
+    });
+
+  }
+
 
 }
 

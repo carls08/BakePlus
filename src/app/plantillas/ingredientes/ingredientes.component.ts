@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ingredientesI } from 'src/app/models/ingrediente.interface';
 import { ApiService } from 'src/app/services/api/api.service';
 import { ModalService } from 'src/app/services/modal.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-ingredientes',
@@ -25,13 +26,33 @@ export class IngredientesComponent {
 
   }
   ngOnInit(): void {
-    this.api.getAllIngredientes().subscribe(data => {
-      console.log(data);
-      this.ingredientes=data;
-    })
+    this.getIngrediente()
   }
-  postIngrediente(form: any) {
-    console.log(form)
+ getIngrediente() {
+  this.api.getAllIngredientes().subscribe(data => {
+    console.log(data);
+    this.ingredientes=data;
+  })
+  }
+  insertIngrediente(ingrediente: ingredientesI) {
+    this.api. insertIngrediente(ingrediente).subscribe(() => {
+      console.log('Marca insertada correctamente');
+      Swal.fire({
+        icon: "success",
+        title: "Has ingresado",
+        showConfirmButton: false,
+        timer: 1000
+      });
+      this.getIngrediente()
+    },(error) => {
+      console.error('Error al insertar la marca:', error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Usuario o contraseña incorrecto",
+        footer: '<a href="">Intenta nuevamente</a>'
+      });
+    } );
   }
   salir(){
     this.router.navigate(['home'])

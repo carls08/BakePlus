@@ -1,5 +1,5 @@
 export interface UnidadesI{
-    abreviatura:string;
-    id:string;
-    nombre:string;
+    nombre_abreviatura:string;
+    id_unidad:string;
+    nombre_unidad:string;
 }

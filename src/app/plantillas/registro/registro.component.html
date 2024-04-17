@@ -1,133 +1,225 @@
-<section class="vh-100 background">
-  <div class="container py-5 h-100">
-    <br>
-    <div class="row d-flex justify-content-center align-items-center h-100 prueba">
-      <div class="col col-xl-10">
-        <div class="card" style="border-radius: 1rem;">
-          <div class="row g-0">
-            <div class="col-md-5 col-lg-5 d-none d-md-block">
-              <img src="assets/registro.jpg" alt="reform" class="img-fluid"
-                style="border-radius: 1rem 0 0 1rem; height: 100%;" />
-            </div>
-            <div class="col-md-6 col-lg-7 d-flex align-items-center">
-              <div class="card-body p-4 p-lg-5 text-black">
-                <form [formGroup]="nuevoForm" (ngSubmit)="postForm(nuevoForm.value)">
-                  <!---Logo-->
-                  <div class="text-center">
-                    <img src="assets/register.png" alt="login-icon" height="120" width="120" class="img-fluid"
-                      style="max-width: 210px;">
-                  </div>
-                  <br><br>
-                  <h5 class="text-center fs-1 fw-bold" style="letter-spacing: 1px;">Registro de usuario:</h5>
-
-                  <div class="row">
-                    <div class="col-md-6">
-                      <!---TipoDoc-->
-                      <div class="form-outline mb-4" [ngClass]="{ 'has-error': validaTipoDoc() }">
-                        <select formControlName="id_tipo_documento" class="form-select form-select-lg"
-                          [ngClass]="{ 'is-invalid': validaTipoDoc() }" (click)="onTipoDocClicked()">
-                          <option value="">Tipo de documento</option>
-                          <option *ngFor="let tipoDoc of tipoDocs" [value]="tipoDoc.id">{{ tipoDoc.nombre }}</option>
-                        </select>
-                        <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validaTipoDoc()">
-                          <p class="fs-6">{{ validaTipoDoc() }}</p>
+<div class="background">
+  <section class="vh-100 ">
+    <div class="container py-5 h-100">
+      <br>
+      <div class="row d-flex justify-content-center align-items-center h-100 prueba">
+        <div class="col col-xl-10">
+          <div class="card" style="border-radius: 1rem;">
+            <div class="row g-0">
+              <div class="col-md-5 col-lg-5 d-none d-md-block">
+                <img src="assets/registro.jpg" alt="reform" class="img-fluid"
+                  style="border-radius: 1rem 0 0 1rem; height: 100%;" />
+              </div>
+              <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                <div class="card-body p-4 p-lg-5 text-black">
+                  <form [formGroup]="nuevoForm" (ngSubmit)="postForm(nuevoForm.value)">
+                    <!---Logo-->
+                    <div class="text-center">
+                      <img src="assets/register.png" alt="login-icon" height="120" width="120" class="img-fluid"
+                        style="max-width: 210px;">
+                    </div>
+                    <br><br>
+                    <h5 class="text-center fs-1 fw-bold" style="letter-spacing: 1px;">Registro de usuario:</h5>
+  
+                    <div class="row">
+                      <div class="col-md-6">
+                        <!---TipoDoc-->
+                        <div class="form-outline mb-4" [ngClass]="{ 'has-error': validaTipoDoc() }">
+                          <select formControlName="id_tipo_documento" class="form-select form-select-lg"
+                            [ngClass]="{ 'is-invalid': validaTipoDoc() }" (click)="onTipoDocClicked()">
+                            <option value="">Tipo de documento</option>
+                            <option *ngFor="let tipoDoc of tipoDocs" [value]="tipoDoc.id">{{ tipoDoc.nombre }}</option>
+                          </select>
+                          <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validaTipoDoc()">
+                            <p class="fs-6">{{ validaTipoDoc() }}</p>
+                          </div>
+                        </div>
+                        <!---Nombre-->
+                        <div class="form-outline mb-4" [ngClass]="{ 'has-error': validateNombre() }">
+                          <input type="text" type="text" placeholder="Nombre" formControlName="nombre_usuario"
+                            class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateNombre() }"
+                            (click)="onNombreClicked()" />
+                          <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateNombre()">
+                            <p class="fs-6">{{ validateNombre() }}</p>
+                          </div>
+                        </div>
+  
+                        <!---Telefono-->
+                        <div class="form-outline mb-4" [ngClass]="{ 'has-error': validateTel() }">
+                          <input type="number" placeholder="Telefono" formControlName="telefono_usuario"
+                            class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateTel() }"
+                            (click)="onTelClicked()" />
+                          <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateTel()">
+                            <p class="fs-6">{{ validateTel() }}</p>
+                          </div>
+                        </div>
+                        <!---password-->
+                        <div class="form-outline mb-4" [ngClass]="{ 'has-error': validatePassword() }">
+                          <input type="password" placeholder="Contraseña" formControlName="password_usuario"
+                            class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validatePassword() }"
+                            (click)="onPassClicked()" />
+                          <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validatePassword()">
+                            <p class="fs-6">{{ validatePassword() }}</p>
+                          </div>
+                        </div>
+                        <!---Rol-->
+                        <div class="form-outline mb-4" [ngClass]="{ 'has-error': validaRol() }">
+                          <select formControlName="id_rol" class="form-select form-select-lg" [ngClass]="{ 'is-invalid': validaRol() }" (click)="onRolClicked()">
+                            <option value="">Selecciona un rol</option>
+                            <option *ngFor="let rol of roles" [value]="rol.id">{{ rol.nombre }}</option>
+                          </select>
+                          <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validaRol()">
+                            <p class="fs-6">{{ validaRol() }}</p>
+                          </div>
                         </div>
                       </div>
-                      <!---Nombre-->
-                      <div class="form-outline mb-4" [ngClass]="{ 'has-error': validateNombre() }">
-                        <input type="text" type="text" placeholder="Nombre" formControlName="nombre_usuario"
-                          class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateNombre() }"
-                          (click)="onNombreClicked()" />
-                        <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateNombre()">
-                          <p class="fs-6">{{ validateNombre() }}</p>
+                      <div class="col-md-6">
+                        <!---Documento-->
+                        <div class="form-outline mb-4" [ngClass]="{ 'has-error': validateDocument() }">
+                          <input type="number" placeholder="Documento" formControlName="doc_usuario"
+                            class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateDocument() }"
+                            (click)="onDocClicked()" />
+                          <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateDocument()">
+                            <p class="fs-6">{{ validateDocument() }}</p>
+                          </div>
                         </div>
-                      </div>
-
-                      <!---Telefono-->
-                      <div class="form-outline mb-4" [ngClass]="{ 'has-error': validateTel() }">
-                        <input type="number" placeholder="Telefono" formControlName="telefono_usuario"
-                          class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateTel() }"
-                          (click)="onTelClicked()" />
-                        <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateTel()">
-                          <p class="fs-6">{{ validateTel() }}</p>
+  
+                        <!---Apellido-->
+                        <div class="form-outline mb-4" [ngClass]="{ 'has-error': validateApellido() }">
+                          <input type="text" placeholder="Apellido" formControlName="apellido_usuario"
+                            class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateApellido() }"
+                            (click)="onApellidoClicked()" />
+                          <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateApellido()">
+                            <p class="fs-6">{{ validateApellido() }}</p>
+                          </div>
                         </div>
-                      </div>
-                      <!---password-->
-                      <div class="form-outline mb-4" [ngClass]="{ 'has-error': validatePassword() }">
-                        <input type="password" placeholder="Contraseña" formControlName="password_usuario"
-                          class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validatePassword() }"
-                          (click)="onPassClicked()" />
-                        <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validatePassword()">
-                          <p class="fs-6">{{ validatePassword() }}</p>
+  
+                        <!---Email-->
+                        <div class="form-outline mb-4" [ngClass]="{ 'has-error': validateEmail() }">
+                          <input type="text" placeholder="Email" formControlName="email_usuario"
+                            class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateEmail() }" />
+                          <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateEmail()">
+                            <p class="fs-6">Email ingresado no es válido!</p>
+                          </div>
                         </div>
-                      </div>
-                      <!---Rol-->
-                      <div class="form-outline mb-4" [ngClass]="{ 'has-error': validaRol() }">
-                        <select formControlName="id_rol" class="form-select form-select-lg" [ngClass]="{ 'is-invalid': validaRol() }" (click)="onRolClicked()">
-                          <option value="">Selecciona un rol</option>
-                          <option *ngFor="let rol of roles" [value]="rol.id">{{ rol.nombre }}</option>
-                        </select>
-                        <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validaRol()">
-                          <p class="fs-6">{{ validaRol() }}</p>
+  
+                        <!--- confirmar password-->
+                        <div class="form-outline mb-4" [ngClass]="{ 'has-error': validateCPassword() }">
+                          <input type="password" placeholder="Confirmar Contraseña" formControlName="cPassword_usuario"
+                            class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateCPassword() }"
+                            (click)="onCPassClicked()" />
+                          <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateCPassword()">
+                            <p class="fs-6">{{ validateCPassword() }}</p>
+                          </div>
+                        </div>
+                        <!---Registrar-->
+                        <div class="form-outline mb-4">
+                          <button class="text-black btn btn-lg fw-semibold w-100 mt-6 custom-btn" 
+                                  type="submit" 
+                                  [disabled]="!isFormValid()">
+                            Registrar
+                          </button>
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-6">
-                      <!---Documento-->
-                      <div class="form-outline mb-4" [ngClass]="{ 'has-error': validateDocument() }">
-                        <input type="number" placeholder="Documento" formControlName="doc_usuario"
-                          class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateDocument() }"
-                          (click)="onDocClicked()" />
-                        <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateDocument()">
-                          <p class="fs-6">{{ validateDocument() }}</p>
-                        </div>
-                      </div>
-
-                      <!---Apellido-->
-                      <div class="form-outline mb-4" [ngClass]="{ 'has-error': validateApellido() }">
-                        <input type="text" placeholder="Apellido" formControlName="apellido_usuario"
-                          class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateApellido() }"
-                          (click)="onApellidoClicked()" />
-                        <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateApellido()">
-                          <p class="fs-6">{{ validateApellido() }}</p>
-                        </div>
-                      </div>
-
-                      <!---Email-->
-                      <div class="form-outline mb-4" [ngClass]="{ 'has-error': validateEmail() }">
-                        <input type="text" placeholder="Email" formControlName="email_usuario"
-                          class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateEmail() }" />
-                        <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateEmail()">
-                          <p class="fs-6">Email ingresado no es válido!</p>
-                        </div>
-                      </div>
-
-                      <!--- confirmar password-->
-                      <div class="form-outline mb-4" [ngClass]="{ 'has-error': validateCPassword() }">
-                        <input type="password" placeholder="Confirmar Contraseña" formControlName="cPassword_usuario"
-                          class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateCPassword() }"
-                          (click)="onCPassClicked()" />
-                        <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateCPassword()">
-                          <p class="fs-6">{{ validateCPassword() }}</p>
-                        </div>
-                      </div>
-                      <!---Registrar-->
-                      <div class="form-outline mb-4">
-                        <button class="text-black btn btn-lg fw-semibold w-100 mt-6 custom-btn" 
-                                type="submit" 
-                                [disabled]="!isFormValid()">
-                          Registrar
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-
+                  </form>
+  
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </section>
+
+  <div class="container">
+    <div class="row">
+      <div class="table-responsive">
+        <div class="table-wrapper">
+          <div class="table-title">
+            <div class="col-xs-5">
+              <h2>Usuarios <b>Registrados</b></h2>
+            </div>
+            <div>
+              <a href="#" class="btn bg-success text-light">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  class="bi bi-filetype-xls" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd"
+                    d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5zM6.472 15.29a1.2 1.2 0 0 1-.111-.449h.765a.58.58 0 0 0 .254.384q.106.073.25.114.143.041.319.041.246 0 .413-.07a.56.56 0 0 0 .255-.193.5.5 0 0 0 .085-.29.39.39 0 0 0-.153-.326q-.152-.12-.462-.193l-.619-.143a1.7 1.7 0 0 1-.539-.214 1 1 0 0 1-.351-.367 1.1 1.1 0 0 1-.123-.524q0-.366.19-.639.19-.272.527-.422.338-.15.777-.149.457 0 .78.152.324.153.5.41.18.255.2.566h-.75a.56.56 0 0 0-.12-.258.6.6 0 0 0-.247-.181.9.9 0 0 0-.369-.068q-.325 0-.513.152a.47.47 0 0 0-.184.384q0 .18.143.3a1 1 0 0 0 .405.175l.62.143q.326.075.566.211a1 1 0 0 1 .375.358q.135.222.135.56 0 .37-.188.656a1.2 1.2 0 0 1-.539.439q-.351.158-.858.158-.381 0-.665-.09a1.4 1.4 0 0 1-.478-.252 1.1 1.1 0 0 1-.29-.375m-2.945-3.358h-.893L1.81 13.37h-.036l-.832-1.438h-.93l1.227 1.983L0 15.931h.861l.853-1.415h.035l.85 1.415h.908L2.253 13.94zm2.727 3.325H4.557v-3.325h-.79v4h2.487z" />
+                </svg>
+                Exportar Excel</a>
+            </div>
+            <div>
+              <a href="#" class="btn bg-danger text-light">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  class="bi bi-filetype-pdf" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd"
+                    d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5zM1.6 11.85H0v3.999h.791v-1.342h.803q.43 0 .732-.173.305-.175.463-.474a1.4 1.4 0 0 0 .161-.677q0-.375-.158-.677a1.2 1.2 0 0 0-.46-.477q-.3-.18-.732-.179m.545 1.333a.8.8 0 0 1-.085.38.57.57 0 0 1-.238.241.8.8 0 0 1-.375.082H.788V12.48h.66q.327 0 .512.181.185.183.185.522m1.217-1.333v3.999h1.46q.602 0 .998-.237a1.45 1.45 0 0 0 .595-.689q.196-.45.196-1.084 0-.63-.196-1.075a1.43 1.43 0 0 0-.589-.68q-.396-.234-1.005-.234zm.791.645h.563q.371 0 .609.152a.9.9 0 0 1 .354.454q.118.302.118.753a2.3 2.3 0 0 1-.068.592 1.1 1.1 0 0 1-.196.422.8.8 0 0 1-.334.252 1.3 1.3 0 0 1-.483.082h-.563zm3.743 1.763v1.591h-.79V11.85h2.548v.653H7.896v1.117h1.606v.638z" />
+                </svg>
+                Exportar PDF</a>
+            </div>
+          </div>
+          <table class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th>ID_U</th>
+                <th>ID_R</th>
+                <th>ID_D</th>
+                <th>Tipo de Documento</th>
+                <th>Numero de Documento</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Telefono</th>
+                <th>Usuario</th>
+                <th>Rol |</th>
+                <th>Opciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let usuario of getCurrentPageItems()">
+                <td>{{usuario.id_usuario}}</td>
+                <td>{{usuario.id_rol}}</td>
+                <td>{{usuario.id_documento}}</td>
+                <td>{{usuario.tipo_documento}}</td>
+                <td>{{usuario.documento}}</td>
+                <td>{{usuario.nombres}}</td>
+                <td>{{usuario.apellidos}}</td>
+                <td>{{usuario.telefono}}</td>
+                <td>{{usuario.usuario}}</td>
+                <td>{{usuario.rol}}</td>
+                <td><a></a></td>
+                <td>
+                  <a class="edit" title="Editar" (click)="abrirModalParaEditarItem(usuario)"><svg
+                      xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
+                      class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                      <path
+                        d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
+                    </svg></a>
+                  <a  class="delete" title="Eliminar" ><svg xmlns="http://www.w3.org/2000/svg" width="26"
+                      height="26" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                      <path
+                        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
+                    </svg></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="clearfix">
+            <ul class="pagination">
+              <li class="page-item" >
+                <a class="page-link" >Previous</a>
+              </li>
+              <li class="page-item"  >
+                <a class="page-link" ></a>
+              </li>
+              <li class="page-item" >
+                <a class="page-link" >Next</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</section>
+</div>
