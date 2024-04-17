@@ -70,7 +70,7 @@ export class MarcasComponent {
       console.log('Marca eliminada correctamente');
       Swal.fire({
         icon: "success",
-        title: "Has ingresado",
+        title: "Has eliminado",
         showConfirmButton: false,
         timer: 1000
       });
@@ -80,7 +80,7 @@ export class MarcasComponent {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "Usuario o contraseña incorrecto",
+        text: "ERROR",
         footer: '<a href="">Intenta nuevamente</a>'
       });
     });
@@ -148,9 +148,9 @@ export class MarcasComponent {
         console.log('Objeto modificado:', result);
         // Por ejemplo, aquí puedes enviar los datos modificados a la API
         this.api.updateMarcas(result).subscribe(() => {
-          console.log('Receta actualizada correctamente');
+          console.log('Marca actualizada correctamente');
         }, (error) => {
-          console.error('Error al actualizar la receta:', error);
+          console.error('Error al actualizar la marca:', error);
         });
       } else {
         // Si no se recibe un resultado (se cerró el modal sin cambios), puedes manejarlo aquí

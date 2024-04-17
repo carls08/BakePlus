@@ -58,9 +58,9 @@ export class RegistroComponent {
       this.usuario = data;
     })
   }
-  postForm(form: RegistroI) {
+  insertUsuarios(form: RegistroI) {
     console.log(form);
-    this.api.postUsuarios(form).subscribe(data => {
+    this.api.insertUsuarios(form).subscribe(data => {
       console.log(data)
       if (data) {
 
@@ -75,13 +75,35 @@ export class RegistroComponent {
         Swal.fire({
           icon: "error",
           title: "Oops...",
-          text: "Regitro incorrecto",
+          text: "Registro incorrecto",
           footer: '<a href="">Intenta nuevamente</a>'
         });
       }
     })
 
   }
+  deleteUsuario(usuario: RegistroI) {
+    this.api.deleteUsuario(usuario).subscribe(() => {
+      console.log('Usuario Eliminado Correctamente');
+      Swal.fire({
+        icon: "success",
+        title: "¡Eliminado!",
+        showConfirmButton: false,
+        timer: 1000
+      });
+      this.getUsuarios()
+    }, (error) => {
+      console.error('Error al eliminar el usuario:', error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "ERROR",
+        footer: '<a href="">Intenta nuevamente</a>'
+      });
+    });
+
+  }
+
   salir() {
     this.router.navigate(['home'])
   }
@@ -295,6 +317,7 @@ validateNombre() {
 
     modalRef.result.then((result: RegistroI) => {
       if (result) {
+
         // Si se recibe un resultado (objeto modificado), puedes realizar las acciones necesarias aquí
         console.log('Objeto modificado:', result);
         // Por ejemplo, aquí puedes enviar los datos modificados a la API

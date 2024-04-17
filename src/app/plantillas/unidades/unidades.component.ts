@@ -5,6 +5,8 @@ import { UnidadesI } from 'src/app/models/unidades.interface';
 import { ApiService } from 'src/app/services/api/api.service';
 import { ModalService } from 'src/app/services/modal.service';
 import Swal from 'sweetalert2';
+import { EditarItemModalComponent } from '../editar-item-modal/editar-item-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-unidades',
@@ -19,7 +21,7 @@ export class UnidadesComponent {
   currentPage: number = 1;
   pageSize: number = 10; // Tamaño de la página
   unidad_medidaSeleccionada: any;
-  constructor(private fb: FormBuilder, private api: ApiService, private router: Router,private modalService: ModalService) {
+  constructor(private fb: FormBuilder, private api: ApiService, private router: Router,private modalService: ModalService,private modalServiceNgb: NgbModal) {
     this.nuevoUnidad = this.fb.group({
       abreviatura_unidad_medida: ['', Validators.required],
       nombre_unidad_medida: ['', Validators.required]
@@ -40,16 +42,16 @@ export class UnidadesComponent {
   }
   insertUnidad(unidad: UnidadesI) {
     this.api. insertUnidad(unidad).subscribe(() => {
-      console.log('Marca insertada correctamente');
+      console.log('Unidad insertada correctamente');
       Swal.fire({
         icon: "success",
-        title: "Has ingresado",
+        title: "Has insertado",
         showConfirmButton: false,
         timer: 1000
       });
       this.getUnidad()
     },(error) => {
-      console.error('Error al insertar la marca:', error);
+      console.error('Error al insertar la unidad:', error);
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -57,6 +59,27 @@ export class UnidadesComponent {
         footer: '<a href="">Intenta nuevamente</a>'
       });
     } );
+  }
+  deleteUnidad(unidad: UnidadesI) {
+    this.api.deleteUnidad(unidad).subscribe(() => {
+      console.log('Unidad eliminada correctamente');
+      Swal.fire({
+        icon: "success",
+        title: "!Eliminado¡",
+        showConfirmButton: false,
+        timer: 1000
+      });
+      this.getUnidad()
+    }, (error) => {
+      console.error('Error al eliminar la marca:', error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "ERROR",
+        footer: '<a href="">Intenta nuevamente</a>'
+      });
+    });
+
   }
 
   salir(){
@@ -124,9 +147,30 @@ previousPage(){
     this.currentPage--;
   }
 }
-abrirModalParaEditarItem(unidad_medida: any) {
-  this.unidad_medidaSeleccionada = unidad_medida;
-  // Abre el modal aquí, por ejemplo, utilizando el servicio ModalService
-  this.modalService.abrirModalEditar(unidad_medida);
+abrirModalParaEditarItem(unidad: UnidadesI) {
+  const modalRef = this.modalServiceNgb.open(EditarItemModalComponent);
+  modalRef.componentInstance.item = unidad;
+
+  modalRef.result.then((result: UnidadesI) => {
+    if (result) {
+      // Si se recibe un resultado (objeto modificado), puedes realizar las acciones necesarias aquí
+      console.log('Objeto modificado:', result);
+      // Por ejemplo, aquí puedes enviar los datos modificados a la API
+      this.api.updateUnidad(result).subscribe(() => {
+        console.log('Receta actualizada correctamente');
+      }, (error) => {
+        console.error('Error al actualizar la receta:', error);
+      });
+    } else {
+      // Si no se recibe un resultado (se cerró el modal sin cambios), puedes manejarlo aquí
+      console.log('Se cerró el modal sin cambios');
+    }
+  }).catch((error) => {
+    console.error('Error al cerrar el modal:', error);
+  });
+
 }
+
 }
+
+

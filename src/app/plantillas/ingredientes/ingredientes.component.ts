@@ -5,6 +5,8 @@ import { ingredientesI } from 'src/app/models/ingrediente.interface';
 import { ApiService } from 'src/app/services/api/api.service';
 import { ModalService } from 'src/app/services/modal.service';
 import Swal from 'sweetalert2';
+import { EditarItemModalComponent } from '../editar-item-modal/editar-item-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-ingredientes',
@@ -18,7 +20,7 @@ export class IngredientesComponent {
   currentPage: number = 1;
   pageSize: number = 10; // Tamaño de la página
   ingredienteSeleccionada :any;
-  constructor(private fb: FormBuilder, private api: ApiService, private router: Router, private modalService: ModalService) {
+  constructor(private fb: FormBuilder, private api: ApiService, private router: Router, private modalService: ModalService,private modalServiceNgb: NgbModal) {
     this.nuevoIngredientes = this.fb.group({
       ingrediente: ['', Validators.required]
     })
@@ -53,6 +55,27 @@ export class IngredientesComponent {
         footer: '<a href="">Intenta nuevamente</a>'
       });
     } );
+  }
+  deleteIngrediente(ingrediente: ingredientesI) {
+    this.api.deleteIngrediente(ingrediente).subscribe(() => {
+      console.log('Marca eliminada correctamente');
+      Swal.fire({
+        icon: "success",
+        title: "Has ingresado",
+        showConfirmButton: false,
+        timer: 1000
+      });
+      this.getIngrediente()
+    }, (error) => {
+      console.error('Error al eliminar la marca:', error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Usuario o contraseña incorrecto",
+        footer: '<a href="">Intenta nuevamente</a>'
+      });
+    });
+
   }
   salir(){
     this.router.navigate(['home'])
@@ -100,9 +123,30 @@ export class IngredientesComponent {
   getTotalPages(): number {
     return Math.ceil(this.ingredientes.length / this.pageSize);
   }
-  abrirModalParaEditarItem(ingredientes: any) {
-    this.ingredienteSeleccionada = ingredientes;
-    // Abre el modal aquí, por ejemplo, utilizando el servicio ModalService
-    this.modalService.abrirModalEditar(ingredientes);
+  isFormValid(): boolean {
+    return this.nuevoIngredientes.valid; // Retorna true si el formulario es válido, de lo contrario retorna false
+  }
+  abrirModalParaEditarItem(ingrediente: ingredientesI) {
+    const modalRef = this.modalServiceNgb.open(EditarItemModalComponent);
+    modalRef.componentInstance.item = ingrediente;
+  
+    modalRef.result.then((result: ingredientesI) => {
+      if (result) {
+        // Si se recibe un resultado (objeto modificado), puedes realizar las acciones necesarias aquí
+        console.log('Objeto modificado:', result);
+        // Por ejemplo, aquí puedes enviar los datos modificados a la API
+        this.api.updateIngrediente(result).subscribe(() => {
+          console.log('Receta actualizada correctamente');
+        }, (error) => {
+          console.error('Error al actualizar la receta:', error);
+        });
+      } else {
+        // Si no se recibe un resultado (se cerró el modal sin cambios), puedes manejarlo aquí
+        console.log('Se cerró el modal sin cambios');
+      }
+    }).catch((error) => {
+      console.error('Error al cerrar el modal:', error);
+    });
+  
   }
 }

@@ -13,6 +13,7 @@ import { RolesI } from 'src/app/models/roles.interfaces';
 import { TipoDocI } from 'src/app/models/tipoDocument.interface';
 import { RecetaI } from 'src/app/models/receta.interface';
 import { map } from 'rxjs/operators';
+import { IngredientesComponent } from 'src/app/plantillas/ingredientes/ingredientes.component';
 
 @Injectable({
   providedIn: 'root',
@@ -70,9 +71,9 @@ export class ApiService {
     return this.http.get<any>(direccion, { headers }).pipe(
       map((response) =>
         response.success.data.map((unidad: any) => ({
-          id_unidad: unidad.id_unidad.toString(),
-          nombre_abreviatura: unidad.nombre_abreviatura,
-          nombre_unidad:unidad.nombre_unidad
+          id_unidad_medida: unidad.id_unidad_medida,
+          abreviatura_unidad_medida: unidad.abreviatura_unidad_medida,
+          nombre_unidad_medida:unidad.nombre_unidad_medida
         }))
       )
     );
@@ -83,18 +84,19 @@ export class ApiService {
     return this.http.get<any>(direccion, { headers }).pipe(
       map((response) =>
         response.success.data.map((usuario: any) => ({
-          id_usuario: usuario.id_usuario.toString(),
-          id_rol : usuario.id_rol.toString(),
-          id_documento: usuario.id_documento.toString(),
+          id_usuario:usuario.id_usuario,
+          id_rol : usuario.id_rol,
+          id_tipo_documento: usuario.id_tipo_documento,
           tipo_documento: usuario.tipo_documento,
-          documento:usuario.documento,
-          contraseña: usuario.contraseña,
-          nombres: usuario.nombres,
-          apellidos: usuario.apellidos,
-          telefono: usuario.telefono,
-          usuario: usuario.usuario,
-          rol: usuario.rol,
-
+          doc_usuario:usuario.doc_usuario,
+          password_usuario: usuario.password_usuario,
+          nombre_usuario: usuario.nombre_usuario,
+          apellido_usuario: usuario.apellido_usuario,
+          telefono_usuario: usuario.telefono_usuario,
+          email_usuario: usuario.email_usuario,
+          nombre_tipo_documento:usuario.nombre_tipo_documento,
+          nombre_rol:usuario.nombre_rol
+        
 
         
         }))
@@ -107,22 +109,6 @@ export class ApiService {
     const direccion = `${this.url}/marcas/insert`;
     return this.http.post<any>(direccion, marca, { headers });
   }
-  updateMarcas(marca: marcasI): Observable<any> {
-    const headers = this.createHeaders();
-    const direccion = `${this.url}marcas/update`;
-    return this.http.put<any>(direccion, marca, { headers });
-  }
-  updateUsuarios(usuario: RegistroI):Observable<any> {
-    const headers = this.createHeaders();
-    const direccion = `${this.url}usuarios/update`;
-    return this.http.put<any>(direccion, usuario, { headers });
-  }
-
-  deleteMarca(marca: marcasI): Observable<any> {
-    const headers = this.createHeaders();
-    const direccion = `${this.url}/marcas/delete`;
-    return this.http.delete<any>(direccion, { headers, body: marca });
-  }
   insertUnidad(unidad: UnidadesI): Observable<any> {
     const headers = this.createHeaders();
     const direccion = `${this.url}unidades_medidas/insert`;
@@ -133,13 +119,64 @@ export class ApiService {
     const direccion = `${this.url}ingredientes/insert`;
     return this.http.post<any>(direccion, ingrediente, { headers });
   }
-
-  
-  postUsuarios(form: RegistroI): Observable<RegistroI> {
+  insertUsuarios(usuario: RegistroI): Observable<RegistroI> {
     const headers = this.createHeaders();
-    const direccion = this.url + '/usuarios/insert';
-    return this.http.post<RegistroI>(direccion, form, { headers });
+    const direccion = this.url + 'usuarios/insert';
+    return this.http.post<RegistroI>(direccion, usuario, { headers });
   }
+
+
+
+
+  updateMarcas(marca: marcasI): Observable<any> {
+    const headers = this.createHeaders();
+    const direccion = `${this.url}marcas/update`;
+    return this.http.put<any>(direccion, marca, { headers });
+  }
+  updateUsuarios(usuario: RegistroI):Observable<any> {
+    const headers = this.createHeaders();
+    const direccion = `${this.url}usuarios/update`;
+    return this.http.put<any>(direccion, usuario, { headers });
+  }
+  updateUnidad(unidad: UnidadesI): Observable<any> {
+    const headers = this.createHeaders();
+    const direccion = `${this.url}unidades_medidas/update`;
+    return this.http.put<any>(direccion, unidad, { headers });
+  }
+  updateIngrediente(ingrediente:ingredientesI): Observable<any>{
+    const headers= this.createHeaders();
+    const direccion =`${this.url}ingredientes/update`;
+    return this.http.put<any>(direccion, ingrediente, { headers });
+  }
+
+
+
+
+  deleteMarca(marca: marcasI): Observable<any> {
+    const headers = this.createHeaders();
+    const direccion = `${this.url}/marcas/delete`;
+    return this.http.delete<any>(direccion, { headers, body: marca });
+  }
+  deleteUnidad(unidad: UnidadesI): Observable<any> {
+    const headers = this.createHeaders();
+    const direccion = `${this.url}/unidades_medidas/delete`;
+    return this.http.delete<any>(direccion, { headers, body: unidad });
+  }
+  deleteIngrediente(ingrediente:ingredientesI):Observable<any>{
+    const headers=this.createHeaders();
+    const direccion=`${this.url}ingredientes/delete`;
+    return this.http.delete<any>(direccion, { headers, body: ingrediente });
+  }
+  deleteUsuario(usuario:RegistroI):Observable<any>{
+    const headers=this.createHeaders();
+    const direccion=`${this.url}usuarios/delete`;
+    return this.http.delete<any>(direccion, { headers, body: usuario });
+  }
+ 
+  
+
+
+
   getAllReceta() {
     let direccion = this.url + 'recetas/getAll';
     return this.http.get<ingredientesI>(direccion);
