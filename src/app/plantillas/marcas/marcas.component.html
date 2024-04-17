@@ -81,13 +81,18 @@
               <tr>
                 <th>#</th>
                 <th>Nombre</th>
+                <th>Estado</th>
                 <th>Opciones</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let marca of getCurrentPageItems()">
-                <td>{{ marca.id_marca }}</td>
+              <tr *ngFor="let marca of getCurrentPageItems() ; let i = index">
+                <td>{{ i + 1 }}</td>
                 <td><a>{{ marca.nombre_marca }}</a></td>
+                <td>
+                  <span *ngIf="marca.estado_rg === 1" class="punto-verde"></span>
+                  <span *ngIf="marca.estado_rg === 0" class="punto-rojo"></span>
+                </td>
                 <td>
                   <a class="edit" title="Editar" (click)="abrirModalParaEditarItem(marca)"><svg
                       xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"

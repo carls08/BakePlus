@@ -13,50 +13,56 @@
           class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse justify-content-center" id="navbarResponsive">
+        <!-- inicio -->
         <ul class="navbar-nav mr-auto ">
           <li class="nav-item active">
             <a class="nav-link" type="button" (click)="home()">Inicio</a>
           </li>
         </ul>
-
+        <!-- novedades -->
         <ul class="navbar-nav mr-auto ">
           <li class="nav-item active">
             <a class="nav-link" href="#">Novedades</a>
           </li>
         </ul>
-
+        <!--Menu-->
         <div ngbDropdown class="d-inline-block" *ngIf="isAuthenticated">
+          <!--registros-->
+          <div ngbDropdown class="d-inline-block">
           <button type="button" class="btn text-white" id="dropdownBasic1" ngbDropdownToggle>
             Registros
           </button>
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-            <button ngbDropdownItem (click)="registro()">Usuarios</button>
-            <button ngbDropdownItem (click)="marcas()">Marcas</button>
-            <button ngbDropdownItem (click)="unidades()">Unidades</button>
-            <button ngbDropdownItem>Roles</button>
-            <button ngbDropdownItem (click)="ingredientes()">Ingredientes</button>
+            <button ngbDropdownItem *ngIf="permisoListUser()" (click)="registro()">Usuarios</button>
+            <button ngbDropdownItem *ngIf="permisoListBrand()"(click)="marcas()">Marcas</button>
+            <button ngbDropdownItem *ngIf="permisoListMeasureUnits()"(click)="unidades()">Unidades</button>
+            <button ngbDropdownItem *ngIf="permisoListRol()">Roles</button>
+            <button ngbDropdownItem *ngIf="permisoListIngredient()" (click)="ingredientes()">Ingredientes</button>
           </div>
+          </div>
+           <!--produccion-->
           <div ngbDropdown class="d-inline-block">
             <button type="button" class="btn text-white" id="dropdownBasic1" ngbDropdownToggle>
               Produccion
             </button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              <button ngbDropdownItem>Agregar Producto</button>
-              <button ngbDropdownItem (click)="formularioReceta()">
-                Agregar Receta
+              <button ngbDropdownItem *ngIf="permisoListProduct()">Productos</button>
+              <button ngbDropdownItem *ngIf="permisoAddRecipe()" (click)="formularioReceta()">
+                Recetas
               </button>
-              <button ngbDropdownItem>Agregar Produccion</button>
-              <button ngbDropdownItem (click)="receta()">Ver Recetas</button>
-              <button ngbDropdownItem (click)="estadisticas()">Ver estadisticas</button>
+              <button ngbDropdownItem *ngIf="permisoListProduction()">Producciones</button>
+              <button ngbDropdownItem *ngIf="permisoListRecipe() || permisoAddRecipe()" (click)="receta()">Recetas</button>
+              <button ngbDropdownItem *ngIf="permisolistStatistics()" (click)="estadisticas()">Ver estadisticas</button>
             </div>
           </div>
+           <!--produccion-->
           <div ngbDropdown class="d-inline-block">
             <button type="button" class="btn text-white" id="dropdownBasic1" ngbDropdownToggle>
               Ventas
             </button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              <button ngbDropdownItem>Agregar Venta</button>
-              <button ngbDropdownItem>Ver Ventas</button>
+              <button ngbDropdownItem *ngIf="permisoAddSale()">Agregar Venta</button>
+              <button ngbDropdownItem *ngIf="permisoListSale()">Ver Ventas</button>
             </div>
           </div>
         </div>
@@ -74,9 +80,11 @@
     <div class="row" *ngIf="isAuthenticated">
       <div ngbDropdown class="d-inline-block">
         <button type="button" class="btn text-white" id="dropdownBasic1" ngbDropdownToggle>
-          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-circle"
+            viewBox="0 0 16 16">
+            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+            <path fill-rule="evenodd"
+              d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
           </svg>
           <br> {{ loggedInUsername }}
         </button>
@@ -88,8 +96,10 @@
     <div class="row" *ngIf="!isAuthenticated">
       <button class="btn text-white nav-link" id="dropdownBasic1" (click)="login()">
         Iniciar sesion
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
-          <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+          class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+          <path
+            d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
         </svg>
       </button>
     </div>

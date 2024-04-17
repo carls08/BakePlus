@@ -47,6 +47,7 @@ export class ApiService {
         response.success.data.map((marca: any) => ({
           id_marca: marca.id_marca.toString(),
           nombre_marca: marca.nombre_marca,
+          estado_rg: marca.estado_rg
         }))
       )
     );

@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+import { permisosI } from '../models/permisos.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor() {}
+  constructor() { }
 
   isAuthenticated(): boolean {
     // Verifica si el token está presente y no ha expirado
@@ -19,5 +20,19 @@ export class AuthService {
   }
   getLoggedInUsername(): string | null {
     return localStorage.getItem('nombre_usuario');
+  }
+  getPermisosUsuario(): permisosI[] | null {
+    const permisosJSON = localStorage.getItem('permisos_usuario');
+
+    if (permisosJSON) {
+      // Si hay datos, parsearlos de JSON a un array de permisos
+      const permisos: permisosI[] = JSON.parse(permisosJSON);
+
+      // Devolver el array de permisos
+      return permisos;
+    } else {
+      // Si no hay datos, devolver null
+      return null;
+    }
   }
 }
