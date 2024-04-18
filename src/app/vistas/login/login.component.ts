@@ -41,18 +41,17 @@ export class LoginComponent {
   }
 
   onLogin(form: LoginI) {
-    console.log(form)
     this.api.loginByEmail(form).subscribe(data => {
       let dataResponse: ResponseI = data;
       if (dataResponse) {
         localStorage.setItem("token", dataResponse.token);
         localStorage.setItem("nombre_usuario", dataResponse.nombre_usuario);
         const jsonMiArray: string = JSON.stringify(dataResponse.permissions);
-        localStorage.setItem("permisos_usuarios", jsonMiArray);
-
+        localStorage.setItem("permisos_usuario", jsonMiArray);
         this.router.navigate(['home'])
         this.getAllInngredientes()
         this.getAllUnidades()
+
         Swal.fire({
           icon: "success",
           title: "Has ingresado",

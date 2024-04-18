@@ -37,7 +37,7 @@
             <button ngbDropdownItem *ngIf="permisoListBrand()"(click)="marcas()">Marcas</button>
             <button ngbDropdownItem *ngIf="permisoListMeasureUnits()"(click)="unidades()">Unidades</button>
             <button ngbDropdownItem *ngIf="permisoListRol()">Roles</button>
-            <button ngbDropdownItem  (click)="ingredientes()">Ingredientes</button>
+            <button ngbDropdownItem  *ngIf="permisoListIngredient()" (click)="ingredientes()">Ingredientes</button>
           </div>
           </div>
            <!--produccion-->

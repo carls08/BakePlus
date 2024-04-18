@@ -23,11 +23,9 @@ export class AuthService {
   }
   getPermisosUsuario(): permisosI[] | null {
     const permisosJSON = localStorage.getItem('permisos_usuario');
-
     if (permisosJSON) {
       // Si hay datos, parsearlos de JSON a un array de permisos
       const permisos: permisosI[] = JSON.parse(permisosJSON);
-
       // Devolver el array de permisos
       return permisos;
     } else {
