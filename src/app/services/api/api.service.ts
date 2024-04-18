@@ -58,10 +58,13 @@ export class ApiService {
     return this.http.get<any>(direccion, { headers }).pipe(
       map((response) =>
         response.success.data.map((ingrediente: any) => ({
-          id_ingrediente: ingrediente.id_ingrediente.toString(),
+          id_ingrediente: ingrediente.id_ingrediente,
           nombre_ingrediente: ingrediente.nombre_ingrediente,
-          fecha_vencimiento_ingrediente:
-            ingrediente.fecha_vencimiento_ingrediente,
+          id_marca:ingrediente.id_marca,
+          nombre_marca: ingrediente.nombre_marca,
+          fecha_compra_ingrediente:ingrediente.fecha_compra_ingrediente,
+          fecha_vencimiento_ingrediente:ingrediente.fecha_vencimiento_ingrediente,
+          estado_rg:ingrediente.estado_rg
         }))
       )
     );
