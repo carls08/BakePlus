@@ -65,16 +65,23 @@ export class MarcasComponent {
     });
   }
 
-  deleteMarca(marca: marcasI) {
-    this.api.deleteMarca(marca).subscribe(() => {
+  desactivarMarca(marca: marcasI) {
+    // Crear un nuevo objeto marca con el cambio en estado_rg
+    const marcaActualizada: marcasI = {
+      ...marca, // Copia todos los atributos de la marca original
+      estado_rg: 0 // Cambia el estado_rg al valor deseado
+    };
+  
+    // Llamar a la API con la marca actualizada
+    this.api.deleteMarca(marcaActualizada).subscribe(() => {
       console.log('Marca eliminada correctamente');
       Swal.fire({
         icon: "success",
-        title: "Has eliminado",
+        title: "Realizado!",
         showConfirmButton: false,
         timer: 1000
       });
-      this.getMarcas()
+      this.getMarcas(); // Actualizar la lista de marcas después de eliminar
     }, (error) => {
       console.error('Error al eliminar la marca:', error);
       Swal.fire({
@@ -84,7 +91,33 @@ export class MarcasComponent {
         footer: '<a href="">Intenta nuevamente</a>'
       });
     });
-
+  }
+  activarMarca(marca: marcasI) {
+    // Crear un nuevo objeto marca con el cambio en estado_rg
+    const marcaActualizada: marcasI = {
+      ...marca, // Copia todos los atributos de la marca original
+      estado_rg: 1 // Cambia el estado_rg al valor deseado
+    };
+  
+    // Llamar a la API con la marca actualizada
+    this.api.deleteMarca(marcaActualizada).subscribe(() => {
+      console.log('Marca eliminada correctamente');
+      Swal.fire({
+        icon: "success",
+        title: "Realizado!",
+        showConfirmButton: false,
+        timer: 1000
+      });
+      this.getMarcas(); // Actualizar la lista de marcas después de eliminar
+    }, (error) => {
+      console.error('Error al eliminar la marca:', error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "ERROR",
+        footer: '<a href="">Intenta nuevamente</a>'
+      });
+    });
   }
   getCurrentRowNumber(index: number): number {
     return (this.currentPage - 1) * this.pageSize + index + 1;
