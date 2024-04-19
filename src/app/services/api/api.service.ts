@@ -150,10 +150,18 @@ export class ApiService {
   }
   getAllProduccion():Observable<produccionI[]>{
     const headers=this.createHeaders();
-    let direccion = this.url + '';
+    let direccion = this.url + 'producciones/getAll';
     return this.http.get<any>(direccion, { headers }).pipe(
       map((response) =>
         response.success.data.map((produccion: any) => ({
+          id_produccion:produccion.id_produccion,
+          id_producto:produccion.id_producto,
+          id_usuario:produccion.id_usuario,
+          nombre_usuario:produccion.nombre_usuario,
+          nombre_produccion:produccion.nombre_produccion,
+          cantidad_producto:produccion.cantidad_producto,
+          fecha_produccion:produccion.fecha_produccion,
+          estado_rg:produccion.estado_rg
          
           
         
@@ -189,7 +197,7 @@ export class ApiService {
  }
  insertProduccion(produccion:produccionI):Observable<produccionI>{
   const headers = this.createHeaders();
-    const direccion = this.url + '';
+    const direccion = this.url + 'producciones/insert';
   return this.http.post<any>(direccion, produccion, { headers });
  }
 
@@ -228,7 +236,7 @@ export class ApiService {
   }
   updateProduccion(produccion:produccionI): Observable<any>{
     const headers= this.createHeaders();
-    const direccion =`${this.url}`;
+    const direccion =`${this.url}producciones/update`;
     return this.http.put<any>(direccion, produccion, { headers });
   }
 
@@ -262,7 +270,7 @@ export class ApiService {
   }
   deleteProduccion(produccion:produccionI):Observable<any>{
     const headers=this.createHeaders();
-    const direccion=`${this.url}`;
+    const direccion=`${this.url}producciones/delete`;
     return this.http.delete<any>(direccion, { headers, body: produccion });
   }
  

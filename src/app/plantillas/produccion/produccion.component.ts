@@ -9,6 +9,7 @@ import { produccionI } from 'src/app/models/produccion.interface';
 import { productosI } from 'src/app/models/productos.interface';
 import { AuthService } from 'src/app/services/auth.service';
 import { permisosI } from 'src/app/models/permisos.interface';
+import { RegistroI } from 'src/app/models/registro.interface';
 
 @Component({
   selector: 'app-produccion',
@@ -19,6 +20,7 @@ export class ProduccionComponent {
   nuevoFormProduccion:FormGroup;
   produccion:any=[];
   producto: productosI[] = [];
+  usuarios: RegistroI[]=[];
   currentPage: number = 1;
   pageSize: number = 10; // Tamaño de la página
   isAuthenticated: boolean = false;
@@ -26,10 +28,10 @@ export class ProduccionComponent {
   permisos: permisosI[] | null = [];
   constructor(private fb: FormBuilder, private api: ApiService, private router: Router,private modalServiceNgb: NgbModal,private authService: AuthService) {
     this.nuevoFormProduccion = this.fb.group({
-    
+    id_usuario:['',Validators.required],
       id_producto:['',Validators.required],
       cantidad_produccion:['',Validators.required],
-      fecha:['',Validators.required]
+      fecha_produccion:['',Validators.required]
      
     });
 
@@ -37,7 +39,8 @@ export class ProduccionComponent {
 
   ngOnInit():void{
     this.getProduccion();
-    
+    this.getProducto();
+    this.getUsuario();
     
       }
 
@@ -60,7 +63,22 @@ export class ProduccionComponent {
       error:(error) =>{
         console.error("Error al obtener los productos", error)
       }
-    });
+    }); 
+  }
+  getUsuario(){
+    this.api.getAllUsuarios().subscribe({
+      next:(data:RegistroI[])=>{
+        this.usuarios = data;
+        if(Array.isArray(data)){
+          this.usuarios = data;
+        }else{
+          this.usuarios = data;
+        }
+      },
+      error:(error) =>{
+        console.error("Error al obtener los usuarios", error)
+      }
+    }); 
   }
   
   insertProduccion(produccion: produccionI) {

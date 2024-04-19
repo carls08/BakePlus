@@ -23,6 +23,16 @@
     
                       <div class="row">
                         <div class="col-md-10">
+                            <div class="form-outline mb-4" >
+                                <select formControlName="id_usuario" class="form-select form-select-lg"
+                                  >
+                                  <option value="">Seleccione una usuario</option>
+                                  <option  *ngFor="let usuario of usuarios" [value]="usuario.id_usuario" > {{usuario.nombre_usuario}}</option>
+                                </select>
+                                <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" >
+                                  <p class="fs-6"></p>
+                                </div>
+                              </div>
                           <!---Produccion-->
                           <div class="form-outline mb-4" >
                             <select formControlName="id_producto" class="form-select form-select-lg"
@@ -53,7 +63,7 @@
       
                                 <input
                                 class="form-control form-control-lg"
-                                formControlName="fecha"
+                                formControlName="fecha_produccion"
                                   type="date"
                                   name="trip-start"
                                   value="2024-04-17"
@@ -125,26 +135,27 @@
               <tbody>
                 <tr *ngFor="let produccion of getCurrentPageItems(); let i =index">
                   <td>{{getCurrentRowNumber(i)}}</td>
-                  <td>{{produccion}}</td>
-                  <td>{{produccion}}</td>
-                  <td>{{produccion}}</td>
-                  <td>{{produccion}}</td>
+                  <td>{{produccion.nombre_usuario}}</td>
+                  <td>{{produccion.nombre_producto}}</td>
+                  <td>{{produccion.cantidad_produccion}}</td>
+                  <td>{{produccion.fecha_produccion}}</td>
+                 
                   
                   
                   
                   
   
-                  <td><span *ngIf="produccion " class="punto-verde"></span>
-                    <span *ngIf="produccion " class="punto-rojo"></span></td>
+                  <td><span *ngIf="produccion.estado_rg ===1 " class="punto-verde"></span>
+                    <span *ngIf="produccion.estado_rg=== 0 " class="punto-rojo"></span></td>
                     <td>
-                      <a class="edit-a" title="Editar" *ngIf="produccion " (click)="abrirModalParaEditarItem(produccion)"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                      <a class="edit-a" title="Editar" *ngIf="produccion.estado_rg ===1 " (click)="abrirModalParaEditarItem(produccion)"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                         <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                         <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
                       </svg></a>
-                        <a  *ngIf="produccion " class="activar" title="Eliminar" (click)="desactivarProduccion(produccion)"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-toggle-on" viewBox="0 0 16 16">
+                        <a  *ngIf="produccion.estado_rg === 1" class="activar" title="Eliminar" (click)="desactivarProduccion(produccion)"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-toggle-on" viewBox="0 0 16 16">
                           <path d="M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10zm6 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8"/>
                         </svg></a>
-                        <a  *ngIf="produccion " class="desactivar" title="Eliminar" (click)="activarProduccion(produccion)"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-toggle-off" viewBox="0 0 16 16">
+                        <a  *ngIf="produccion.estado_rg === 0 " class="desactivar" title="Eliminar" (click)="activarProduccion(produccion)"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-toggle-off" viewBox="0 0 16 16">
                           <path d="M11 4a4 4 0 0 1 0 8H8a5 5 0 0 0 2-4 5 5 0 0 0-2-4zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8M0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5"/>
                         </svg></a>
                     </td>
