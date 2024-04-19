@@ -46,11 +46,11 @@
               Produccion
             </button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              <button ngbDropdownItem *ngIf="permisoListProduct()">Productos</button>
+              <button ngbDropdownItem *ngIf="permisoListProduct()" (click)="productos()">Productos</button>
               <button ngbDropdownItem *ngIf="permisoAddRecipe()" (click)="formularioReceta()">
                 Recetas
               </button>
-              <button ngbDropdownItem *ngIf="permisoListProduction()">Producciones</button>
+              <button ngbDropdownItem *ngIf="permisoListProduction()" (click)="produccion()">Producciones</button>
               <button ngbDropdownItem *ngIf="permisoListRecipe() || permisoAddRecipe()" (click)="dashboard()">Dashboard ventas</button>
               <button ngbDropdownItem *ngIf="permisolistStatistics()" (click)="estadisticas()">Ver estadisticas</button>
             </div>
