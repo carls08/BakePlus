@@ -22,7 +22,8 @@ import { MarcasComponent } from './plantillas/marcas/marcas.component';
 import { IngredientesComponent } from './plantillas/ingredientes/ingredientes.component';
 import { VentasComponent } from './plantillas/ventas/ventas.component';
 import { EditarItemModalComponent } from './plantillas/editar-item-modal/editar-item-modal.component';
-import { EstadisticasComponent } from './plantillas/estadisticas/estadisticas.component'
+import { EstadisticasComponent } from './plantillas/estadisticas/estadisticas.component';
+import { TableroComponent } from './plantillas/tablero/tablero.component'
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { EstadisticasComponent } from './plantillas/estadisticas/estadisticas.co
     IngredientesComponent,
     VentasComponent,
     EditarItemModalComponent,
-    EstadisticasComponent
+    EstadisticasComponent,
+    TableroComponent
   ],
   imports: [
     BrowserModule,
