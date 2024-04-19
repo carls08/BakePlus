@@ -66,7 +66,7 @@
                         <div class="form-outline mb-4" [ngClass]="{ 'has-error': validaRol() }">
                           <select formControlName="id_rol" class="form-select form-select-lg" [ngClass]="{ 'is-invalid': validaRol() }" (click)="onRolClicked()">
                             <option value="">Selecciona un rol</option>
-                            <option *ngFor="let rol of roles" [value]="rol.id">{{ rol.nombre }}</option>
+                            <option *ngFor="let rol of roles" [value]="rol.id_rol">{{ rol.nombre_rol }}</option>
                           </select>
                           <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validaRol()">
                             <p class="fs-6">{{ validaRol() }}</p>

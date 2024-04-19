@@ -257,18 +257,15 @@ validateNombre() {
   getRoles() {
     this.api.getAllRoles().subscribe({
       next: (data: RolesI[]) => {
+        console.log('Roles antes de terminar:', data);
         this.roles = data;
-        if (Array.isArray(data)) {
-          this.roles = data;
-        } else {
-          this.roles = [data];
-        }
       },
       error: (error) => {
         console.error('Error al obtener roles:', error);
       }
     });
   }
+  
 
   getTipoDoc() {
     this.api.getAllTipoDoc().subscribe({

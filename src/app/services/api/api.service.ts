@@ -169,6 +169,18 @@ export class ApiService {
       )
     );
   }
+  getAllRoles(): Observable<RolesI[]> {
+    const headers = this.createHeaders();
+    const direccion = this.url + 'roles/getAll';
+    return this.http.get<any>(direccion, { headers }).pipe(
+      map((response) =>
+        response.success.data.map((rol: any) => ({
+          id_rol: rol.id_rol,
+          nombre_rol: rol.nombre_rol
+        }))
+      )
+    );
+  }
 
   insertMarca(marca: marcasI): Observable<any> {
     const headers = this.createHeaders();
@@ -283,11 +295,6 @@ export class ApiService {
     return this.http.get<ingredientesI>(direccion);
   }
 
-  getAllRoles(): Observable<RolesI[]> {
-    const headers = this.createHeaders();
-    let direccion = this.url + 'roles/getAll';
-    return this.http.get<RolesI[]>(direccion, { headers });
-  }
   getAllTipoDoc(): Observable<TipoDocI[]> {
     const headers = this.createHeaders();
     let direccion = this.url + 'tipos_documentos/getAll';
