@@ -3,133 +3,145 @@
     <div class="container py-6 h-100 ">
       <br>
       <div class="row d-flex justify-content-center align-items-center h-100 prueba">
-        <div class="col col-xl-7">
+        <div class="col col-xl-10">
           <div class="card" style="border-radius: 1rem;">
             <div class="row g-0">
-              <div class="col-md-5 col-lg-5 d-none d-md-block">
+              <div class="col-md-4 col-lg-4 d-none d-md-block">
                 <img src="assets/r-recetas.jpeg" alt="reform" class="img-fluid"
                   style="border-radius: 1rem 0 0 1rem; height: 100%;" />
               </div>
-              <div class="col-md-6 col-lg-7 d-flex align-items-center">
+              <div class="col-md-8 col-lg-8 d-flex align-items-center">
                 <div class="card-body p-4 p-lg-5 text-black">
-  
-                  <form [formGroup]="nuevoFormReceta" (ngSubmit)="postForm(nuevoFormReceta.value)"
-                >
+
+                  <form [formGroup]="nuevoFormReceta">
                     <!---Logo-->
                     <div class="text-center">
-                      <img src="https://cdn-icons-png.flaticon.com/512/2478/2478542.png" alt="login-icon" height="120" width="120" class="img-fluid"
-                        style="max-width:210px;">
+                      <img src="https://cdn-icons-png.flaticon.com/512/2478/2478542.png" alt="login-icon" height="120"
+                        width="120" class="img-fluid" style="max-width:210px;">
                     </div>
                     <br><br>
                     <h5 class="text-center fs-1 fw-bold" style="letter-spacing: 1px;">Registro de recetas:</h5>
-  
+
                     <div class="row">
-                    
-                      <div class="col-md-10 ">
-                        <!---Recetas-->
-                        <div class="form-outline mb-4">
-                          <input type="text"  placeholder="Nombre de receta"
-          
-                          formControlName="nombre_receta"
-                            class="form-control form-control-lg" />
+                      <!---Nombre-->
+                      <div class="col-md-9">
+                        <div class="form-outline mb-4" [ngClass]="{ 'has-error': validateNombre() }">
+                          <input type="text" placeholder="Nombre" formControlName="nombre_receta"
+                            class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateNombre() }"
+                            (click)="onNombreClicked()"/>
+                            <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateNombre()">
+                              <p class="fs-6">{{ validateNombre() }}</p>
+                            </div>
                         </div>
-                        
+
                       </div>
-                      <div class="col-md-6">
-                        <div class="form-outline mb-4">
-                          <input type="number" placeholder="Cantidad de receta"
-          
-                          formControlName="cantidad_receta"
-                            class="form-control form-control-lg" />
+                      <!---Cantidad-->
+                      <div class="col-md-3">
+                        <div class="form-outline mb-4" [ngClass]="{ 'has-error': validateCantidadReceta() }">
+                          <input type="number" placeholder="Cantidad" formControlName="cantidad_receta"
+                            class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateCantidadReceta() }"
+                            (click)="onCantidadReceClicked()" />
+                            <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateCantidadReceta()">
+                              <p class="fs-6">{{ validateCantidadReceta() }}</p>
+                            </div>
                         </div>
-                        
+                      </div>
+                      <!---Descripcion-->
+                      <div class="col-md-12">
+                        <div class="form-outline mb-4" [ngClass]="{ 'has-error': validateDescripcion() }">
+                          <textarea class="form-control" placeholder="Descripcion de la receta" id="floatingTextarea2"
+                            style="height: 100px" formControlName="descripcion_receta"[ngClass]="{ 'is-invalid': validateDescripcion() }"
+                            (click)="onDescripcionClicked()">
+                            </textarea>
+                            <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateDescripcion()">
+                              <p class="fs-6">{{ validateDescripcion() }}</p>
+                            </div>
+                        </div>
+                      </div>
+                      <h5 class="fw-bold">Ingredientes:</h5>
+                      <!---Cantidad ingrediente -->
+                      <div class="col-md-3">
+                        <div class="form-outline mb-4" [ngClass]="{ 'has-error': validateCantidadIngrediente() }">
+                          <input type="number" placeholder="Cantidad" formControlName="cantidad_ingrediente"
+                            class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateCantidadIngrediente() }"
+                            (click)="onCantidadIngredienteReceClicked()" />
+                            <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateCantidadIngrediente()">
+                              <p class="fs-6">{{ validateCantidadIngrediente() }}</p>
+                            </div>
+                        </div>
+                      </div>
+                      <!-- Medida ingrediente -->
+                      <div class="col-md-3">
                         <div class="form-outline mb-4">
-                          <textarea
-                          class="form-control"
-                          placeholder="Descripcion de la receta"
-                          id="floatingTextarea2"
-                          style="height: 100px"
-                          formControlName="descripcion_receta"
-                        ></textarea>
-                         </div>
+                          <select class="form-select form-control-lg" id="ingrediente"
+                            aria-label="Floating label select example"
+                            (change)="onUnidadMedidaSelected($event.target['value'])">
+                            <option value="" selected disabled>Unidad Medida</option>
+                            <option *ngFor="let unidad of unidades" [ngValue]="unidad">
+                              {{unidad.abreviatura_unidad_medida}}</option>
+                          </select>
+                        </div>
                       </div>
-                 
-                    
-                    <div class="col-md-6">
-                      <div class="">
-                      <div class="form-outline mb-4">
-                      <select [(ngModel)]="valorI"
-                      (change)="onValorI()"
-                      [ngModelOptions]="{standalone: true}"
-                      
-                        class="form-select"
-                        id="ingrediente"
-                        aria-label="Floating label select example"
-                      >
-                        <option selected></option>
-                        <option *ngFor="let ingrediente of recetas" [value]="ingrediente">{{ingrediente}}</option>
-                      </select>
-              
+                      <!-- Nombre ingrediente -->
+                      <div class="col-md-4">
+                        <div class="form-outline mb-4">
+                          <select class="form-select form-control-lg" id="ingrediente"
+                            aria-label="Floating label select example"
+                            (change)="onIngredienteSelected($event.target['value'])">
+                            <option value="" selected disabled>Nombre ingrediente</option>
+                            <option *ngFor="let ingrediente of ingredientes" [ngValue]="ingrediente">
+                              {{ingrediente.nombre_ingrediente}}</option>
+                          </select>
+                        </div>
                       </div>
-                      <div class="form-outline mb-4">
-                        <input [(ngModel)]="valorC"
-                        (change)="onValorC()"
-                        [ngModelOptions]="{standalone: true}"
-                      
-                       class="form-control"
-                        type="number"
-                        id="cantidad"
-                        placeholder="Cantidad de ingrediente"
-                      />
+                      <!-- agregar ingrediente -->
+                      <div class="col-md-2">
+                        <div class="form-outline mb-4">
+                          <button class="text-black btn fw-semibold custom-btn" [disabled]="!camposingredientesCompletos()" (click)="agregarIngrediente()">Agregar</button>
+                        </div>
                       </div>
-              
-                      <div class="form-outline mb-4">
-                        <select [(ngModel)]="valorU"
-                        (change)="onValorU()"
-                        [ngModelOptions]="{standalone: true}"
-                      
-                        class="form-select"
-                        id="unidad"
-                        aria-label="Floating label select example"
-                      >
-                        <option selected>Unidad</option>
-                        <option *ngFor="let unidad of unidades" [value]="unidad.id_unidad_medida"> {{unidad[1]}}</option>
-                      </select>
+                      <!-- Tabla para mostrar los ingredientes -->
+                      <div class="col-md-12">
+                        <div class="table-responsive">
+                          <table class="table">
+                            <thead>
+                              <tr>
+                                <th class="col-md-4">Nombre</th>
+                                <th class="col-md-4">Cantidad</th>
+                                <th class="col-md-4">Unidad de Medida</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <!-- Iterar sobre los ingredientes agregados y mostrarlos en la tabla -->
+                              <tr *ngFor="let ingrediente of tablaIngredientes">
+                                <td>{{ ingrediente.nombre_ingrediente }}</td>
+                                <td>{{ ingrediente.cantidad_ingrediente }}</td>
+                                <td>{{ ingrediente.abreviatura_unidad_medida }}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
                       </div>
-                      <div>
-                        <input type="button"  class="text-black  btn  fw-semibold w-100 mt-4  custom-btn" (click)="agregar()">
+                      <!-- registrar receta -->
+                      <div class="col-md-12">
+                        <div class="form-outline mb-4">
+                          <button class="text-black  btn  fw-semibold w-100 mt-4  custom-btn "
+                            value="registrar" (click)="registrarReceta()">Registrar</button>
+                        </div>
                       </div>
-              
-                      
                     </div>
-                    </div>
-                 <div class="col-md-10">
-                  <div class="form-outline mb-4">
-                    <button class="text-black  btn  fw-semibold w-100 mt-4  custom-btn " type="submit" value="registrar">Registrar</button>
-                  </div>
-                  <div class="form-outline mb-4">
-                    <input
-                type="button"
-                  class="text-black  btn  fw-semibold w-100 mt-4  custom-btn"
-                 value="Salir" (click)="salir()"
-                       />
-                  </div>
-                 </div>
-                    </div>
-                  </form> 
-                  
-                  
+                  </form>
                 </div>
               </div>
             </div>
           </div>
         </div>
-       
+
       </div>
     </div>
   </section>
-   <!--tabla-->
-   <div class="container">
+  <!--tabla-->
+  <div class="container">
     <div class="row">
       <div class="table-responsive">
         <div class="table-wrapper">
@@ -165,7 +177,7 @@
                 <th>Ingredientes</th>
                 <th>Descricion de Receta</th>
                 <th>Opciones</th>
-             
+
               </tr>
             </thead>
             <tbody>
@@ -182,8 +194,8 @@
                       <path
                         d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
                     </svg></a>
-                  <a  class="delete" title="Eliminar"><svg xmlns="http://www.w3.org/2000/svg" width="26"
-                      height="26" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                  <a class="delete" title="Eliminar"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26"
+                      fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
                       <path
                         d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
                     </svg></a>

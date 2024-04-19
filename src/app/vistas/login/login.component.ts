@@ -49,9 +49,6 @@ export class LoginComponent {
         const jsonMiArray: string = JSON.stringify(dataResponse.permissions);
         localStorage.setItem("permisos_usuario", jsonMiArray);
         this.router.navigate(['home'])
-        this.getAllInngredientes()
-        this.getAllUnidades()
-
         Swal.fire({
           icon: "success",
           title: "Has ingresado",
@@ -105,16 +102,5 @@ export class LoginComponent {
     return this.loginForm.valid; // Retorna true si el formulario es válido, de lo contrario retorna false
   }
 
-  getAllInngredientes(){
-    this.api.getAllIngredientes().subscribe(data => {
-      this.ingredientes=data;
-      localStorage.setItem("ingredientes", JSON.stringify(this.ingredientes));
-    })
-  }
-  getAllUnidades(){
-    this.api.getAllUnidades().subscribe(data => {
-      this.unidades=data;
-      localStorage.setItem("unidades", JSON.stringify(this.unidades));
-    })
-  }
+
 }

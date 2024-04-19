@@ -224,10 +224,12 @@ export class ApiService {
   // Recetas
 
 
-  postRecetas(form: any): Observable<any> {
+  postRecetas(nuevaReceta: formularioRecetaI): Observable<any> {
+    const headers = this.createHeaders();
     let direccion = this.url + '/recetas/insert';
-    return this.http.post<formularioRecetaI>(direccion, form);
+    return this.http.post<formularioRecetaI>(direccion, nuevaReceta,{ headers });
   }
+
 
   updateRecetas(form: any): Observable<any> {
     const direccion = `${this.url}/recetas/update`;
