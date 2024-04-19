@@ -87,7 +87,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let marca of getCurrentPageItems() ; let i = index">
-                <td>{{ i + 1 }}</td>
+                <td>{{ getCurrentRowNumber(i) }}</td>
                 <td><a>{{ marca.nombre_marca }}</a></td>
                 <td>
                   <span *ngIf="marca.estado_rg === 1" class="punto-verde"></span>

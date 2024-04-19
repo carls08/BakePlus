@@ -86,7 +86,9 @@ export class MarcasComponent {
     });
 
   }
-
+  getCurrentRowNumber(index: number): number {
+    return (this.currentPage - 1) * this.pageSize + index + 1;
+  }
   salir() {
     this.router.navigate(['home'])
   }

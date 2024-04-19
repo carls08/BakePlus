@@ -1,7 +1,8 @@
 export interface RecetaI{
-   cantidad: string;
-    descripcion: string;
-    id: string;
-    nombre:string;
+   cantidad_receta: string;
+    descripcion_receta: string;
+    id_receta: string;
+    nombre_receta:string;
+    estado_rg:string;
     
 }

@@ -163,9 +163,7 @@
           <table class="table table-striped table-hover">
             <thead>
               <tr>
-                <th>ID_U</th>
-                <th>ID_R</th>
-                <th>ID_D</th>
+                <th>#</th>
                 <th>Tipo de Documento</th>
                 <th>Numero de Documento</th>
                 <th>Nombre</th>
@@ -178,10 +176,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let usuario of getCurrentPageItems()">
-                <td>{{usuario.id_usuario}}</td>
-                <td>{{usuario.id_rol}}</td>
-                <td>{{usuario.id_tipo_documento}}</td>
+              <tr *ngFor="let usuario of getCurrentPageItems();let i =index">
+                <td>{{getCurrentRowNumber(i)}}</td>
                 <td>{{usuario.nombre_tipo_documento}}</td>
                 <td>{{usuario.doc_usuario}}</td>
                 <td>{{usuario.nombre_usuario}}</td>

@@ -13,8 +13,8 @@
               <div class="col-md-6 col-lg-7 d-flex align-items-center">
                 <div class="card-body p-4 p-lg-5 text-black">
   
-                  <form [formGroup]="nuevoFormReceta"
-                  (ngSubmit)="postForm(nuevoFormReceta.value)">
+                  <form [formGroup]="nuevoFormReceta" (ngSubmit)="postForm(nuevoFormReceta.value)"
+                >
                     <!---Logo-->
                     <div class="text-center">
                       <img src="https://cdn-icons-png.flaticon.com/512/2478/2478542.png" alt="login-icon" height="120" width="120" class="img-fluid"
@@ -26,7 +26,7 @@
                     <div class="row">
                     
                       <div class="col-md-10 ">
-                        <!---Marca-->
+                        <!---Recetas-->
                         <div class="form-outline mb-4">
                           <input type="text"  placeholder="Nombre de receta"
           
@@ -61,20 +61,21 @@
                       <select [(ngModel)]="valorI"
                       (change)="onValorI()"
                       [ngModelOptions]="{standalone: true}"
+                      
                         class="form-select"
                         id="ingrediente"
                         aria-label="Floating label select example"
                       >
                         <option selected></option>
-                        <option *ngFor="let ingrediente of ingredientes" [value]="ingrediente">{{ingrediente[1]}}</option>
+                        <option *ngFor="let ingrediente of recetas" [value]="ingrediente">{{ingrediente}}</option>
                       </select>
               
                       </div>
                       <div class="form-outline mb-4">
-                        <input
-                      [(ngModel)]="valorC"
-                      (change)="onValorC()"
-                      [ngModelOptions]="{standalone: true}"
+                        <input [(ngModel)]="valorC"
+                        (change)="onValorC()"
+                        [ngModelOptions]="{standalone: true}"
+                      
                        class="form-control"
                         type="number"
                         id="cantidad"
@@ -83,22 +84,20 @@
                       </div>
               
                       <div class="form-outline mb-4">
-                        <select
-                      [(ngModel)]="valorU"
-                      (change)="onValorU()"
-                      [ngModelOptions]="{standalone: true}"
+                        <select [(ngModel)]="valorU"
+                        (change)="onValorU()"
+                        [ngModelOptions]="{standalone: true}"
+                      
                         class="form-select"
                         id="unidad"
                         aria-label="Floating label select example"
                       >
                         <option selected>Unidad</option>
-                        <option *ngFor="let unidad of unidades" [value]="unidad">{{unidad[1]}}</option>
+                        <option *ngFor="let unidad of unidades" [value]="unidad.id_unidad_medida"> {{unidad[1]}}</option>
                       </select>
                       </div>
                       <div>
-                        <div class="btn color-b text-white fw-semibold shadows-semibold" (click)="agregar()">
-                          Agregar
-                        </div> 
+                        <input type="button"  class="text-black  btn  fw-semibold w-100 mt-4  custom-btn" (click)="agregar()">
                       </div>
               
                       
@@ -165,17 +164,19 @@
                 <th>Cantidad de receta</th>
                 <th>Ingredientes</th>
                 <th>Descricion de Receta</th>
-                <th>Cantidad de Ingrediente</th>
-                <th>Unidades</th>
                 <th>Opciones</th>
+             
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let marca of getCurrentPageItems()">
+              <tr *ngFor="let receta of getCurrentPageItems(); let i =index">
+                <td>{{getCurrentRowNumber(i)}}</td>
+                <td><a>{{receta.nombre_receta}}</a></td>
+                <td><a>{{receta.cantidad_receta}}</a></td>
+                <td><a href="">{{receta.descripcion_receta}}</a></td>
                 <td></td>
-                <td><a></a></td>
                 <td>
-                  <a class="edit" title="Editar" (click)="abrirModalParaEditarItem(marca)"><svg
+                  <a class="edit" title="Editar" (click)="abrirModalParaEditarItem"><svg
                       xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
                       class="bi bi-pencil-fill" viewBox="0 0 16 16">
                       <path

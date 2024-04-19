@@ -77,7 +77,8 @@ export class ApiService {
         response.success.data.map((unidad: any) => ({
           id_unidad_medida: unidad.id_unidad_medida,
           abreviatura_unidad_medida: unidad.abreviatura_unidad_medida,
-          nombre_unidad_medida:unidad.nombre_unidad_medida
+          nombre_unidad_medida:unidad.nombre_unidad_medida,
+          estado_rg:unidad.estado_rg
         }))
       )
     );
@@ -102,6 +103,23 @@ export class ApiService {
           nombre_rol:usuario.nombre_rol
         
 
+        
+        }))
+      )
+    );
+  }
+  getAllRecetas():Observable<RecetaI[]>{
+    const headers=this.createHeaders();
+    let direccion = this.url + 'recetas/getAll';
+    return this.http.get<any>(direccion, { headers }).pipe(
+      map((response) =>
+        response.success.data.map((receta: any) => ({
+          id_receta:receta.id_receta,
+          nombre_receta:receta.nombre_receta,
+          cantidad_receta:receta.cantidad_receta,
+          descripcion_receta:receta.descripcion_receta,
+          estado_rg:receta.estado_rg
+          
         
         }))
       )
@@ -152,6 +170,11 @@ export class ApiService {
     const direccion =`${this.url}ingredientes/update`;
     return this.http.put<any>(direccion, ingrediente, { headers });
   }
+  updateReceta(receta:RecetaI): Observable<any>{
+    const headers= this.createHeaders();
+    const direccion =`${this.url}recetas/update`;
+    return this.http.put<any>(direccion, receta, { headers });
+  }
 
 
 
@@ -198,11 +221,7 @@ export class ApiService {
   }
 
   // Recetas
-  getAllRecetas(): Observable<RecetaI[]> {
-    const headers = this.createHeaders();
-    let direccion = this.url + 'recetas/getAll';
-    return this.http.get<RecetaI[]>(direccion, { headers });
-  }
+
 
   postRecetas(form: any): Observable<any> {
     let direccion = this.url + '/recetas/insert';

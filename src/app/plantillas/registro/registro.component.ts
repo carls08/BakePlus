@@ -107,6 +107,9 @@ export class RegistroComponent {
   salir() {
     this.router.navigate(['home'])
   }
+  getCurrentRowNumber(index: number): number {
+    return (this.currentPage - 1) * this.pageSize + index + 1;
+  }
   // Método para validar el email
   validateEmail() {
     const emailControl = this.nuevoForm.get('email_usuario');
@@ -286,6 +289,7 @@ validateNombre() {
     const endIndex = startIndex + this.pageSize;
     return this.usuario.slice(startIndex, endIndex);
   }
+ 
   getPages(): number[] {
     const totalPages = this.getTotalPages();
     return Array.from({ length: totalPages }, (_, index) => index + 1);

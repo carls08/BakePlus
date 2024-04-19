@@ -125,6 +125,9 @@ const startIndex = (this.currentPage - 1)*this.pageSize;
 const endIndex = startIndex + this.pageSize;
 return this.unidad_medida.slice(startIndex, endIndex);
   }
+  getCurrentRowNumber(index: number): number {
+    return (this.currentPage - 1) * this.pageSize + index + 1;
+  }
   getTotalPages():number{
     return Math.ceil(this.unidad_medida.length/this.pageSize);
   }
