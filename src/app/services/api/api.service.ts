@@ -100,7 +100,8 @@ export class ApiService {
           telefono_usuario: usuario.telefono_usuario,
           email_usuario: usuario.email_usuario,
           nombre_tipo_documento:usuario.nombre_tipo_documento,
-          nombre_rol:usuario.nombre_rol
+          nombre_rol:usuario.nombre_rol,
+          estado_rg:usuario.estado_rg
         
 
         
@@ -184,10 +185,10 @@ export class ApiService {
     const direccion = `${this.url}/marcas/delete`;
     return this.http.delete<any>(direccion, { headers, body: marca });
   }
-  deleteUnidad(unidad: UnidadesI): Observable<any> {
+  deleteUnidad(unidad_medida: UnidadesI): Observable<any> {
     const headers = this.createHeaders();
     const direccion = `${this.url}/unidades_medidas/delete`;
-    return this.http.delete<any>(direccion, { headers, body: unidad });
+    return this.http.delete<any>(direccion, { headers, body: unidad_medida });
   }
   deleteIngrediente(ingrediente:ingredientesI):Observable<any>{
     const headers=this.createHeaders();

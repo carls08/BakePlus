@@ -11,6 +11,7 @@ export interface RegistroI{
     email_usuario: string;
     nombre_tipo_documento:string;
     nombre_rol: string;
+    estado_rg:number;
     
     
    

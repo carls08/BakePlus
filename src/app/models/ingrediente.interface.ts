@@ -4,6 +4,6 @@ export interface ingredientesI{
     nombre_marca:string;
     id_ingrediente:string;
     nombre_ingrediente:string;
-    estado_rg:string;
+    estado_rg:number;
     fecha_compra_ingrediente:string;
 }

@@ -70,40 +70,61 @@ export class IngredientesComponent {
       }
     );
   }
-  deleteIngrediente(ingrediente: ingredientesI) {
-    this.api.deleteIngrediente(ingrediente).subscribe(
-      () => {
-        console.log('Marca eliminada correctamente');
-        Swal.fire({
-          title: '¿Estás seguro?',
-          text: "No podrás revertir esto",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Sí, eliminar',
-        }).then((ingrediente) => {
-          if (ingrediente.isConfirmed) {
-            Swal.fire({
-              title: 'Eliminado!',
-              text: 'El registro ha sido eliminado.',
-              icon: 'success',
-            });
-          }
-        });
-        this.getIngrediente();
-      },
-      (error) => {
-        console.error('Error al eliminar la marca:', error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Usuario o contraseña incorrecto',
-          footer: '<a href="">Intenta nuevamente</a>',
-        });
-      }
-    );
+  desactivarIngrediente(ingrediente: ingredientesI) {
+    // Crear un nuevo objeto ingrediente con el cambio en estado_rg
+    const ingredienteActualizada: ingredientesI = {
+      ...ingrediente, // Copia todos los atributos de la ingrediente original
+      estado_rg: 0 // Cambia el estado_rg al valor deseado
+    };
+  
+    // Llamar a la API con la ingrediente actualizada
+    this.api.deleteIngrediente(ingredienteActualizada).subscribe(() => {
+      console.log('ingrediente eliminada correctamente');
+      Swal.fire({
+        icon: "success",
+        title: "Realizado!",
+        showConfirmButton: false,
+        timer: 1000
+      });
+      this.getIngrediente(); // Actualizar la lista de ingrediente después de eliminar
+    }, (error) => {
+      console.error('Error al eliminar el ingrediente:', error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "ERROR",
+        footer: '<a href="">Intenta nuevamente</a>'
+      });
+    });
   }
+  activarIngrediente(ingrediente: ingredientesI) {
+    // Crear un nuevo objeto ingrediente con el cambio en estado_rg
+    const ingredienteActualizada: ingredientesI = {
+      ...ingrediente, // Copia todos los atributos de la ingrediente original
+      estado_rg: 1 // Cambia el estado_rg al valor deseado
+    };
+  
+    // Llamar a la API con la ingrediente actualizada
+    this.api.deleteIngrediente(ingredienteActualizada).subscribe(() => {
+      console.log('ingrediente eliminada correctamente');
+      Swal.fire({
+        icon: "success",
+        title: "Realizado!",
+        showConfirmButton: false,
+        timer: 1000
+      });
+      this.getIngrediente(); // Actualizar la lista de ingrediente después de eliminar
+    }, (error) => {
+      console.error('Error al eliminar el ingrediente:', error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "ERROR",
+        footer: '<a href="">Intenta nuevamente</a>'
+      });
+    });
+  }
+
 
   salir() {
     this.router.navigate(['home']);

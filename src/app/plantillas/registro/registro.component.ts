@@ -82,16 +82,23 @@ export class RegistroComponent {
     })
 
   }
-  deleteUsuario(usuario: RegistroI) {
-    this.api.deleteUsuario(usuario).subscribe(() => {
-      console.log('Usuario Eliminado Correctamente');
+  desactivarUsuario(usuario: RegistroI) {
+    // Crear un nuevo objeto Uusuario con el cambio en estado_rg
+    const usuarioActualizada: RegistroI = {
+      ...usuario, // Copia todos los atributos de la usuario original
+      estado_rg: 0 // Cambia el estado_rg al valor deseado
+    };
+  
+    // Llamar a la API con la usuario actualizada
+    this.api.deleteUsuario(usuarioActualizada).subscribe(() => {
+      console.log('Usuario eliminada correctamente');
       Swal.fire({
         icon: "success",
-        title: "¡Eliminado!",
+        title: "Realizado!",
         showConfirmButton: false,
         timer: 1000
       });
-      this.getUsuarios()
+      this.getUsuarios(); // Actualizar la lista de Usuarios después de eliminar
     }, (error) => {
       console.error('Error al eliminar el usuario:', error);
       Swal.fire({
@@ -101,7 +108,33 @@ export class RegistroComponent {
         footer: '<a href="">Intenta nuevamente</a>'
       });
     });
-
+  }
+  activarUsuario(usuario: RegistroI) {
+    // Crear un nuevo objeto usuario con el cambio en estado_rg
+    const usuarioActualizada: RegistroI = {
+      ...usuario, // Copia todos los atributos de la usuario original
+      estado_rg: 1 // Cambia el estado_rg al valor deseado
+    };
+  
+    // Llamar a la API con la usuario actualizada
+    this.api.deleteUsuario(usuarioActualizada).subscribe(() => {
+      console.log('usuario eliminada correctamente');
+      Swal.fire({
+        icon: "success",
+        title: "Realizado!",
+        showConfirmButton: false,
+        timer: 1000
+      });
+      this.getUsuarios(); // Actualizar la lista de usuarios después de eliminar
+    }, (error) => {
+      console.error('Error al eliminar el usuario:', error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "ERROR",
+        footer: '<a href="">Intenta nuevamente</a>'
+      });
+    });
   }
 
   salir() {

@@ -1,71 +1,3 @@
-
-.color-b{
-    background-color:#894E3F ;
-}.text-c{
-color: #C37960;
-}
-.color-boton{
-    background-color:#C37960;
-    
-}
-.background {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    background-image: linear-gradient(to bottom, #ffa43a, #f57878, #b66e98, #6e6888, #525558);
-  }
-
-.color-b {
-    background-color: #894E3F;
-}
-
-.text-c {
-    color: #C37960;
-}
-
-.color-boton {
-    background-color: #C37960;
-}
-
-.login {
-    margin: 20px auto;
-}
-
-  .custom-btn {
-    background-color: #ffbf75;
-    transition: background-color 0.3s ease;
-  }
-
-  .custom-btn:hover {
-    background-color: #ffa43a;
-  }
-/* Estilos para los elementos select */
-.form-select-lg {
-
-  padding: 0.5rem; /* Ajusta el padding según sea necesario */
-  font-size: 1.2rem; /* Ajusta el tamaño de la fuente según sea necesario */
-  border-radius: 0.3rem; /* Ajusta el radio de borde según sea necesario */
-  border: 1px solid #ced4da; /* Color del borde */
-  color: #6c757d; /* Color del texto */
-}
-
-/* Estilo para el texto seleccionado en el select */
-.form-select-lg option:checked {
-  color: #6c757d; /* Color del texto seleccionado */
-}
-.prueba{
-  margin-top: 60px;
-}
-
-.has-error input {
-  border-color: red;
-}
-
-.has-error .text-danger {
-  color: red;
-}
-
 .color-b{
   background-color:#894E3F ;}
   .caja {
@@ -189,8 +121,14 @@ color: #2196F3;
 table.table td a.settings {
   color: #2196F3;
 }
-table.table td a.delete {
-  color: #F44336;
+table.table td a.desactivar {
+  color: #ff5b5b;
+}
+table.table td a.activar {
+  color: #10c469;
+}
+table.table td a.edit-a {
+  color: #2196F3;
 }
 table.table td i {
   font-size: 19px;
@@ -260,4 +198,20 @@ line-height: 10px;
   background-color: #ffa43a;
   padding: 15px; /* Ajusta el padding según sea necesario */
   margin-bottom: 20px; /* Ajusta el margen inferior según sea necesario */
+}
+
+.punto-verde {
+  height: 10px;
+  width: 10px;
+  background-color:#10c469;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.punto-rojo {
+  height: 10px;
+  width: 10px;
+  background-color: #ff5b5b;
+  border-radius: 50%;
+  display: inline-block;
 }

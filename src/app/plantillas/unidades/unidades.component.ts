@@ -60,18 +60,25 @@ export class UnidadesComponent {
       });
     } );
   }
-  deleteUnidad(unidad: UnidadesI) {
-    this.api.deleteUnidad(unidad).subscribe(() => {
-      console.log('Unidad eliminada correctamente');
+  desactivarUnidad(unidad: UnidadesI) {
+    // Crear un nuevo objeto Uunidad con el cambio en estado_rg
+    const unidadActualizada: UnidadesI = {
+      ...unidad, // Copia todos los atributos de la unidad original
+      estado_rg: 0 // Cambia el estado_rg al valor deseado
+    };
+  
+    // Llamar a la API con la unidad actualizada
+    this.api.deleteUnidad(unidadActualizada).subscribe(() => {
+      console.log('unidad eliminada correctamente');
       Swal.fire({
         icon: "success",
-        title: "!Eliminado¡",
+        title: "Realizado!",
         showConfirmButton: false,
         timer: 1000
       });
-      this.getUnidad()
+      this.getUnidad(); // Actualizar la lista de unidad después de eliminar
     }, (error) => {
-      console.error('Error al eliminar la marca:', error);
+      console.error('Error al eliminar el unidad:', error);
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -79,11 +86,40 @@ export class UnidadesComponent {
         footer: '<a href="">Intenta nuevamente</a>'
       });
     });
-
+  }
+  activarUnidad(unidad_medida: UnidadesI) {
+    // Crear un nuevo objeto unidad con el cambio en estado_rg
+    const unidadActualizada: UnidadesI = {
+      ...unidad_medida, // Copia todos los atributos de la unidad original
+      estado_rg: 1 // Cambia el estado_rg al valor deseado
+    };
+  
+    // Llamar a la API con la unidad actualizada
+    this.api.deleteUnidad(unidadActualizada).subscribe(() => {
+      console.log('unidad eliminada correctamente');
+      Swal.fire({
+        icon: "success",
+        title: "Realizado!",
+        showConfirmButton: false,
+        timer: 1000
+      });
+      this.getUnidad(); // Actualizar la lista de unidads después de eliminar
+    }, (error) => {
+      console.error('Error al eliminar el unidad:', error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "ERROR",
+        footer: '<a href="">Intenta nuevamente</a>'
+      });
+    });
   }
 
   salir(){
     this.router.navigate(['home'])
+  }
+  isFormValid(): boolean {
+    return this.nuevoUnidad.valid; // Retorna true si el formulario es válido, de lo contrario retorna false
   }
   validateAbreviatura_unidad_medida(){
 if(!this.abreviatura_unidad_medidaClicked){
@@ -150,9 +186,9 @@ previousPage(){
     this.currentPage--;
   }
 }
-abrirModalParaEditarItem(unidad: UnidadesI) {
+abrirModalParaEditarItem(unidad_medida: UnidadesI) {
   const modalRef = this.modalServiceNgb.open(EditarItemModalComponent);
-  modalRef.componentInstance.item = unidad;
+  modalRef.componentInstance.item = unidad_medida;
 
   modalRef.result.then((result: UnidadesI) => {
     if (result) {

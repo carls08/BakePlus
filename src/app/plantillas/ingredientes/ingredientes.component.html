@@ -119,7 +119,7 @@
 
                         <div class="form-outline mb-4">
                           <button
-                            class="text-black btn fw-semibold w-100 mt-4 custom-btn"
+                            class="text-black btn btn-lg fw-semibold w-100 mt-6 custom-btn"
                             type="submit"
                             [disabled]="!isFormValid()"
                           >
@@ -127,14 +127,7 @@
                           </button>
                         </div>
 
-                        <div class="form-outline mb-4">
-                          <input
-                            type="button"
-                            class="text-black btn fw-semibold w-100 mt-4 custom-btn"
-                            value="Salir"
-                            (click)="salir()"
-                          />
-                        </div>
+                        
                       </div>
                     </div>
                   </form>
@@ -152,7 +145,7 @@
         <div class="table-wrapper">
           <div class="table-title">
             <div class="col-xs-5">
-              <h2>Marcas <b>Registradas</b></h2>
+              <h2>Ingredientes <b>Registrados</b></h2>
             </div>
             <div>
               <a href="#" class="btn bg-success text-light">
@@ -209,39 +202,20 @@
                 <td>
                   <a>{{ ingredientes.nombre_marca }}</a>
                 </td>
-                <td>
-                  <a
-                    class="edit"
-                    title="Editar"
-                    (click)="abrirModalParaEditarItem(ingredientes)"
-                    ><svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="26"
-                      height="26"
-                      fill="currentColor"
-                      class="bi bi-pencil-fill"
-                      viewBox="0 0 16 16"
-                    >
-                      <path
-                        d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"
-                      /></svg
-                  ></a>
-                  <a
-                    class="delete"
-                    title="Eliminar"
-                    (click)="deleteIngrediente(ingredientes)"
-                    ><svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="26"
-                      height="26"
-                      fill="currentColor"
-                      class="bi bi-trash-fill"
-                      viewBox="0 0 16 16"
-                    >
-                      <path
-                         d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
+                <td><span *ngIf="ingredientes.estado_rg === 1" class="punto-verde"></span>
+                  <span *ngIf="ingredientes.estado_rg === 0" class="punto-rojo"></span></td>
+                  <td>
+                    <a class="edit-a" title="Editar" *ngIf="ingredientes.estado_rg === 1" (click)="abrirModalParaEditarItem(ingredientes)"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
                     </svg></a>
-                </td>
+                      <a *ngIf="ingredientes.estado_rg === 1" class="activar" title="Eliminar" (click)="desactivarIngrediente(ingredientes)"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-toggle-on" viewBox="0 0 16 16">
+                        <path d="M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10zm6 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8"/>
+                      </svg></a>
+                      <a *ngIf="ingredientes.estado_rg === 0" class="desactivar" title="Eliminar" (click)="activarIngrediente(ingredientes)"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-toggle-off" viewBox="0 0 16 16">
+                        <path d="M11 4a4 4 0 0 1 0 8H8a5 5 0 0 0 2-4 5 5 0 0 0-2-4zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8M0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5"/>
+                      </svg></a>
+                  </td>
               </tr>
             </tbody>
           </table>
