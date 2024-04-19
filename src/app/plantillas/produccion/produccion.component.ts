@@ -37,8 +37,7 @@ export class ProduccionComponent {
 
   ngOnInit():void{
     this.getProduccion();
-    this.getProducto();
-   
+    
     
       }
 
@@ -48,21 +47,22 @@ export class ProduccionComponent {
       this.produccion = data;
     })
   }
-  getProducto() {
+  getProducto(){
     this.api.getAllProductos().subscribe({
-      next: (data: produccionI[]) => {
+      next:(data:productosI[])=>{
         this.producto = data;
-        if (Array.isArray(data)) {
+        if(Array.isArray(data)){
           this.producto = data;
-        } else {
+        }else{
           this.producto = data;
         }
       },
-      error: (error) => {
-        console.error('Error al obtener recetas:', error);
-      },
+      error:(error) =>{
+        console.error("Error al obtener los productos", error)
+      }
     });
   }
+  
   insertProduccion(produccion: produccionI) {
     console.log(produccion);
     this.api.insertProduccion(produccion).subscribe(
@@ -135,7 +135,7 @@ export class ProduccionComponent {
     };
   
     // Llamar a la API con la produccion actualizada
-    this.api.deleteProducto(produccionActualizada).subscribe(() => {
+    this.api.deleteProduccion(produccionActualizada).subscribe(() => {
       console.log('produccion eliminada correctamente');
       Swal.fire({
         icon: "success",
@@ -162,8 +162,8 @@ export class ProduccionComponent {
     };
   
     // Llamar a la API con la producto actualizada
-    this.api.deleteProducto(produccionActualizada).subscribe(() => {
-      console.log('producto eliminada correctamente');
+    this.api.deleteProduccion(produccionActualizada).subscribe(() => {
+      console.log('Produccion eliminada correctamente');
       Swal.fire({
         icon: "success",
         title: "Realizado!",

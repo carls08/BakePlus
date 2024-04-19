@@ -1,9 +1,7 @@
 export interface produccionI{
     id_producto:string;
-    id_receta:string;
-    nombre_receta:string;
-    nombre_producto:string;
-    precio_producto:number;
-    cantidad_producto:number;
+    id_produccion:string;
+    cantidad_producto:string;
+    fecha_produccion:string;
     estado_rg:number;
 }
