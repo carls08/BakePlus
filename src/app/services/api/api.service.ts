@@ -14,6 +14,8 @@ import { TipoDocI } from 'src/app/models/tipoDocument.interface';
 import { RecetaI } from 'src/app/models/receta.interface';
 import { map } from 'rxjs/operators';
 import { IngredientesComponent } from 'src/app/plantillas/ingredientes/ingredientes.component';
+import { productosI } from 'src/app/models/productos.interface';
+import { EditarItemModalComponent } from 'src/app/plantillas/editar-item-modal/editar-item-modal.component';
 
 @Injectable({
   providedIn: 'root',
@@ -126,6 +128,25 @@ export class ApiService {
       )
     );
   }
+  getAllProductos():Observable<productosI[]>{
+    const headers=this.createHeaders();
+    let direccion = this.url + 'productos/getAll';
+    return this.http.get<any>(direccion, { headers }).pipe(
+      map((response) =>
+        response.success.data.map((producto: any) => ({
+          nombre_receta:producto.nombre_receta,
+          id_producto:producto.id_producto,
+          id_receta:producto.id_receta,
+          nombre_producto:producto.nombre_producto,
+          precio_producto:producto.precio_producto,
+          cantidad_producto:producto.cantidad_producto,
+          estado_rg:producto.estado_rg
+          
+        
+        }))
+      )
+    );
+  }
 
   insertMarca(marca: marcasI): Observable<any> {
     const headers = this.createHeaders();
@@ -145,8 +166,13 @@ export class ApiService {
   insertUsuarios(usuario: RegistroI): Observable<RegistroI> {
     const headers = this.createHeaders();
     const direccion = this.url + 'usuarios/insert';
-    return this.http.post<RegistroI>(direccion, usuario, { headers });
+    return this.http.post<any>(direccion, usuario, { headers });
   }
+ insertProductos(producto:productosI):Observable<productosI>{
+  const headers = this.createHeaders();
+    const direccion = this.url + 'productos/insert';
+  return this.http.post<any>(direccion, producto, { headers });
+ }
 
 
 
@@ -176,6 +202,11 @@ export class ApiService {
     const direccion =`${this.url}recetas/update`;
     return this.http.put<any>(direccion, receta, { headers });
   }
+  updateProducto(producto:productosI): Observable<any>{
+    const headers= this.createHeaders();
+    const direccion =`${this.url}productos/update`;
+    return this.http.put<any>(direccion, producto, { headers });
+  }
 
 
 
@@ -199,6 +230,11 @@ export class ApiService {
     const headers=this.createHeaders();
     const direccion=`${this.url}usuarios/delete`;
     return this.http.delete<any>(direccion, { headers, body: usuario });
+  }
+  deleteProducto(producto:productosI):Observable<any>{
+    const headers=this.createHeaders();
+    const direccion=`${this.url}productos/delete`;
+    return this.http.delete<any>(direccion, { headers, body: producto });
   }
  
   
@@ -251,4 +287,7 @@ export class ApiService {
       return new HttpHeaders();
     }
   }
+
+  
+
 }

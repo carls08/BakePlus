@@ -135,11 +135,11 @@ export class IngredientesComponent {
     }
     const ingredientesControl =
       this.nuevoIngredientes.get('nombre_ingrediente');
-    if (ingredientesControl?.errors && ingredientesControl?.value.length == 0) {
-      return 'El nombre del ingrediente es requerido';
-    } else if (ingredientesControl?.value.length < 3) {
-      return 'Al menos 3 caracteres';
-    }
+      if (ingredientesControl?.errors  ) {
+        return 'El Ingrediente es requerido.';
+      } else if (ingredientesControl?.value.length < 1) {
+        return 'Al menos 1 caracteres.';
+      }
     return null;
   }
 

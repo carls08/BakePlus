@@ -23,7 +23,8 @@ import { IngredientesComponent } from './plantillas/ingredientes/ingredientes.co
 import { VentasComponent } from './plantillas/ventas/ventas.component';
 import { EditarItemModalComponent } from './plantillas/editar-item-modal/editar-item-modal.component';
 import { EstadisticasComponent } from './plantillas/estadisticas/estadisticas.component';
-import { TableroComponent } from './plantillas/tablero/tablero.component'
+import { TableroComponent } from './plantillas/tablero/tablero.component';
+import { ProductosComponent } from './plantillas/productos/productos.component'
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { TableroComponent } from './plantillas/tablero/tablero.component'
     VentasComponent,
     EditarItemModalComponent,
     EstadisticasComponent,
-    TableroComponent
+    TableroComponent,
+    ProductosComponent
   ],
   imports: [
     BrowserModule,

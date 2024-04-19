@@ -62,6 +62,9 @@ export class HeaderComponent implements OnInit {
   dashboard(){
     this.router.navigate(['dashboard'])
   }
+  productos(){
+    this.router.navigate(['productos'])
+  }
   salir() {
     localStorage.removeItem('token')
     localStorage.removeItem('nombre_usuario');
