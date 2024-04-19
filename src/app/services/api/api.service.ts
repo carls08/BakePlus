@@ -16,6 +16,7 @@ import { map } from 'rxjs/operators';
 import { IngredientesComponent } from 'src/app/plantillas/ingredientes/ingredientes.component';
 import { productosI } from 'src/app/models/productos.interface';
 import { EditarItemModalComponent } from 'src/app/plantillas/editar-item-modal/editar-item-modal.component';
+import { produccionI } from 'src/app/models/produccion.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -147,6 +148,19 @@ export class ApiService {
       )
     );
   }
+  getAllProduccion():Observable<produccionI[]>{
+    const headers=this.createHeaders();
+    let direccion = this.url + '';
+    return this.http.get<any>(direccion, { headers }).pipe(
+      map((response) =>
+        response.success.data.map((produccion: any) => ({
+         
+          
+        
+        }))
+      )
+    );
+  }
 
   insertMarca(marca: marcasI): Observable<any> {
     const headers = this.createHeaders();
@@ -172,6 +186,11 @@ export class ApiService {
   const headers = this.createHeaders();
     const direccion = this.url + 'productos/insert';
   return this.http.post<any>(direccion, producto, { headers });
+ }
+ insertProduccion(produccion:produccionI):Observable<produccionI>{
+  const headers = this.createHeaders();
+    const direccion = this.url + '';
+  return this.http.post<any>(direccion, produccion, { headers });
  }
 
 
@@ -207,6 +226,11 @@ export class ApiService {
     const direccion =`${this.url}productos/update`;
     return this.http.put<any>(direccion, producto, { headers });
   }
+  updateProduccion(produccion:produccionI): Observable<any>{
+    const headers= this.createHeaders();
+    const direccion =`${this.url}`;
+    return this.http.put<any>(direccion, produccion, { headers });
+  }
 
 
 
@@ -235,6 +259,11 @@ export class ApiService {
     const headers=this.createHeaders();
     const direccion=`${this.url}productos/delete`;
     return this.http.delete<any>(direccion, { headers, body: producto });
+  }
+  deleteProduccion(produccion:produccionI):Observable<any>{
+    const headers=this.createHeaders();
+    const direccion=`${this.url}`;
+    return this.http.delete<any>(direccion, { headers, body: produccion });
   }
  
   
