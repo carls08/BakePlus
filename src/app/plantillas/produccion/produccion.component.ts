@@ -31,7 +31,8 @@ export class ProduccionComponent {
     id_usuario:['',Validators.required],
       id_producto:['',Validators.required],
       cantidad_produccion:['',Validators.required],
-      fecha_produccion:['',Validators.required]
+      fecha_produccion:['',Validators.required],
+      
      
     });
 

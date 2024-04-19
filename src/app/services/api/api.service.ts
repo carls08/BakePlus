@@ -158,8 +158,8 @@ export class ApiService {
           id_producto:produccion.id_producto,
           id_usuario:produccion.id_usuario,
           nombre_usuario:produccion.nombre_usuario,
-          nombre_produccion:produccion.nombre_produccion,
-          cantidad_producto:produccion.cantidad_producto,
+          nombre_producto:produccion.nombre_producto,
+          cantidad_produccion:produccion.cantidad_produccion,
           fecha_produccion:produccion.fecha_produccion,
           estado_rg:produccion.estado_rg
          
