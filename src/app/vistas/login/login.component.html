@@ -1,13 +1,13 @@
 <div class="background pb-5 pt-5">
-  <div class="container justify-content-center pt-5">
+  <div class="container justify-content-center  pb-1 pt-5 h-100">
     <!--Imagen-->
-    <div class="row  col-md-4 col-lg-4 col-xl-4 col-xxl-4 pt-5">
+    <div class="row  col-md-4 col-lg-4 col-xl-4 col-xxl-4  pb-5 pt-5">
       <div>
         <img src="assets/pan_login.jpg" alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
       </div>
     </div>
     <!--formulario-->
-    <div class="row col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 pt-5">
+    <div class="row col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6  pb-5 pt-5">
       <div class="card justify-content-center">
         <form form [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
           <!---Logo-->
@@ -44,5 +44,4 @@
       </div>
     </div>
   </div>
-
 </div>
