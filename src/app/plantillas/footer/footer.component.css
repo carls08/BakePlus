@@ -2,5 +2,8 @@
 .footer-background{
     background-color: #525558;
     color: white; /* Cambia el color del texto si es necesario para que sea visible en el fondo */
-    padding: 20px; /* Añade espacio interno al footer */
+    padding: 10px; /* Añade espacio interno al footer */
 }
+body {
+    padding-bottom: 60px; /* Ajusta según la altura del footer */
+  }

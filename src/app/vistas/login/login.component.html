@@ -1,53 +1,48 @@
-<section class="vh-100 background">
-  <br><br><br>
-  <div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col col-xl-10">
-        <div class="card" style="border-radius: 1rem;">
-          <div class="row g-0">
-            <div class="col-md-6 col-lg-5 d-none d-md-block">
-              <img src="assets/pan_login.jpg"
-                alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
-            </div>
-            <div class="col-md-6 col-lg-7 d-flex align-items-center">
-              <div class="card-body p-4 p-lg-5 text-black">
-
-                <form [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)">
-                  <!---Logo-->
-                  <div class="text-center">
-                    <img src="assets/logo_glass.png" alt="login-icon" class="img-fluid" style="max-width: 210px;">
-                  </div>
-
-                  <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Ingresa con tu cuenta:</h5>
-                  <!---Usuario-->
-                  <div class="form-outline mb-4" [ngClass]="{ 'has-error': validateUsuario() }">
-                    <label class="form-label" >Correo</label>
-                    <input type="email" formControlName="usuario" placeholder="usuario@mail.com" class="form-control form-control-lg item" [ngClass]="{ 'is-invalid':  validateUsuario() }"
-                    (click)="onUsuarioClicked()"/>
-                    <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateUsuario()">
-                      <p class="fs-6">{{ validateUsuario() }}</p>
-                    </div>
-                  </div>
-                  <!---Contraseña-->
-                  <div class="form-outline mb-4"  [ngClass]="{ 'has-error': validatePass() }">
-                    <label class="form-label" >Contraseña</label>
-                    <input type="password" formControlName="contraseña"placeholder="Contraseña" class="form-control form-control-lg item" [ngClass]="{ 'is-invalid':  validatePass() }" 
-                    (click)="onPassClicked()"/>
-                    <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validatePass()">
-                      <p class="fs-6">{{ validatePass() }}</p>
-                    </div>
-                  </div>
-                  <!---Iniciar sesion-->
-                  <div class="pt-1 mb-4">
-                    <button class="btn btn-warning btn-lg btn-block custom-btn" type="submit"[disabled]="!isFormValid()">Iniciar sesión</button>
-                  </div>
-                </form>
-
-              </div>
+<div class="background pb-5 pt-5">
+  <div class="container justify-content-center pb-5 pt-5">
+    <!--Imagen-->
+    <div class="row  col-md-4 col-lg-4 col-xl-4 col-xxl-4 pt-5">
+      <div>
+        <img src="assets/pan_login.jpg" alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+      </div>
+    </div>
+    <!--formulario-->
+    <div class="row col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 pt-5">
+      <div class="card justify-content-center">
+        <form form [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+          <!---Logo-->
+          <div class="text-center">
+            <img src="assets/logo_glass.png" alt="login-icon" class="img-fluid col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" width="120" height="120" >
+          </div>
+          <!---Usuario-->
+          <div class="form-outline mb-4" [ngClass]="{ 'has-error': validateUsuario() }">
+            <label class="form-label">Correo</label>
+            <input type="email" formControlName="usuario" placeholder="usuario@mail.com"
+              class="form-control form-control-lg item" [ngClass]="{ 'is-invalid':  validateUsuario() }"
+              (click)="onUsuarioClicked()" />
+            <div class="text-danger" style="width: 300px; height: 0.1px;" *ngIf="validateUsuario()">
+              <p class="fs-6">{{ validateUsuario() }}</p>
             </div>
           </div>
-        </div>
+          <!---Contraseña-->
+          <div class="form-outline mb-4" [ngClass]="{ 'has-error': validatePass() }">
+            <label class="form-label">Contraseña</label>
+            <input type="password" formControlName="contraseña" placeholder="Contraseña"
+              class="form-control form-control-lg item" [ngClass]="{ 'is-invalid':  validatePass() }"
+              (click)="onPassClicked()" />
+            <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validatePass()">
+              <p class="fs-6">{{ validatePass() }}</p>
+            </div>
+          </div>
+          <!---Iniciar sesion-->
+          <div class="pt-1 mb-4">
+            <button class="btn btn-warning btn-lg btn-block custom-btn" type="submit"
+              [disabled]="!isFormValid()">Iniciar sesión</button>
+          </div>
+        </form>
+
       </div>
     </div>
   </div>
-</section>
+
+</div>
