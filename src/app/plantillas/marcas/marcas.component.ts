@@ -18,6 +18,11 @@ import pdfFonts from 'pdfmake/build/vfs_fonts';
   styleUrls: ['./marcas.component.css']
 })
 export class MarcasComponent {
+  activeTab: string = 'registro'; // Puedes establecer 'registro' como pestaña activa por defecto
+
+  setActiveTab(tabName: string) {
+    this.activeTab = tabName;
+  }
 
   nuevoMarca: FormGroup;
   nombre_marcaClicked: boolean = false;
