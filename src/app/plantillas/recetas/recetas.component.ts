@@ -12,6 +12,11 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./recetas.component.css']
 })
 export class RecetasComponent {
+  activeTab: string = 'registro'; // Puedes establecer 'registro' como pestaña activa por defecto
+
+  setActiveTab(tabName: string) {
+    this.activeTab = tabName;
+  }
   recetas:any=[]
   recetasClicked:boolean = false;
   currentPage: number = 1;

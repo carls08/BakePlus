@@ -4,97 +4,111 @@
         <br>
         <div class="row d-flex justify-content-center align-items-center h-100 prueba">
           <div class="col col-xl-10">
-            <div class="card" style="border-radius: 1rem;">
-              <div class="row g-0">
-                <div class="col-md-5 col-lg-5 d-none d-md-block">
-                  <img src="assets/produccion.jpg" alt="reform" class="img-fluid"
-                    style="border-radius: 1rem 0 0 1rem; height: 100%;" />
-                </div>
-                <div class="col-md-6 col-lg-7 d-flex align-items-center">
-                  <div class="card-body p-4 p-lg-5 text-black">
-                    <form [formGroup]="nuevoFormProduccion" (ngSubmit)="insertProduccion(nuevoFormProduccion.value)">
-                      <!---Logo-->
-                      <div class="text-center">
-                        <img src="assets/register.png" alt="login-icon" height="120" width="120" class="img-fluid"
-                          style="max-width: 210px;">
-                      </div>
-                      <br><br>
-                      <h5 class="text-center fs-1 fw-bold" style="letter-spacing: 1px;">Registro de produccion:</h5>
-    
-                      <div class="row">
-                        <div class="col-md-10">
-                            <div class="form-outline mb-4" >
-                                <select formControlName="id_usuario" class="form-select form-select-lg"
-                                  >
-                                  <option value="">Seleccione una usuario</option>
-                                  <option  *ngFor="let usuario of usuarios" [value]="usuario.id_usuario" > {{usuario.nombre_usuario}}</option>
-                                </select>
-                                <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" >
-                                  <p class="fs-6"></p>
-                                </div>
-                              </div>
-                          <!---Produccion-->
-                          <div class="form-outline mb-4" >
-                            <select formControlName="id_producto" class="form-select form-select-lg"
-                              >
-                              <option value="">Seleccione una producto</option>
-                              <option  *ngFor="let product of producto" [value]="product.id_producto" > {{product.nombre_producto}}</option>
-                            </select>
-                            <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" >
-                              <p class="fs-6"></p>
-                            </div>
-                          </div>
-                          <!---Nombre-->
-                         <div class="col-md-10">
-                            
-                             
-                               <!---Cantidad-->
-                              <div class="form-outline mb-4" >
-                                <input type="number" placeholder="Cantidad" formControlName="cantidad_produccion"
-                                  class="form-control form-control-lg"  
-                                  
-                                  />
-                                  <div class="text-danger mt-1" style="width: 300px; height: 0.1px;">
-                                    <p class="fs-6"></p>
-                                  </div>
-                              </div>
-                             
-                              <div class="form-outline mb-4">
-                                <label class="fw-bold">Fecha</label>
-      
-                                <input
-                                class="form-control form-control-lg"
-                                formControlName="fecha_produccion"
-                                  type="date"
-                                  name="trip-start"
-                                  value="2024-04-17"
-                                  min="2024-04-17"
-                                  max="2030-04-17"
-                                />
-                              </div>
-                      
-                              <!---Registrar-->
-                              <div class="form-outline mb-4">
-                                <button class="text-black btn btn-lg fw-semibold w-100 mt-6 custom-btn" 
-                                        type="submit" 
-                                        [disabled]="!isFormValid()">
-                                  Registrar
-                                </button>
-                              </div>
-                         </div>
+                      <!-- Navtab -->
+<ul class="nav nav-tabs nav-justified  " >
+  <li class="nav-item " [class.active]="activeTab === 'registro'">
+    <a class="nav-link transparent-navbar  text-white  fw-semibold" (click)="setActiveTab('registro')">Registro de Producciones</a>
+  </li>
+  <li class="nav-item" [class.active]="activeTab === 'listado'">
+    <a class="nav-link transparent-navbar  text-white  fw-semibold" (click)="setActiveTab('listado')">Listado de Producciones</a>
+  </li>
+</ul>
+<!-- Contenido del navtab -->
+<div class="tab-content">
+  <!-- Contenido de la pestaña 'Registro de Producciones' -->
+  <div *ngIf="activeTab === 'registro'">
+    <br>
+    <div class="card" style="border-radius: 1rem;">
+      <div class="row g-0">
+        <div class="col-md-5 col-lg-5 d-none d-md-block">
+          <img src="assets/produccion.jpg" alt="reform" class="img-fluid"
+            style="border-radius: 1rem 0 0 1rem; height: 100%;" />
+        </div>
+        <div class="col-md-6 col-lg-7 d-flex align-items-center">
+          <div class="card-body p-4 p-lg-5 text-black">
+            <form [formGroup]="nuevoFormProduccion" (ngSubmit)="insertProduccion(nuevoFormProduccion.value)">
+              <!---Logo-->
+              <div class="text-center">
+                <img src="assets/register.png" alt="login-icon" height="120" width="120" class="img-fluid"
+                  style="max-width: 210px;">
+              </div>
+              <br><br>
+              <h5 class="text-center fs-1 fw-bold" style="letter-spacing: 1px;">Registro de produccion:</h5>
+
+              <div class="row">
+                <div class="col-md-10">
+                    <div class="form-outline mb-4" >
+                        <select formControlName="id_usuario" class="form-select form-select-lg"
+                          >
+                          <option value="">Seleccione una usuario</option>
+                          <option  *ngFor="let usuario of usuarios" [value]="usuario.id_usuario" > {{usuario.nombre_usuario}}</option>
+                        </select>
+                        <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" >
+                          <p class="fs-6"></p>
                         </div>
                       </div>
-                    </form>
-    
+                  <!---Produccion-->
+                  <div class="form-outline mb-4" >
+                    <select formControlName="id_producto" class="form-select form-select-lg"
+                      >
+                      <option value="">Seleccione una producto</option>
+                      <option  *ngFor="let product of producto" [value]="product.id_producto" > {{product.nombre_producto}}</option>
+                    </select>
+                    <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" >
+                      <p class="fs-6"></p>
+                    </div>
                   </div>
+                  <!---Nombre-->
+                 <div class="col-md-10">
+                    
+                     
+                       <!---Cantidad-->
+                      <div class="form-outline mb-4" >
+                        <input type="number" placeholder="Cantidad" formControlName="cantidad_produccion"
+                          class="form-control form-control-lg"  
+                          
+                          />
+                          <div class="text-danger mt-1" style="width: 300px; height: 0.1px;">
+                            <p class="fs-6"></p>
+                          </div>
+                      </div>
+                     
+                      <div class="form-outline mb-4">
+                        <label class="fw-bold">Fecha</label>
+
+                        <input
+                        class="form-control form-control-lg"
+                        formControlName="fecha_produccion"
+                          type="date"
+                          name="trip-start"
+                          value="2024-04-17"
+                          min="2024-04-17"
+                          max="2030-04-17"
+                        />
+                      </div>
+              
+                      <!---Registrar-->
+                      <div class="form-outline mb-4">
+                        <button class="text-black btn btn-lg fw-semibold w-100 mt-6 custom-btn" 
+                                type="submit" 
+                                [disabled]="!isFormValid()">
+                          Registrar
+                        </button>
+                      </div>
+                 </div>
                 </div>
               </div>
-            </div>
+            </form>
+
           </div>
         </div>
       </div>
-    </section>
-  
+    </div>
+  </div>
+
+  <!-- Contenido de la pestaña 'Listado de Producciones' -->
+  <div *ngIf="activeTab === 'listado'">
+   
     <div class="container">
       <div class="row">
         <div class="table-responsive">
@@ -181,4 +195,14 @@
         </div>
       </div>
     </div>
+   
+  </div>
+</div>
+            
+          </div>
+        </div>
+      </div>
+    </section>
+  
+   
   </div>

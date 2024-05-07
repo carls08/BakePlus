@@ -17,6 +17,11 @@ import pdfFonts from 'pdfmake/build/vfs_fonts';
   styleUrls: ['./ingredientes.component.css'],
 })
 export class IngredientesComponent {
+  activeTab: string = 'registro'; // Puedes establecer 'registro' como pestaña activa por defecto
+
+  setActiveTab(tabName: string) {
+    this.activeTab = tabName;
+  }
   nuevoIngredientes: FormGroup;
   marcas: marcasI[] = [];
   ingredientesClicked: boolean = false;

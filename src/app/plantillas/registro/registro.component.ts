@@ -17,6 +17,11 @@ import pdfFonts from 'pdfmake/build/vfs_fonts';
   styleUrls: ['./registro.component.css']
 })
 export class RegistroComponent {
+  activeTab: string = 'registro'; // Puedes establecer 'registro' como pestaña activa por defecto
+
+  setActiveTab(tabName: string) {
+    this.activeTab = tabName;
+  }
   nuevoForm: FormGroup;
   usuario: any=[];
   roles: RolesI[] = [];

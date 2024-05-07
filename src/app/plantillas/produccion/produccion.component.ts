@@ -17,6 +17,11 @@ import { RegistroI } from 'src/app/models/registro.interface';
   styleUrls: ['./produccion.component.css']
 })
 export class ProduccionComponent {
+  activeTab: string = 'registro'; // Puedes establecer 'registro' como pestaña activa por defecto
+
+  setActiveTab(tabName: string) {
+    this.activeTab = tabName;
+  }
   nuevoFormProduccion:FormGroup;
   produccion:any=[];
   producto: productosI[] = [];

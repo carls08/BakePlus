@@ -23,6 +23,12 @@ import { tablaIngreReceI } from 'src/app/models/tablaIngreRec.interface';
   styleUrls: ['./formulario-recetas.component.css'],
 })
 export class FormularioRecetasComponent {
+
+  activeTab: string = 'registro'; // Puedes establecer 'registro' como pestaña activa por defecto
+
+  setActiveTab(tabName: string) {
+    this.activeTab = tabName;
+  }
   nuevoFormReceta: FormGroup;
 
   recetas: any = [];

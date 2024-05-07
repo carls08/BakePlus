@@ -17,6 +17,11 @@ import pdfFonts from 'pdfmake/build/vfs_fonts';
   styleUrls: ['./unidades.component.css']
 })
 export class UnidadesComponent {
+  activeTab: string = 'registro'; // Puedes establecer 'registro' como pestaña activa por defecto
+
+  setActiveTab(tabName: string) {
+    this.activeTab = tabName;
+  }
   nuevoUnidad: FormGroup;
   abreviatura_unidad_medidaClicked: boolean = false;
   nombre_unidad_medidaClicked:boolean = false;

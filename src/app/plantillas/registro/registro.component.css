@@ -215,3 +215,13 @@ line-height: 10px;
   border-radius: 50%;
   display: inline-block;
 }
+
+.nav-tabs.nav-justified .nav-item {
+  flex: 1; 
+  text-align: center; 
+  margin-bottom: 0; 
+}
+
+.nav-tabs.nav-justified .nav-link {
+  border-radius: 0; 
+}
