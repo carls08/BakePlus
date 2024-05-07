@@ -226,4 +226,10 @@ line-height: 10px;
   .nav-tabs.nav-justified .nav-link {
     border-radius: 0; 
   }
+
+  .box_form{
+max-width: 60%;
+margin: 0 auto;
+
+  }
   

@@ -16,61 +16,63 @@
           <!-- Contenido del navtab -->
           <div class="tab-content">
             <!-- Contenido de la pestaña 'Registro de Unidade' -->
-            <div *ngIf="activeTab === 'registro'">
-              <br>
-              <div class="card" style="border-radius: 1rem;">
-                <div class="row g-0">
-                  <div class="col-md-5 col-lg-5 d-none d-md-block">
-                    <img src="assets/unidades-nn.jpeg" alt="reform" class="img-fluid"
-                      style="border-radius: 1rem 0 0 1rem; height: 100%;" />
-                  </div>
-                  <div class="col-md-6 col-lg-7 d-flex align-items-center">
-                    <div class="card-body p-4 p-lg-5 text-black">
+            <div class="box_form">
+              <div *ngIf="activeTab === 'registro'">
+                <br>
+                <div class="card" style="border-radius: 1rem;">
+                  <div class="row g-0">
+                    <div class="col-md-5 col-lg-5 d-none d-md-block">
+                      <img src="assets/unidades-nn.jpeg" alt="reform" class="img-fluid"
+                        style="border-radius: 1rem 0 0 1rem; height: 100%;" />
+                    </div>
+                    <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                      <div class="card-body p-4 p-lg-5 text-black">
+        
+                        <form [formGroup]="nuevoUnidad" (ngSubmit)="insertUnidad(nuevoUnidad.value)">
+                          <!---Logo-->
+                          <div class="text-center">
+                            <img src="assets/unidades.png" alt="login-icon" height="120" width="120" class="img-fluid"
+                              style="max-width:210px;">
+                          </div>
+                          <br><br>
+                          <h5 class="text-center fs-1 fw-bold" style="letter-spacing: 1px;">Registro de unidades:</h5>
+        
+                          <div class="row">
+                          
+                          <div class="col-md-10">
+                            
+                              <!---Unidad-->
+                              <div class="form-outline mb-4" [ngClass]="{'has-error': validateAbreviatura_unidad_medida()}">
+                                <input type="text"  placeholder="Aberviatura de unidades" formControlName="abreviatura_unidad_medida"
+                                  class="form-control form-control-lg" [ngClass]="{ 'is-invalid':  validateAbreviatura_unidad_medida()}" (click)="onAbreviatura_unidad_medidaClicked" />
+                                  <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateAbreviatura_unidad_medida()">
+                                    <p class="fs-6">{{validateAbreviatura_unidad_medida()}}</p>
+                                  </div>
+                              </div>
+                             
+                            
+                            
+                              <div class="form-outline mb-4" [ngClass]="{'has-error': validateNombre_unidad_medida()}">
+                                <input type="text" placeholder="Tipo de unidades" formControlName="nombre_unidad_medida"
+                                  class="form-control form-control-lg"  [ngClass]="{ 'is-invalid':  validateNombre_unidad_medida()}" (click)="onNombre_unidad_medidaClicked"/>
+                                  <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateNombre_unidad_medida()">
+                                    <p class="fs-6">{{ validateNombre_unidad_medida() }}</p>
+                                  </div>
       
-                      <form [formGroup]="nuevoUnidad" (ngSubmit)="insertUnidad(nuevoUnidad.value)">
-                        <!---Logo-->
-                        <div class="text-center">
-                          <img src="assets/unidades.png" alt="login-icon" height="120" width="120" class="img-fluid"
-                            style="max-width:210px;">
-                        </div>
-                        <br><br>
-                        <h5 class="text-center fs-1 fw-bold" style="letter-spacing: 1px;">Registro de unidades:</h5>
-      
-                        <div class="row">
+                                  <div class="form-outline mb-4 mt-4">
+                                    <button class="text-black btn btn-lg fw-semibold w-100 mt-6 custom-btn" type="submit" value="Registrar" [disabled]="!isFormValid()
+                                  ">Registrar</button>
+                                  </div>
+                              </div>
+                              
+                              
+                            
+                          </div>
+                          </div>
+                        </form> 
                         
-                        <div class="col-md-10">
-                          
-                            <!---Unidad-->
-                            <div class="form-outline mb-4" [ngClass]="{'has-error': validateAbreviatura_unidad_medida()}">
-                              <input type="text"  placeholder="Aberviatura de unidades" formControlName="abreviatura_unidad_medida"
-                                class="form-control form-control-lg" [ngClass]="{ 'is-invalid':  validateAbreviatura_unidad_medida()}" (click)="onAbreviatura_unidad_medidaClicked" />
-                                <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateAbreviatura_unidad_medida()">
-                                  <p class="fs-6">{{validateAbreviatura_unidad_medida()}}</p>
-                                </div>
-                            </div>
-                           
-                          
-                          
-                            <div class="form-outline mb-4" [ngClass]="{'has-error': validateNombre_unidad_medida()}">
-                              <input type="text" placeholder="Tipo de unidades" formControlName="nombre_unidad_medida"
-                                class="form-control form-control-lg"  [ngClass]="{ 'is-invalid':  validateNombre_unidad_medida()}" (click)="onNombre_unidad_medidaClicked"/>
-                                <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateNombre_unidad_medida()">
-                                  <p class="fs-6">{{ validateNombre_unidad_medida() }}</p>
-                                </div>
-    
-                                <div class="form-outline mb-4 mt-4">
-                                  <button class="text-black btn btn-lg fw-semibold w-100 mt-6 custom-btn" type="submit" value="Registrar" [disabled]="!isFormValid()
-                                ">Registrar</button>
-                                </div>
-                            </div>
-                            
-                            
-                          
-                        </div>
-                        </div>
-                      </form> 
-                      
-                      
+                        
+                      </div>
                     </div>
                   </div>
                 </div>

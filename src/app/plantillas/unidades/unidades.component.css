@@ -215,3 +215,9 @@ line-height: 10px;
     border-radius: 50%;
     display: inline-block;
   }
+  .box_form{
+    max-width: 80%;
+    margin: 0 auto;
+    
+      }
+      

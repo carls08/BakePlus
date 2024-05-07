@@ -4,7 +4,7 @@
     <div class="container py-6 h-100 ">
       <br>
       <div class="row d-flex justify-content-center align-items-center h-100 prueba">
-        <div class="col col-xl-7">
+        <div class="col col-xl-10">
           <!-- Navtab -->
 <ul class="nav nav-tabs nav-justified  " >
   <li class="nav-item " [class.active]="activeTab === 'registro'">
@@ -17,43 +17,45 @@
 <!-- Contenido del navtab -->
 <div class="tab-content">
   <!-- Contenido de la pestaña 'Registro de Marca' -->
-  <div *ngIf="activeTab === 'registro'">
-    <br>
-    <div class="card" style="border-radius: 1rem;">
-      <div class="row g-0">
-        <div class="col-md-5 col-lg-5 d-none d-md-block">
-          <img src="assets/marcas-nn.jpeg" alt="reform" class="img-fluid"
-            style="border-radius: 1rem 0 0 1rem; height: 100%;" />
-        </div>
-        <div class="col-md-6 col-lg-7 d-flex align-items-center">
-          <div class="card-body p-4 p-lg-5 text-black">
-    
-            <form [formGroup]="nuevoMarca" (ngSubmit)="insertMarca(nuevoMarca.value)">
-              <!---Logo-->
-              <div class="text-center">
-                <img src="assets/etiqueta.png" alt="login-icon" height="120" width="120" class="img-fluid"
-                  style="max-width:210px;">
-              </div>
-              <br><br>
-              <h5 class="text-center fs-1 fw-bold" style="letter-spacing: 1px;">Registro de marcas:</h5>
-              <br>
-              <!---Marca-->
-              <div class="form-outline mb-4" [ngClass]="{'has-error': validateNombre_marca()}">
-                <input type="text" placeholder="Nombre de la marca" formControlName="nombre_marca"
-                  class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateNombre_marca()}"
-                  (click)="onNombre_marcaClicked()" />
-                <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateNombre_marca()">
-                  <p class="fs-6">{{validateNombre_marca()}}</p>
+  <div class="box_form">
+    <div *ngIf="activeTab === 'registro'">
+      <br>
+      <div class="card" style="border-radius: 1rem;">
+        <div class="row g-0">
+          <div class="col-md-5 col-lg-5 d-none d-md-block">
+            <img src="assets/marcas-nn.jpeg" alt="reform" class="img-fluid"
+              style="border-radius: 1rem 0 0 1rem; height: 100%;" />
+          </div>
+          <div class="col-md-6 col-lg-7 d-flex align-items-center">
+            <div class="card-body p-4 p-lg-5 text-black">
+      
+              <form [formGroup]="nuevoMarca" (ngSubmit)="insertMarca(nuevoMarca.value)">
+                <!---Logo-->
+                <div class="text-center">
+                  <img src="assets/etiqueta.png" alt="login-icon" height="120" width="120" class="img-fluid"
+                    style="max-width:210px;">
                 </div>
-              </div>
-              <!---Registrar-->
-              <div class="form-outline mb-4">
-                <button class="text-black btn btn-lg fw-semibold w-100 mt-6 custom-btn" type="submit"
-                  [disabled]="!isFormValid()">
-                  Registrar
-                </button>
-              </div>
-            </form>
+                <br><br>
+                <h5 class="text-center fs-1 fw-bold" style="letter-spacing: 1px;">Registro de marcas:</h5>
+                <br>
+                <!---Marca-->
+                <div class="form-outline mb-4" [ngClass]="{'has-error': validateNombre_marca()}">
+                  <input type="text" placeholder="Nombre de la marca" formControlName="nombre_marca"
+                    class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateNombre_marca()}"
+                    (click)="onNombre_marcaClicked()" />
+                  <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateNombre_marca()">
+                    <p class="fs-6">{{validateNombre_marca()}}</p>
+                  </div>
+                </div>
+                <!---Registrar-->
+                <div class="form-outline mb-4">
+                  <button class="text-black btn btn-lg fw-semibold w-100 mt-6 custom-btn" type="submit"
+                    [disabled]="!isFormValid()">
+                    Registrar
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
