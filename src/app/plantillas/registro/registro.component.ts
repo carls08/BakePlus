@@ -23,7 +23,7 @@ export class RegistroComponent {
     this.activeTab = tabName;
   }
   nuevoForm: FormGroup;
-  usuario: any=[];
+  usuarios: any=[];
   roles: RolesI[] = [];
   tipoDocs: TipoDocI[] = [];
   nombreClicked: boolean = false;
@@ -63,7 +63,7 @@ export class RegistroComponent {
   getUsuarios() {
     this.api.getAllUsuarios().subscribe(data => {
       console.log(data)
-      this.usuario = data;
+      this.usuarios = data;
     })
   }
   insertUsuarios(form: RegistroI) {
@@ -325,7 +325,7 @@ validateNombre() {
   getCurrentPageItems(): RegistroI[] {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
-    return this.usuario.slice(startIndex, endIndex);
+    return this.usuarios.slice(startIndex, endIndex);
   }
  
   getPages(): number[] {
@@ -351,7 +351,7 @@ validateNombre() {
   }
 
   getTotalPages(): number {
-    return Math.ceil(this.usuario.length / this.pageSize);
+    return Math.ceil(this.usuarios.length / this.pageSize);
   }
   abrirModalParaEditarItem(usuario: RegistroI) {
     const modalRef = this.modalServiceNgb.open(EditarItemModalComponent);
@@ -407,7 +407,7 @@ validateNombre() {
                 { text: 'Telefono', style: 'filaEncabezado' },
                 { text: 'Estado', style: 'filaEncabezado' },
               ],
-              ...this.usuario.map(data => [
+              ...this.usuarios.map(data => [
                 { text: num=num+1, style: 'filaDatos' },
                 { text: data.doc_usuario, style: 'filaDatos' },
                 { text: data.nombre_usuario, style: 'filaDatos' },
