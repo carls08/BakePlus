@@ -37,6 +37,8 @@ export class RegistroComponent {
   rolClicked: boolean = false;
   currentPage: number = 1;
   pageSize: number = 10; // Tamaño de la página
+  // variable para el tipo de accion
+  status_form: number = 0;
   
   constructor(private fb: FormBuilder, private api: ApiService, private router: Router,private modalServiceNgb: NgbModal) {
     this.nuevoForm = this.fb.group({
@@ -49,6 +51,7 @@ export class RegistroComponent {
       email_usuario: ['', [Validators.required, Validators.email]],
       doc_usuario: ['', Validators.required],
       apellido_usuario: ['', Validators.required],
+      id_usuario: ['']
     });
     (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 
@@ -60,35 +63,63 @@ export class RegistroComponent {
 
 
   }
+  // accion del formulario
+  tipoAccion(accion:number, data:any=[]) {
+    this.status_form = accion;
+    if(accion == 1){
+      data['cPassword_usuario'] = data['password_usuario'];
+      this.nuevoForm.patchValue(data);
+      console.log(data)
+    }else {
+      this.nuevoForm.patchValue({
+        'apellido_usuario': '',
+        'cPassword_usuario': '',
+        'doc_usuario': '',
+        'email_usuario': '',
+        'id_rol': '',
+        'id_tipo_documento': '',
+        'id_usuario': '',
+        'nombre_usuario': '',
+        'password_usuario': '',
+        'telefono_usuario':''
+      });
+    }
+  }
+
   getUsuarios() {
     this.api.getAllUsuarios().subscribe(data => {
-      console.log(data)
       this.usuarios = data;
     })
   }
+
   insertUsuarios(form: RegistroI) {
-    console.log(form);
-    this.api.insertUsuarios(form).subscribe(data => {
-      console.log(data)
-      if (data) {
+    let complete: any;
+    if(this.status_form == 0) {
+      this.api.insertUsuarios(form).subscribe(data => {
+        complete = data;
+        console.log(data)
+      })
+    }else {
+      this.api.updateUsuarios(form).subscribe(data => {
+        complete = data;
+      })
+    }
+    if (complete) {
+      Swal.fire({
+        icon: "success",
+        title: "Registro Exitoso",
+        showConfirmButton: false,
+        timer: 1500
+      });
 
-        Swal.fire({
-          icon: "success",
-          title: "Registro Exitoso",
-          showConfirmButton: false,
-          timer: 1500
-        });
-
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Registro incorrecto",
-          footer: '<a href="">Intenta nuevamente</a>'
-        });
-      }
-    })
-
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Registro incorrecto",
+        footer: '<a href="">Intenta nuevamente</a>'
+      });
+    }
   }
   desactivarUsuario(usuario: RegistroI) {
     // Crear un nuevo objeto Uusuario con el cambio en estado_rg
@@ -126,7 +157,6 @@ export class RegistroComponent {
   
     // Llamar a la API con la usuario actualizada
     this.api.deleteUsuario(usuarioActualizada).subscribe(() => {
-      console.log('usuario eliminada correctamente');
       Swal.fire({
         icon: "success",
         title: "Realizado!",

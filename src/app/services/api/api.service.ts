@@ -95,7 +95,6 @@ export class ApiService {
           id_usuario:usuario.id_usuario,
           id_rol : usuario.id_rol,
           id_tipo_documento: usuario.id_tipo_documento,
-          tipo_documento: usuario.tipo_documento,
           doc_usuario:usuario.doc_usuario,
           password_usuario: usuario.password_usuario,
           nombre_usuario: usuario.nombre_usuario,
@@ -105,9 +104,6 @@ export class ApiService {
           nombre_tipo_documento:usuario.nombre_tipo_documento,
           nombre_rol:usuario.nombre_rol,
           estado_rg:usuario.estado_rg
-        
-
-        
         }))
       )
     );
