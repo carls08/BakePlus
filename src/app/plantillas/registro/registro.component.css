@@ -6,3 +6,11 @@
 .activar svg {
   color: rgb(40, 167, 69); /* Cambia el color del ícono SVG */
 }
+
+.table-row:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.color{
+  color: #ffa43a;
+}

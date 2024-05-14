@@ -247,3 +247,38 @@ line-height: 10px;
     padding: 15px; /* Ajusta el padding según sea necesario */
     margin-bottom: 20px; /* Ajusta el margen inferior según sea necesario */
   }
+
+
+  .recipe-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  
+  .recipe-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  .recipe-details {
+    padding: 20px;
+  }
+  
+  .recipe-title {
+    margin-top: 0;
+  }
+  
+  .ingredient-list {
+    margin-bottom: 10px;
+  }
+  
+  .recipe-instructions {
+    margin-bottom: 15px;
+  }
+  
+  .recipe-actions {
+    text-align: right;
+  }
+  
