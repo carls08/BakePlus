@@ -61,7 +61,7 @@
               Ventas
             </button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              <button ngbDropdownItem *ngIf="permisoAddSale()">Agregar Venta</button>
+              <button ngbDropdownItem *ngIf="permisoAddSale()" (click)="addVenta()">Agregar Venta</button>
               <button ngbDropdownItem *ngIf="permisoListSale()">Ver Ventas</button>
             </div>
           </div>
