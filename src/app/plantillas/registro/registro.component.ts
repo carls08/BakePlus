@@ -94,8 +94,6 @@ export class RegistroComponent {
   }
 
   insertUsuarios(form: RegistroI) {
-
-
     switch (this.status_form) {
       case 0:
         this.api.insertUsuarios(form).subscribe(() => {
@@ -144,6 +142,10 @@ export class RegistroComponent {
       default:
         console.log("Opción no reconocida");
     }
+
+    setTimeout(() => {
+      this.getUsuarios();
+    }, 2000);
   }
   desactivarUsuario(usuario: RegistroI) {
     // Crear un nuevo objeto Uusuario con el cambio en estado_rg
