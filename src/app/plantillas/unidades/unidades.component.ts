@@ -42,6 +42,7 @@ export class UnidadesComponent {
   ){
 
     this.nuevoUnidad = this.fb.group({
+      id_unidad_medida: [''],
       abreviatura_unidad_medida: ['', Validators.required],
       nombre_unidad_medida: ['', Validators.required]
     });
@@ -60,28 +61,61 @@ export class UnidadesComponent {
   }
 
   tipoAccion(accion: number, data:any =[]) {
-
+    this.status_form = accion;
+    if(accion == 1){
+      this.nuevoUnidad.patchValue(data);
+    }else{
+      this.nuevoUnidad.reset();
+    }
   }
 
   insertUnidad(unidad: UnidadesI) {
-    this.api. insertUnidad(unidad).subscribe(() => {
-      console.log('Unidad insertada correctamente');
-      Swal.fire({
-        icon: "success",
-        title: "Has insertado",
-        showConfirmButton: false,
-        timer: 1000
-      });
-      this.getUnidad()
-    },(error) => {
-      console.error('Error al insertar la unidad:', error);
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Usuario o contraseña incorrecto",
-        footer: '<a href="">Intenta nuevamente</a>'
-      });
-    } );
+    switch (this.status_form) {
+      case 0:
+        this.api.insertUnidad(unidad).subscribe(() => {
+          Swal.fire({
+            icon: "success",
+            title: "Unidad registrada correctamente",
+            showConfirmButton: false,
+            timer: 1000
+          });
+        }, (error) => {
+          console.error('Error al registrar unidad:', error);
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Error al insertar unidad",
+            footer: '<a href="">Intenta nuevamente</a>'
+          });
+        });
+        break;
+
+      case 1:
+        this.api.updateUnidad(unidad).subscribe(() => {
+          console.log('Usuario actualizado correctamente');
+          Swal.fire({
+            icon: "success",
+            title: "Unidad actualizada correctamente",
+            showConfirmButton: false,
+            timer: 1000
+          });
+        }, (error) => {
+          console.error('Error al actualizar unidad:', error);
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Error al actualizar unidad",
+            footer: '<a href="">Intenta nuevamente</a>'
+          });
+        });
+        break;
+      default:
+        console.log("Opción no reconocida");
+    }
+
+    setTimeout(() => {
+      this.getUnidad();
+    }, 2000);
   }
 
   estadoUnidad(unidad: UnidadesI, estado: number) {
