@@ -1,5 +1,5 @@
 export interface productosI{
-    id_producto:string;
+    id_producto:number;
     id_receta:string;
     nombre_receta:string;
     nombre_producto:string;

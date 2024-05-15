@@ -1,13 +1,120 @@
 <div class="container">
-    <div class="card-container">
-      <div class="card">
-        <h3>Card Principal</h3>
-        <p>Contenido de la tarjeta principal.</p>
-      </div>
-      <div class="floating-card">
-        <h3>Tarjeta Flotante</h3>
-        <p>Contenido de la tarjeta flotante.</p>
+  <div class="d-flex justify-content-center row">
+    <div class="col-md-8">
+      <div class="invoice-card shadow-lg rounded">
+        <div class="invoice-header d-flex justify-content-between align-items-center p-4 bg-primary text-white rounded-top">
+          <div>
+            <h2 class="text-uppercase font-weight-bold mb-0">Factura</h2>
+            <div><span class="font-weight-bold">Cliente:</span><span class="ml-2">{{ venta.nombre_cliente }}</span></div>
+            <div><span class="font-weight-bold">Fecha:</span><span class="ml-2">{{ venta.fecha_venta }}</span></div>
+          </div>
+          <div>
+            <img src="assets/logo_glass.png" class="img-fluid rounded-circle" style="max-width: 100px;">
+          </div>
+        </div>
+        <div class="invoice-body p-4">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="bg-secondary text-white">
+                <tr>
+                  <th>Producto</th>
+                  <th>Cantidad</th>
+                  <th>Precio</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let producto of venta.detalleVenta">
+                  <td>{{ getNombreProducto(producto.id_producto) }}</td>
+                  <td>{{ producto.cantidad_producto }}</td>
+                  <td>{{ producto.precio_unitario | currency }}</td>
+                  <td>{{ producto.precio_total | currency }}</td>
+                </tr>
+                <tr class="font-weight-bold">
+                  <td colspan="2">
+                    <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#invoiceModal">Agregar Producto</button>
+                  </td>
+                  <td class="text-right">Total</td>
+                  <td>{{ venta.total_venta | currency }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="invoice-footer text-right p-4 bg-light rounded-bottom">
+          <button class="btn btn-danger btn-lg" type="button">Registrar</button>
+        </div>
       </div>
     </div>
   </div>
-  
+</div>
+
+
+
+<div class="modal fade" id="invoiceModal" tabindex="-1" aria-labelledby="invoiceModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="invoiceModalLabel">Agregar Información a la Factura</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="onSubmit()">
+          <!-- Nombre del Cliente -->
+<div class="mb-3">
+  <label for="customerName" class="form-label">Nombre del Cliente</label>
+  <input type="text" class="form-control" id="nombre_cliente" name="nombre_cliente" [(ngModel)]="venta.nombre_cliente" required>
+</div>
+          <!-- Productos -->
+          <div class="mb-3">
+            <label for="product" class="form-label">Productos</label>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Cantidad</th>
+                  <th>Precio</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let producto of venta.detalleVenta; let i = index">
+                    <td> <input type="text" class="form-control" placeholder="Nombre del Producto"
+                        [(ngModel)]="producto.id_producto" name="productName{{i}}" required></td>
+                    <td> <input type="number" class="form-control" placeholder="Cantidad"
+                        [(ngModel)]="producto.cantidad_producto" name="productQuantity{{i}}" required></td>
+                    <td> <input type="number" class="form-control" placeholder="Precio"
+                        [(ngModel)]="producto.precio_unitario" name="productPrice{{i}}" required></td>
+                    <td><button type="button" class="btn btn-danger" (click)="removeProduct(i)">Eliminar</button></td>
+                  </tr>
+                <tr>
+                  <td>
+                    <select class="form-select" aria-label="Producto" name="producto" [(ngModel)]="productoSelect" (change)="onChangeProducto($event)">
+                      <option selected>Seleccione producto</option>
+                      <option *ngFor="let producto of productos">{{producto.nombre_producto}}</option>
+                    </select>
+                  </td>
+                  <td>
+                    <input type="number" class="form-control" name="cantidad_producto" id="cantidad_producto">
+                  </td>
+                  <td>
+                    <input type="number" class="form-control" name="precio_producto" id="precio_producto" [value]="precioProducto" disabled>
+                  </td>
+                  <td>
+                    <button type="button" class="btn btn-primary" (click)="addProduct()">Agregar</button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+          <!-- Botones del Modal -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

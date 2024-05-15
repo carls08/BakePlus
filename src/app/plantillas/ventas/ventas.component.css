@@ -1,32 +1,81 @@
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  .card-container {
-    position: relative;
-  }
-  
-  .card {
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 150px;
-    margin-bottom: 350px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .floating-card {
-    position: absolute;
-    top: 50px;
-    left: -300px; /* Ajuste para mover la tarjeta flotante más a la izquierda */
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 100px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 100px;
+  margin-top: 100px;
+}
+
+.invoice-card {
+  background-color: #ffffff;
+  border-radius: 15px;
+  overflow: hidden;
+  max-width: 800px;
+  width: 100%;
+}
+
+.invoice-header {
+  background-color: #007bff;
+}
+
+.invoice-header h2 {
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+}
+
+.invoice-header .font-weight-bold {
+  font-weight: bold;
+}
+
+.invoice-header img {
+  max-width: 100px;
+}
+
+.invoice-body {
+  padding: 2rem;
+}
+
+.table-responsive {
+  margin-bottom: 0;
+}
+
+.table {
+  margin-bottom: 0;
+}
+
+.table thead th {
+  background-color: #6c757d;
+  color: #ffffff;
+  border: none;
+}
+
+.table td, .table th {
+  vertical-align: middle;
+  border: none;
+}
+
+.table tbody tr:last-child td {
+  font-weight: bold;
+}
+
+.btn-sm {
+  padding: 0.5rem 1rem;
+}
+
+.btn-lg {
+  padding: 0.75rem 1.5rem;
+}
+
+.invoice-footer {
+  background-color: #f8f9fa;
+}
+
+.rounded-top {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.rounded-bottom {
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
