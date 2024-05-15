@@ -22,6 +22,7 @@ export class IngredientesComponent {
   setActiveTab(tabName: string) {
     this.activeTab = tabName;
   }
+  status_form: number = 0;
   nuevoIngredientes: FormGroup;
   marcas: marcasI[] = [];
   ingredientesClicked: boolean = false;
@@ -48,6 +49,19 @@ export class IngredientesComponent {
   ngOnInit(): void {
     this.getIngrediente(), this.getMarcas();
   }
+  tipoAccion(accion: number, data: any = []) {
+    this.status_form = accion;
+    if (accion == 1) {
+      this.nuevoIngredientes.patchValue(data);
+      console.log(data)
+    } else {
+      this.nuevoIngredientes.patchValue({
+        'nombre_marca': ''
+      
+      });
+    }
+  }
+
   getIngrediente() {
     this.api.getAllIngredientes().subscribe((data) => {
       console.log(data);

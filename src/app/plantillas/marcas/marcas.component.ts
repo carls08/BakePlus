@@ -23,13 +23,14 @@ export class MarcasComponent {
   setActiveTab(tabName: string) {
     this.activeTab = tabName;
   }
-
+  status_form: number = 0;
   nuevoMarca: FormGroup;
   nombre_marcaClicked: boolean = false;
   marcas: any = []
   currentPage: number = 1;
   pageSize: number = 10; // Tamaño de la página
   marcaSeleccionada: any;
+  status_response: boolean = false;
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
@@ -37,7 +38,8 @@ export class MarcasComponent {
     private modalService: ModalService,
     private modalServiceNgb: NgbModal) {
     this.nuevoMarca = this.fb.group({
-      nombre_marca: ['', Validators.required]
+      nombre_marca: ['', Validators.required],
+      id_marca: ['', Validators.required]
     }),
     (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
   }
@@ -45,6 +47,18 @@ export class MarcasComponent {
 
     this.getMarcas()
 
+  }
+  tipoAccion(accion: number, data: any = []) {
+    this.status_form = accion;
+    if (accion == 1) {
+      this.nuevoMarca.patchValue(data);
+      console.log(data)
+    } else {
+      this.nuevoMarca.patchValue({
+        'nombre_marca': ''
+      
+      });
+    }
   }
 
   getMarcas(){
@@ -54,26 +68,53 @@ export class MarcasComponent {
   }
 
   insertMarca(marca: marcasI) {
-    this.api.insertMarca(marca).subscribe(() => {
-      console.log('Marca insertada correctamente');
-      Swal.fire({
-        icon: "success",
-        title: "Has ingresado",
-        showConfirmButton: false,
-        timer: 1000
-      });
-      this.getMarcas()
-    }, (error) => {
-      console.error('Error al insertar la marca:', error);
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Usuario o contraseña incorrecto",
-        footer: '<a href="">Intenta nuevamente</a>'
-      });
-    });
+    switch(this.status_form){
+      case 0:
+        this.api.insertMarca(marca).subscribe(() => {
+          console.log('Marca insertada correctamente');
+          Swal.fire({
+            icon: "success",
+            title: "Has ingresado",
+            showConfirmButton: false,
+            timer: 1000
+          });
+          this.status_response = true;
+        }, (error) => {
+          console.error('Error al insertar la marca:', error);
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Usuario o contraseña incorrecto",
+            footer: '<a href="">Intenta nuevamente</a>'
+          });
+          this.status_response = false;
+        });
+        break;
+        case 1: 
+        this.api.updateMarcas(marca).subscribe(()=>{
+          console.log('Usuario actualizado correctamente');
+          Swal.fire({
+            icon: "success",
+            title: "Usuario actualizado correctamente",
+            showConfirmButton: false,
+            timer: 1000
+          });
+          this.status_response = true;
+        }, (error) => {
+          console.error('Error al actualizar usuario:', error);
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Error al actualizar usuario",
+            footer: '<a href="">Intenta nuevamente</a>'
+          });
+          this.status_response = false;
+        });
+        break;
+      default:
+        console.log("Opción no reconocida");
   }
-
+  }
   desactivarMarca(marca: marcasI) {
     // Crear un nuevo objeto marca con el cambio en estado_rg
     const marcaActualizada: marcasI = {
