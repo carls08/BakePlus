@@ -22,6 +22,7 @@ export class UnidadesComponent {
   setActiveTab(tabName: string) {
     this.activeTab = tabName;
   }
+
   nuevoUnidad: FormGroup;
   abreviatura_unidad_medidaClicked: boolean = false;
   nombre_unidad_medidaClicked:boolean = false;
@@ -29,25 +30,39 @@ export class UnidadesComponent {
   currentPage: number = 1;
   pageSize: number = 10; // Tamaño de la página
   unidad_medidaSeleccionada: any;
-  constructor(private fb: FormBuilder, private api: ApiService, private router: Router,private modalService: ModalService,private modalServiceNgb: NgbModal) {
+
+  status_form: number = 0;
+
+  constructor(
+    private fb: FormBuilder,
+    private api: ApiService,
+    private router: Router,
+    private modalService: ModalService,
+    private modalServiceNgb: NgbModal
+  ){
+
     this.nuevoUnidad = this.fb.group({
       abreviatura_unidad_medida: ['', Validators.required],
       nombre_unidad_medida: ['', Validators.required]
-
     });
+
     (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
   }
+
   ngOnInit(): void {
     this.getUnidad()
   }
 
   getUnidad() {
-    
     this.api.getAllUnidades().subscribe(data => {
-      console.log(data);
       this.unidad_medida=data;
-    })
+    });
   }
+
+  tipoAccion(accion: number, data:any =[]) {
+
+  }
+
   insertUnidad(unidad: UnidadesI) {
     this.api. insertUnidad(unidad).subscribe(() => {
       console.log('Unidad insertada correctamente');
@@ -68,94 +83,68 @@ export class UnidadesComponent {
       });
     } );
   }
-  desactivarUnidad(unidad: UnidadesI) {
-    // Crear un nuevo objeto Uunidad con el cambio en estado_rg
-    const unidadActualizada: UnidadesI = {
-      ...unidad, // Copia todos los atributos de la unidad original
-      estado_rg: 0 // Cambia el estado_rg al valor deseado
-    };
+
+  estadoUnidad(unidad: UnidadesI, estado: number) {
+  // Crear un nuevo objeto Uunidad con el cambio en estado_rg
+  const unidadActualizada: UnidadesI = {
+    ...unidad, // Copia todos los atributos de la unidad original
+    estado_rg: estado // Cambia el estado_rg al valor deseado
+  };
   
-    // Llamar a la API con la unidad actualizada
-    this.api.deleteUnidad(unidadActualizada).subscribe(() => {
-      console.log('unidad eliminada correctamente');
-      Swal.fire({
-        icon: "success",
-        title: "Realizado!",
-        showConfirmButton: false,
-        timer: 1000
-      });
-      this.getUnidad(); // Actualizar la lista de unidad después de eliminar
-    }, (error) => {
-      console.error('Error al eliminar el unidad:', error);
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "ERROR",
-        footer: '<a href="">Intenta nuevamente</a>'
-      });
+  // Llamar a la API con la unidad actualizada
+  this.api.deleteUnidad(unidadActualizada).subscribe(() => {
+    console.log('unidad eliminada correctamente');
+    Swal.fire({
+      icon: "success",
+      title: "Realizado!",
+      showConfirmButton: false,
+      timer: 1000
     });
-  }
-  activarUnidad(unidad_medida: UnidadesI) {
-    // Crear un nuevo objeto unidad con el cambio en estado_rg
-    const unidadActualizada: UnidadesI = {
-      ...unidad_medida, // Copia todos los atributos de la unidad original
-      estado_rg: 1 // Cambia el estado_rg al valor deseado
-    };
-  
-    // Llamar a la API con la unidad actualizada
-    this.api.deleteUnidad(unidadActualizada).subscribe(() => {
-      console.log('unidad eliminada correctamente');
-      Swal.fire({
-        icon: "success",
-        title: "Realizado!",
-        showConfirmButton: false,
-        timer: 1000
-      });
-      this.getUnidad(); // Actualizar la lista de unidads después de eliminar
+    this.getUnidad(); // Actualizar la lista de unidad después de eliminar
     }, (error) => {
-      console.error('Error al eliminar el unidad:', error);
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "ERROR",
-        footer: '<a href="">Intenta nuevamente</a>'
-      });
+    console.error('Error al eliminar el unidad:', error);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "ERROR",
+      footer: '<a href="">Intenta nuevamente</a>'
     });
-  }
+  });
+}
 
   salir(){
     this.router.navigate(['home'])
   }
+
   isFormValid(): boolean {
     return this.nuevoUnidad.valid; // Retorna true si el formulario es válido, de lo contrario retorna false
   }
+  
   validateAbreviatura_unidad_medida(){
-if(!this.abreviatura_unidad_medidaClicked){
-  return false
-}
-const abreviatura_unidad_medidaControl = this.nuevoUnidad.get('abreviatura_unidad_medida');
-if(abreviatura_unidad_medidaControl?.errors && abreviatura_unidad_medidaControl?.value.length==0){
-return 'La abreviatura de la unidad es requeridad';
-}else if(abreviatura_unidad_medidaControl?.value.length < 0){
-  return 'Al menos un caracter';
-
-}
-return null;
+    if(!this.abreviatura_unidad_medidaClicked){
+      return false
+    }
+    const abreviatura_unidad_medidaControl = this.nuevoUnidad.get('abreviatura_unidad_medida');
+    if(abreviatura_unidad_medidaControl?.errors && abreviatura_unidad_medidaControl?.value.length==0){
+      return 'La abreviatura de la unidad es requeridad';
+    }else if(abreviatura_unidad_medidaControl?.value.length < 0){
+      return 'Al menos un caracter';
+    }
+    return null;
   }
+
 validateNombre_unidad_medida(){
     if(!this.nombre_unidad_medidaClicked){
       return false
     }
     const nombre_unidad_medidaControl = this.nuevoUnidad.get('nombre_unidad_medida');
     if(nombre_unidad_medidaControl?.errors && nombre_unidad_medidaControl?.value.length==0){
-      console.log('prueba')
-    return 'La abreviatura de la unidad es requeridad';
+      return 'La abreviatura de la unidad es requeridad';
     }else if(nombre_unidad_medidaControl?.value.length < 2){
       return 'Al menos dos caracter';
-    
     }
     return null;
-      }
+}
  
   onAbreviatura_unidad_medidaClicked(){
     this.abreviatura_unidad_medidaClicked=true;
@@ -164,36 +153,43 @@ validateNombre_unidad_medida(){
     this.nombre_unidad_medidaClicked=true;
   }
   
-  getCurrentPageItems(): UnidadesI[]{
-const startIndex = (this.currentPage - 1)*this.pageSize;
-const endIndex = startIndex + this.pageSize;
-return this.unidad_medida.slice(startIndex, endIndex);
+getCurrentPageItems(): UnidadesI[]{
+  const startIndex = (this.currentPage - 1)*this.pageSize;
+  const endIndex = startIndex + this.pageSize;
+  return this.unidad_medida.slice(startIndex, endIndex);
+}
+
+getCurrentRowNumber(index: number): number {
+  return (this.currentPage - 1) * this.pageSize + index + 1;
+}
+
+getTotalPages():number{
+  return Math.ceil(this.unidad_medida.length/this.pageSize);
+}
+
+getPages():number[]{
+  const totalPages=this.getTotalPages();
+  return Array.from({length:totalPages},(_,index)=> index + 1);
+}
+
+goToPage(page:number){
+  if (page >= 1 && page <= this.getTotalPages()){
+    this.currentPage=page;
   }
-  getCurrentRowNumber(index: number): number {
-    return (this.currentPage - 1) * this.pageSize + index + 1;
-  }
-  getTotalPages():number{
-    return Math.ceil(this.unidad_medida.length/this.pageSize);
-  }
-  getPages():number[]{
-    const totalPages=this.getTotalPages();
-    return Array.from({length:totalPages},(_,index)=> index + 1);
-  }
-  goToPage(page:number){
-    if (page >= 1 && page <= this.getTotalPages()){
-      this.currentPage=page;
-    }
-  }
+}
+
 nextPage(){
   if(this.currentPage < this.getTotalPages()){
     this.currentPage++;
   }
 }
+
 previousPage(){
   if(this.currentPage > 1 ){
     this.currentPage--;
   }
 }
+
 abrirModalParaEditarItem(unidad_medida: UnidadesI) {
   const modalRef = this.modalServiceNgb.open(EditarItemModalComponent);
   modalRef.componentInstance.item = unidad_medida;
@@ -293,7 +289,6 @@ abrirModalParaEditarItem(unidad_medida: UnidadesI) {
  
     pdfMake.createPdf(documentDefinition).open();
   }
-
 }
 
 
