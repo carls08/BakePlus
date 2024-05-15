@@ -39,7 +39,7 @@ export class MarcasComponent {
     private modalServiceNgb: NgbModal) {
     this.nuevoMarca = this.fb.group({
       nombre_marca: ['', Validators.required],
-      id_marca: ['', Validators.required]
+      id_marca: ['']
     }),
     (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
   }
@@ -52,7 +52,7 @@ export class MarcasComponent {
     this.status_form = accion;
     if (accion == 1) {
       this.nuevoMarca.patchValue(data);
-      console.log(data)
+      
     } else {
       this.nuevoMarca.patchValue({
         'nombre_marca': ''
@@ -84,7 +84,7 @@ export class MarcasComponent {
           Swal.fire({
             icon: "error",
             title: "Oops...",
-            text: "Usuario o contraseña incorrecto",
+            text: "Marcas o contraseña incorrecto",
             footer: '<a href="">Intenta nuevamente</a>'
           });
           this.status_response = false;
@@ -92,20 +92,20 @@ export class MarcasComponent {
         break;
         case 1: 
         this.api.updateMarcas(marca).subscribe(()=>{
-          console.log('Usuario actualizado correctamente');
+          console.log('Marcas actualizado correctamente');
           Swal.fire({
             icon: "success",
-            title: "Usuario actualizado correctamente",
+            title: "Marcas actualizado correctamente",
             showConfirmButton: false,
             timer: 1000
           });
           this.status_response = true;
         }, (error) => {
-          console.error('Error al actualizar usuario:', error);
+          console.error('Error al actualizar Marcas:', error);
           Swal.fire({
             icon: "error",
             title: "Oops...",
-            text: "Error al actualizar usuario",
+            text: "Error al actualizar Marcas",
             footer: '<a href="">Intenta nuevamente</a>'
           });
           this.status_response = false;
@@ -114,6 +114,9 @@ export class MarcasComponent {
       default:
         console.log("Opción no reconocida");
   }
+  setTimeout(() => {
+    this.getMarcas();
+  }, 2000);
   }
   desactivarMarca(marca: marcasI) {
     // Crear un nuevo objeto marca con el cambio en estado_rg
@@ -220,33 +223,9 @@ export class MarcasComponent {
   getTotalPages(): number {
     return Math.ceil(this.marcas.length / this.pageSize);
   }
-  isFormValid(): boolean {
+    isFormValid(): boolean {
     return this.nuevoMarca.valid; // Retorna true si el formulario es válido, de lo contrario retorna false
   }
-  abrirModalParaEditarItem(marca: marcasI) {
-    const modalRef = this.modalServiceNgb.open(EditarItemModalComponent);
-    modalRef.componentInstance.item = marca;
-
-    modalRef.result.then((result: marcasI) => {
-      if (result) {
-        // Si se recibe un resultado (objeto modificado), puedes realizar las acciones necesarias aquí
-        console.log('Objeto modificado:', result);
-        // Por ejemplo, aquí puedes enviar los datos modificados a la API
-        this.api.updateMarcas(result).subscribe(() => {
-          console.log('Marca actualizada correctamente');
-        }, (error) => {
-          console.error('Error al actualizar la marca:', error);
-        });
-      } else {
-        // Si no se recibe un resultado (se cerró el modal sin cambios), puedes manejarlo aquí
-        console.log('Se cerró el modal sin cambios');
-      }
-    }).catch((error) => {
-      console.error('Error al cerrar el modal:', error);
-    });
-
-  }
-
   // PDF GENERATOR
   generarPDF() {
     let num = 0;

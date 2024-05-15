@@ -31,6 +31,7 @@ export class IngredientesComponent {
   currentPage: number = 1;
   pageSize: number = 10; // Tamaño de la página
   ingredienteSeleccionada: any;
+  status_response: boolean = false;
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
@@ -43,6 +44,7 @@ export class IngredientesComponent {
       id_marca: ['', Validators.required],
       fecha_compra_ingrediente: ['', Validators.required],
       fecha_vencimiento_ingrediente: ['', Validators.required],
+      id_ingrediente:['']
     });
     (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
   }
@@ -56,7 +58,11 @@ export class IngredientesComponent {
       console.log(data)
     } else {
       this.nuevoIngredientes.patchValue({
-        'nombre_marca': ''
+        'nombre_ingrediente': '',
+        'id_marca':'',
+        'fecha_compra_ingrediente':'',
+        'fecha_vencimiento_ingrediente':'',
+
       
       });
     }
@@ -69,28 +75,59 @@ export class IngredientesComponent {
     });
   }
   insertIngrediente(ingrediente: ingredientesI) {
-    console.log(ingrediente);
-    this.api.insertIngrediente(ingrediente).subscribe(
-      () => {
-        console.log('Ingrediente insertada correctamente');
-        Swal.fire({
-          icon: 'success',
-          title: 'Has ingresado',
-          showConfirmButton: false,
-          timer: 1000,
+   switch(this.status_form){
+    case 0:
+      this.api.insertIngrediente(ingrediente).subscribe(
+        () => {
+          console.log('Ingrediente insertada correctamente');
+          Swal.fire({
+            icon: 'success',
+            title: 'Has ingresado',
+            showConfirmButton: false,
+            timer: 1000,
+          });
+          this.status_response = true;
+        },
+        (error) => {
+          console.error('Error al insertar la marca:', error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Usuario o contraseña incorrecto',
+            footer: '<a href="">Intenta nuevamente</a>',
+          });
+          this.status_response = false;
+        }
+      );
+      break;
+      case 1:
+        this.api.updateIngrediente(ingrediente).subscribe(()=>{
+          console.log('Ingrediente actualizado correctamente');
+          Swal.fire({
+            icon: "success",
+            title: "Ingrediente actualizado correctamente",
+            showConfirmButton: false,
+            timer: 1000
+          });
+          this.status_response = true;
+        }, (error) => {
+          console.error('Error al actualizar Ingrediente:', error);
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Error al actualizar Ingrediente",
+            footer: '<a href="">Intenta nuevamente</a>'
+          });
+          this.status_response = false;
         });
-        this.getIngrediente();
-      },
-      (error) => {
-        console.error('Error al insertar la marca:', error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Usuario o contraseña incorrecto',
-          footer: '<a href="">Intenta nuevamente</a>',
-        });
-      }
-    );
+        break;
+        default:
+          console.log("Opción no reconocida");
+   }
+   setTimeout(() => {
+    this.getIngrediente();
+  }, 2000);
+   
   }
   desactivarIngrediente(ingrediente: ingredientesI) {
     // Crear un nuevo objeto ingrediente con el cambio en estado_rg
