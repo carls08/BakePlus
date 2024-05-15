@@ -3,7 +3,7 @@
     <div class="card-header bg-primary text-light">
       <div class="row align-items-center">
         <div class="col">
-          <h2 class="m-0">Unidades Registrados</h2>
+          <h2 class="m-0">Unidades Registradas</h2>
         </div>
         <div class="col-auto">
           <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#formUsuario" (click)="tipoAccion(0)">
@@ -38,7 +38,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let unidad_medida of getCurrentPageItems(); let i =index">
+            <tr *ngFor="let unidad_medida of getCurrentPageItems(); let i =index"  [class.table-info]="i % 2 === 0"
+            class="table-row">
               <td>{{getCurrentRowNumber(i)}}</td>
               <td><a>{{unidad_medida.abreviatura_unidad_medida}}</a></td>
               <td><a>{{unidad_medida.nombre_unidad_medida}}</a></td>

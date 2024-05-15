@@ -31,16 +31,35 @@ export class ProduccionComponent {
   isAuthenticated: boolean = false;
   loggedInUsername: string | null = null;
   permisos: permisosI[] | null = [];
+  status_form:number = 0;
+  status_response: boolean = false;
   constructor(private fb: FormBuilder, private api: ApiService, private router: Router,private modalServiceNgb: NgbModal,private authService: AuthService) {
     this.nuevoFormProduccion = this.fb.group({
     id_usuario:['',Validators.required],
       id_producto:['',Validators.required],
       cantidad_produccion:['',Validators.required],
       fecha_produccion:['',Validators.required],
+      id_produccion:['']
       
      
     });
 
+  }
+
+  tipoAccion(accion: number, data: any = []) {
+    this.status_form = accion;
+    if (accion == 1) {
+      this.nuevoFormProduccion.patchValue(data);
+      
+    } else {
+      this.nuevoFormProduccion.patchValue({
+        'cantidad_produccion': '',
+        'fecha_produccion':'',
+        'id_usuario':'',
+        'id_producto':'',
+      
+      });
+    }
   }
 
   ngOnInit():void{
@@ -88,28 +107,55 @@ export class ProduccionComponent {
   }
   
   insertProduccion(produccion: produccionI) {
-    console.log(produccion);
-    this.api.insertProduccion(produccion).subscribe(
-      () => {
-        console.log('produccion insertada correctamente');
-        Swal.fire({
-          icon: 'success',
-          title: 'Has ingresado',
-          showConfirmButton: false,
-          timer: 1000,
+    switch(this.status_form){
+      case 0:
+        this.api.insertProduccion(produccion).subscribe(() => {
+          console.log('produccion insertada correctamente');
+          Swal.fire({
+            icon: "success",
+            title: "Has ingresado",
+            showConfirmButton: false,
+            timer: 1000
+          });
+          this.status_response = true;
+        }, (error) => {
+          console.error('Error al insertar la produccion:', error);
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "produccions o contraseña incorrecto",
+            footer: '<a href="">Intenta nuevamente</a>'
+          });
+          this.status_response = false;
         });
-        this.getProduccion();
-      },
-      (error) => {
-        console.error('Error al insertar la marca:', error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Usuario o contraseña incorrecto',
-          footer: '<a href="">Intenta nuevamente</a>',
+        break;
+        case 1: 
+        this.api.updateProduccion(produccion).subscribe(()=>{
+          console.log('produccions actualizado correctamente');
+          Swal.fire({
+            icon: "success",
+            title: "produccions actualizado correctamente",
+            showConfirmButton: false,
+            timer: 1000
+          });
+          this.status_response = true;
+        }, (error) => {
+          console.error('Error al actualizar produccions:', error);
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Error al actualizar produccions",
+            footer: '<a href="">Intenta nuevamente</a>'
+          });
+          this.status_response = false;
         });
-      }
-    );
+        break;
+      default:
+        console.log("Opción no reconocida");
+  }
+  setTimeout(() => {
+    this.getProduccion();
+  }, 2000);
   }
 
 
@@ -206,30 +252,8 @@ export class ProduccionComponent {
     });
  
   }
-  abrirModalParaEditarItem(producto: produccionI) {
-    const modalRef = this.modalServiceNgb.open(EditarItemModalComponent);
-    modalRef.componentInstance.item = producto;
+ 
 
-    modalRef.result.then((result: produccionI) => {
-      if (result) {
-
-        // Si se recibe un resultado (objeto modificado), puedes realizar las acciones necesarias aquí
-        console.log('Objeto modificado:', result);
-        // Por ejemplo, aquí puedes enviar los datos modificados a la API
-        this.api.updateProduccion(result).subscribe(() => {
-          console.log('Produccion actualizada correctamente');
-        }, (error) => {
-          console.error('Error al actualizar la Produccion:', error);
-        });
-      } else {
-        // Si no se recibe un resultado (se cerró el modal sin cambios), puedes manejarlo aquí
-        console.log('Se cerró el modal sin cambios');
-      }
-    }).catch((error) => {
-      console.error('Error al cerrar el modal:', error);
-    });
-
-  }
-
+ 
 
 }
