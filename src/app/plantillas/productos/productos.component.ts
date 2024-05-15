@@ -17,11 +17,7 @@ import pdfFonts from 'pdfmake/build/vfs_fonts';
   styleUrls: ['./productos.component.css']
 })
 export class ProductosComponent {
-  activeTab: string = 'registro'; // Puedes establecer 'registro' como pestaña activa por defecto
 
-  setActiveTab(tabName: string) {
-    this.activeTab = tabName;
-  }
   nuevoFormProducto:FormGroup;
   producto:any =[];
   receta: RecetaI[] = [];
@@ -30,8 +26,17 @@ export class ProductosComponent {
   cantidad_productoClicked:boolean=false;
   currentPage: number = 1;
   pageSize: number = 10; // Tamaño de la página
-  constructor(private fb: FormBuilder, private api: ApiService, private router: Router,private modalServiceNgb: NgbModal) {
+
+  status_form: number = 0;
+
+  constructor(
+    private fb: FormBuilder,
+    private api: ApiService,
+    private router: Router,
+    private modalServiceNgb: NgbModal
+  ){
     this.nuevoFormProducto = this.fb.group({
+      id_producto: [''],
       id_receta:['',Validators.required],
       nombre_producto:['',Validators.required],
       precio_producto:['',Validators.required],
@@ -41,15 +46,16 @@ export class ProductosComponent {
   }
 
   ngOnInit():void{
-this.getProductos();
-this.getReceta();
+    this.getProductos();
+    this.getReceta();
   }
+
   getProductos() {
     this.api.getAllProductos().subscribe(data => {
-      console.log(data)
       this.producto = data;
     })
   }
+
   getReceta() {
     this.api.getAllRecetas().subscribe({
       next: (data: RecetaI[]) => {
@@ -66,35 +72,74 @@ this.getReceta();
     });
   }
 
+  tipoAccion(accion:number, data:any =[]) {
+    this.status_form = accion;
+    if(accion == 1) {
+      this.nuevoFormProducto.patchValue(data);
+    }else{
+      this.nuevoFormProducto.patchValue({
+        id_receta: '',
+        nombre_producto: '',
+        precio_producto: '',
+        cantidad_producto: ''
+      });
+    }
+  }
+
   insertProducto(producto: productosI) {
-    console.log(producto);
-    this.api.insertProductos(producto).subscribe(
-      () => {
-        console.log('producto insertada correctamente');
-        Swal.fire({
-          icon: 'success',
-          title: 'Has ingresado',
-          showConfirmButton: false,
-          timer: 1000,
+    switch (this.status_form) {
+      case 0:
+        this.api.insertProductos(producto).subscribe(() => {
+          Swal.fire({
+            icon: "success",
+            title: "Producto registrado correctamente",
+            showConfirmButton: false,
+            timer: 1000
+          });
+        }, (error) => {
+          console.error('Error al registrar producto:', error);
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Datos de producto incorrecto",
+            footer: '<a href="">Intenta nuevamente</a>'
+          });
         });
-        this.getProductos();
-      },
-      (error) => {
-        console.error('Error al insertar la marca:', error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Usuario o contraseña incorrecto',
-          footer: '<a href="">Intenta nuevamente</a>',
+
+        break;
+      case 1:
+        this.api.updateProducto(producto).subscribe(() => {
+          console.log('Usuario actualizado correctamente');
+          Swal.fire({
+            icon: "success",
+            title: "Producto actualizado correctamente",
+            showConfirmButton: false,
+            timer: 1000
+          });
+        }, (error) => {
+          console.error('Error al actualizar producto:', error);
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Error al actualizar producto",
+            footer: '<a href="">Intenta nuevamente</a>'
+          });
         });
-      }
-    );
+        break;
+      default:
+        console.log("Opción no reconocida");
+    }
+
+    setTimeout(() => {
+      this.getProductos();
+    }, 2000);
   }
 
   validateNombre() {
     if (!this.nombre_productoClicked) {
       return false;
     }
+
     const nombre_productoControl =
       this.nuevoFormProducto.get('nombre_producto');
       if (nombre_productoControl?.errors  ) {
@@ -115,31 +160,35 @@ this.getReceta();
     } else if (precio_productoControl?.value.valuetoString().length < 1) {
       return 'Al menos 4 caracteres.';
     }
-
     return null;
   }
+
   validateCantidad() {
     if (!this.cantidad_productoClicked) {
       return false;
     }
+
     const cantidad_productoControl = this.nuevoFormProducto.get('cantidad_producto');
     if (cantidad_productoControl?.errors  && cantidad_productoControl?.value.toString().length==0 ) {
       return 'La cantidad es requerido.';
     } else if (cantidad_productoControl?.value.valuetoString().length < 1) {
       return 'Al menos 4 caracteres.';
     }
-
     return null;
   }
+
   onNombre_productoClicked() {
     this.nombre_productoClicked = true; // Marcar como true cuando se hace clic en el campo
   }
+
   onPrecio_productoClicked() {
     this.precio_productoClicked = true; // Marcar como true cuando se hace clic en el campo
   }
+
   onCantidad_productoClicked() {
     this.cantidad_productoClicked = true; // Marcar como true cuando se hace clic en el campo
   }
+
   getCurrentRowNumber(index: number): number {
     return (this.currentPage - 1) * this.pageSize + index + 1;
   }
@@ -153,6 +202,7 @@ this.getReceta();
     const totalPages = this.getTotalPages();
     return Array.from({ length: totalPages }, (_, index) => index + 1);
   }
+
   goToPage(page: number) {
     if (page >= 1 && page <= this.getTotalPages()) {
       this.currentPage = page;
@@ -178,11 +228,11 @@ this.getReceta();
   isFormValid(): boolean {
     return this.nuevoFormProducto.valid; // Retorna true si el formulario es válido, de lo contrario retorna false
   }
-  desactivarProducto(producto: productosI) {
+  estadoProducto(producto: productosI, estado:number) {
     // Crear un nuevo objeto Uproducto con el cambio en estado_rg
     const productoActualizada: productosI = {
       ...producto, // Copia todos los atributos de la producto original
-      estado_rg: 0 // Cambia el estado_rg al valor deseado
+      estado_rg: estado // Cambia el estado_rg al valor deseado
     };
   
     // Llamar a la API con la producto actualizada
@@ -205,41 +255,13 @@ this.getReceta();
       });
     });
   }
-  activarProducto(producto: productosI) {
-    // Crear un nuevo objeto producto con el cambio en estado_rg
-    const productoActualizada: productosI = {
-      ...producto, // Copia todos los atributos de la producto original
-      estado_rg: 1 // Cambia el estado_rg al valor deseado
-    };
-  
-    // Llamar a la API con la producto actualizada
-    this.api.deleteProducto(productoActualizada).subscribe(() => {
-      console.log('producto eliminada correctamente');
-      Swal.fire({
-        icon: "success",
-        title: "Realizado!",
-        showConfirmButton: false,
-        timer: 1000
-      });
-      this.getProductos(); // Actualizar la lista de usuarios después de eliminar
-    }, (error) => {
-      console.error('Error al eliminar el usuario:', error);
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "ERROR",
-        footer: '<a href="">Intenta nuevamente</a>'
-      });
-    });
- 
-  }
+
   abrirModalParaEditarItem(producto: productosI) {
     const modalRef = this.modalServiceNgb.open(EditarItemModalComponent);
     modalRef.componentInstance.item = producto;
 
     modalRef.result.then((result: productosI) => {
       if (result) {
-
         // Si se recibe un resultado (objeto modificado), puedes realizar las acciones necesarias aquí
         console.log('Objeto modificado:', result);
         // Por ejemplo, aquí puedes enviar los datos modificados a la API
