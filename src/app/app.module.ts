@@ -25,7 +25,8 @@ import { EditarItemModalComponent } from './plantillas/editar-item-modal/editar-
 import { EstadisticasComponent } from './plantillas/estadisticas/estadisticas.component';
 import { TableroComponent } from './plantillas/tablero/tablero.component';
 import { ProductosComponent } from './plantillas/productos/productos.component';
-import { ProduccionComponent } from './plantillas/produccion/produccion.component'
+import { ProduccionComponent } from './plantillas/produccion/produccion.component';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -61,7 +62,7 @@ import { ProduccionComponent } from './plantillas/produccion/produccion.componen
     HttpClientModule,
     NgIconsModule.withIcons({ heroUsers }),
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
