@@ -4,7 +4,7 @@ export interface ventaCreate{
     id_usuario: number;
     nombre_cliente: string;
     total_venta: number;
-    fecha_venta: Date;
+    fecha_venta: string;
     detalleVenta: detalleVenta [];
 }
 

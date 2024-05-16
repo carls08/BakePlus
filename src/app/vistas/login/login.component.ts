@@ -45,6 +45,7 @@ export class LoginComponent {
       let dataResponse: ResponseI = data;
       if (dataResponse) {
         localStorage.setItem("token", dataResponse.token);
+        localStorage.setItem("id_usuario", dataResponse.id_usuario.toString());
         localStorage.setItem("nombre_usuario", dataResponse.nombre_usuario);
         const jsonMiArray: string = JSON.stringify(dataResponse.permissions);
         localStorage.setItem("permisos_usuario", jsonMiArray);

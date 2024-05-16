@@ -21,6 +21,10 @@ export class AuthService {
   getLoggedInUsername(): string | null {
     return localStorage.getItem('nombre_usuario');
   }
+  getLoggedInIdUser(): number{
+    let id = parseInt(localStorage.getItem('id_usuario'));
+    return id;
+  }
   getPermisosUsuario(): permisosI[] | null {
     const permisosJSON = localStorage.getItem('permisos_usuario');
     if (permisosJSON) {

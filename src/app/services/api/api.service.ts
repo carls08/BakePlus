@@ -17,6 +17,7 @@ import { IngredientesComponent } from 'src/app/plantillas/ingredientes/ingredien
 import { productosI } from 'src/app/models/productos.interface';
 import { EditarItemModalComponent } from 'src/app/plantillas/editar-item-modal/editar-item-modal.component';
 import { produccionI } from 'src/app/models/produccion.interface';
+import { ventaCreate } from 'src/app/models/venta.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -33,6 +34,7 @@ export class ApiService {
         token: response.success.data.token,
         nombre_usuario: response.success.data.nombre_usuario,
         usuario: response.success.data.usuario,
+        id_usuario: response.success.data.id_usuario,
         permissions: response.success.data.permisos.map(
           (permissionArray: string[]) => ({
             name: permissionArray[0],
@@ -207,6 +209,11 @@ export class ApiService {
   const headers = this.createHeaders();
     const direccion = this.url + 'producciones/insert';
   return this.http.post<any>(direccion, produccion, { headers });
+ }
+ insertVenta(venta:ventaCreate):Observable<ventaCreate>{
+  const headers = this.createHeaders();
+    const direccion = this.url + 'ventas/insert';
+  return this.http.post<any>(direccion, venta, { headers });
  }
 
 

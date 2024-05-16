@@ -4,6 +4,8 @@ import { detalleVenta } from 'src/app/models/detalleVenta.inteface';
 import { productosI } from 'src/app/models/productos.interface';
 import { ventaCreate } from 'src/app/models/venta.interface';
 import { ApiService } from 'src/app/services/api/api.service';
+import { AuthService } from 'src/app/services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-ventas',
@@ -15,14 +17,18 @@ export class VentasComponent {
 
   productos: productosI[]
   precioProducto: number = 0
+  cantidadProducto: number = 0
   productoSelect: string = null
   detalleVenta: detalleVenta
-
+  isSaved: boolean = false
+  isProduct: boolean = false
+  isClient: boolean = false
+  
   venta: ventaCreate = {
     id_usuario: 0,
     nombre_cliente: '',
     total_venta: 0,
-    fecha_venta: new Date,
+    fecha_venta: this.obtenerFechaFormateada(),
     detalleVenta: []
   };
 
@@ -36,10 +42,12 @@ export class VentasComponent {
   telefono: string;
   searchTerm: string = ''; // Definir la propiedad searchTerm
 
-  constructor(private api: ApiService) { }
+  constructor(private api: ApiService, private auth:AuthService) { }
 
   ngOnInit(): void {
     this.getProductos();
+    this.venta.id_usuario = this.auth.getLoggedInIdUser();
+    
   }
 
   getProductos() {
@@ -55,19 +63,23 @@ export class VentasComponent {
         //mapeamos una inteface a otra
         this.detalleVenta = {
           id_producto: producto.id_producto,
-          cantidad_producto: producto.cantidad_producto,
+          cantidad_producto: 0,
           precio_unitario: producto.precio_producto,
-          precio_total: producto.precio_producto * producto.cantidad_producto
+          precio_total: 0
         };
       }
+    }
+    if (this.venta.nombre_cliente !== "") {
+      this.isClient = true;
     }
   }
   addProduct() {
     if (this.venta !== null) {
+      this.detalleVenta.cantidad_producto = this.cantidadProducto
+      this.detalleVenta.precio_total = this.detalleVenta.precio_unitario * this.detalleVenta.cantidad_producto
       this.venta.detalleVenta.push(this.detalleVenta);
       this.venta.total_venta = this.calcularTotal();
-    } else {
-      console.log("venta es nula")
+      this.isProduct = true;
     }
 
   }
@@ -81,18 +93,18 @@ export class VentasComponent {
   }
 
   removeProduct(index: number) {
-    //this.invoice.products.splice(index, 1);
+    this.venta.detalleVenta.splice(index, 1);
+    this.venta.total_venta = this.calcularTotal();
   }
 
-  onSubmit() {
-    //console.log('Invoice:', this.invoice);
-    // Aquí puedes manejar la lógica de envío del formulario
+  registrar() {
+
+    this.insertVenta()
+
+    this.isSaved = true;
+
   }
 
-  buscarCliente() {
-    // Lógica para filtrar clientes basado en el término de búsqueda
-    // Puedes implementar la lógica de filtrado aquí
-  }
 
   seleccionarCliente(cliente: any) {
     this.clienteSeleccionado = cliente;
@@ -130,4 +142,41 @@ export class VentasComponent {
     return total;
 
   }
+  imprimir() {
+    // Imprime solo la sección de la factura
+    const printContents = document.querySelector('.printable-area')?.innerHTML;
+    const originalContents = document.body.innerHTML;
+
+    if (printContents) {
+      document.body.innerHTML = printContents;
+      window.print();
+      document.body.innerHTML = originalContents;
+      window.location.reload(); // Recarga la página para restaurar el contenido original
+    }
+  }
+
+  insertVenta(){
+    console.log(this.venta)
+    this.api.insertVenta(this.venta).subscribe(
+      () => {
+        console.log('venta insertada correctamente');
+        Swal.fire({
+          icon: 'success',
+          title: 'venta ingreada',
+          showConfirmButton: false,
+          timer: 1000,
+        });
+      },
+      (error) => {
+        console.error('Error al ingresar la venta:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'ocurrio un error!',
+          footer: '<a href="">Intenta nuevamente</a>',
+        });
+      }
+    );
+  }
+
 }
