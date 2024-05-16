@@ -247,6 +247,11 @@ export class ApiService {
     const direccion =`${this.url}producciones/update`;
     return this.http.put<any>(direccion, produccion, { headers });
   }
+  updateRecetas(form: any): Observable<any> {
+    const direccion = `${this.url}/recetas/update`;
+    return this.http.post<any>(direccion, form);
+  }
+
 
 
 
@@ -281,6 +286,11 @@ export class ApiService {
     const direccion=`${this.url}producciones/delete`;
     return this.http.delete<any>(direccion, { headers, body: produccion });
   }
+  deleteReceta(receta:RecetaI):Observable<any>{
+    const headers=this.createHeaders();
+    const direccion=`${this.url}recetas/delete`;
+    return this.http.delete<any>(direccion, { headers, body: receta });
+  }
  
   
 
@@ -307,11 +317,7 @@ export class ApiService {
   }
 
 
-  updateRecetas(form: any): Observable<any> {
-    const direccion = `${this.url}/recetas/update`;
-    return this.http.post<any>(direccion, form);
-  }
-
+  
   getSingleReceta(id: any) {
     let direccion = this.url + '/recetas/getOne/' + id;
     return this.http.get(direccion);

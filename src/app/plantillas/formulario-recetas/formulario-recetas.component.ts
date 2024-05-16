@@ -43,7 +43,7 @@ export class FormularioRecetasComponent {
   cantidadRecetaClicked: boolean = false;
   descripcionClicked: boolean = false;
   cantidadIngedienteClicked: boolean = false;
-
+  status_form:number=0
   datos: any = {
     nombre_receta: '',
     cantidad_receta: 0,
@@ -75,7 +75,24 @@ export class FormularioRecetasComponent {
     this.getAllInngredientes()
     this.getAllUnidades()
   }
-
+  tipoAccion(accion: number, data: any = []) {
+    this.status_form = accion;
+    if (accion == 1) {
+      this.nuevoFormReceta.patchValue(data);
+      
+    } else {
+      this.nuevoFormReceta.patchValue({
+        'nombre_receta':'',
+        'cantidad_receta':'',
+        'descripcion_receta':'',
+        'cantidad_ingrediente':'',
+        'medida_ingrediente':'',
+        'nombre_ingrediente':''
+      
+      });
+    }
+  }
+ 
   getReceta() {
     this.api.getAllRecetas().subscribe((data) => {
       console.log(data);
@@ -146,7 +163,8 @@ export class FormularioRecetasComponent {
       nombre_receta: this.nuevoFormReceta.get('nombre_receta').value,
       cantidad_receta: this.nuevoFormReceta.get('cantidad_receta').value,
       descripcion_receta: this.nuevoFormReceta.get('descripcion_receta').value,
-      receta_ingrediente: this.ingredienteReceta
+      receta_ingrediente: this.ingredienteReceta,
+      
     }
     this.api.postRecetas(this.nuevaReceta).subscribe(() => {
       console.log('Receta insertada correctamente');
