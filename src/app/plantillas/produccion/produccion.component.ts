@@ -40,6 +40,7 @@ export class ProduccionComponent {
       id_producto:['',Validators.required],
       cantidad_produccion:['',Validators.required],
       fecha_produccion:['',Validators.required],
+      last_cantidad:['',Validators.required],
       id_produccion:['']
       
      
@@ -50,6 +51,7 @@ export class ProduccionComponent {
   tipoAccion(accion: number, data: any = []) {
     this.status_form = accion;
     if (accion == 1) {
+      data['last_cantidad'] = data['cantidad_produccion'];
       this.nuevoFormProduccion.patchValue(data);
       
     } else {
@@ -131,8 +133,9 @@ export class ProduccionComponent {
         });
         break;
         case 1: 
-        this.api.updateProduccion(produccion).subscribe((data)=>{
-          console.log(data);
+        
+        this.api.updateProduccion(produccion).subscribe(()=>{
+          
           Swal.fire({
             icon: "success",
             title: "produccions actualizado correctamente",
