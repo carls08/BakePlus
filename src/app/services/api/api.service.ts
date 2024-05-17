@@ -11,7 +11,7 @@ import { formularioRecetaI } from 'src/app/models/formulario-receta.interface';
 import { FormBuilder } from '@angular/forms';
 import { RolesI } from 'src/app/models/roles.interfaces';
 import { TipoDocI } from 'src/app/models/tipoDocument.interface';
-import { RecetaI } from 'src/app/models/receta.interface';
+import { RecetaI, RecetaIngedienteI } from 'src/app/models/receta.interface';
 import { map } from 'rxjs/operators';
 import { IngredientesComponent } from 'src/app/plantillas/ingredientes/ingredientes.component';
 import { productosI } from 'src/app/models/productos.interface';
@@ -125,6 +125,26 @@ export class ApiService {
         
         }))
       )
+    );
+  }
+  getRecetaIngedientes(id_receta: number): Observable<RecetaIngedienteI> {
+    const headers = this.createHeaders();
+    const direccion = this.url + 'recetas/getOne/' + id_receta;
+    return this.http.get<any>(direccion, { headers }).pipe(
+      map((response) => {
+        const data = response.success.data;
+        return {
+          id_receta: id_receta,
+          nombre_receta: data.nombre_receta,
+          cantidad_receta: data.cantidad_receta,
+          descripcion_receta: data.descripcion_receta,
+          receta_ingrediente: data.receta_ingrediente.map((ingrediente: any) => ({
+            cantidad_ingrediente: ingrediente.cantidad_ingrediente,
+            ingrediente: ingrediente.ingrediente,
+            unidad_medida: ingrediente.unidad_medida
+          }))
+        };
+      })
     );
   }
   getAllProductos():Observable<productosI[]>{

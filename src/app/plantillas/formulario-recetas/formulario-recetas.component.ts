@@ -10,7 +10,7 @@ import { ApiService } from 'src/app/services/api/api.service';
 import { Router } from '@angular/router';
 import { formularioRecetaI } from 'src/app/models/formulario-receta.interface';
 import { ModalService } from 'src/app/services/modal.service';
-import { RecetaI } from 'src/app/models/receta.interface';
+import { RecetaI, RecetaIngedienteI } from 'src/app/models/receta.interface';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EditarItemModalComponent } from '../editar-item-modal/editar-item-modal.component';
 import { ingredientesI } from 'src/app/models/ingrediente.interface';
@@ -31,6 +31,7 @@ export class FormularioRecetasComponent {
   }
   nuevoFormReceta: FormGroup;
 
+  recetaIngediente: RecetaIngedienteI;
   recetas: RecetaI[] = []
   nuevaReceta: formularioRecetaI
   ingredientes: ingredientesI[] = [];
@@ -78,8 +79,7 @@ export class FormularioRecetasComponent {
   tipoAccion(accion: number, id_receta?: number) {
     this.status_form = accion;
     if (accion == 1) {
-
-
+      this.getRecetaingrediente(id_receta)
     } else {
       this.nuevoFormReceta.patchValue({
         'nombre_receta': '',
@@ -96,6 +96,15 @@ export class FormularioRecetasComponent {
   getReceta() {
     this.api.getAllRecetas().subscribe((data) => {
       this.recetas = data;
+    });
+  }
+
+  getRecetaingrediente(id_receta: number) {
+    this.api.getRecetaIngedientes(id_receta).subscribe((data) => {
+      this.recetaIngediente = data;
+      console.log('Receta Ingediente:', this.recetaIngediente);
+    }, error => {
+      console.error('Error fetching recipe ingredients:', error);
     });
   }
 
