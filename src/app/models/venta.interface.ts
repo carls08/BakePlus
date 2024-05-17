@@ -5,7 +5,7 @@ export interface ventaCreate{
     nombre_cliente: string;
     total_venta: number;
     fecha_venta: string;
-    detalleVenta: detalleVenta [];
+    detalle_venta: detalleVenta [];
 }
 
 export interface ventaResponse{
@@ -15,7 +15,7 @@ export interface ventaResponse{
     total_venta: number;
     fecha_venta: Date;
     estado_rg: number;
-    detalleVenta: detalleVenta [];
+    detalle_venta: detalleVenta [];
 }
 
 export interface ventaUpdate{
@@ -24,5 +24,5 @@ export interface ventaUpdate{
     nombre_cliente: string;
     total_venta: number;
     fecha_venta: Date;
-    detalleVenta: detalleVenta [];
+    detalle_venta: detalleVenta [];
 }

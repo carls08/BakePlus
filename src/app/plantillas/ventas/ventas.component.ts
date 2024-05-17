@@ -29,7 +29,7 @@ export class VentasComponent {
     nombre_cliente: '',
     total_venta: 0,
     fecha_venta: this.obtenerFechaFormateada(),
-    detalleVenta: []
+    detalle_venta: []
   };
 
   clienteSeleccionado: any | null = null;
@@ -63,7 +63,7 @@ export class VentasComponent {
         //mapeamos una inteface a otra
         this.detalleVenta = {
           id_producto: producto.id_producto,
-          cantidad_producto: 0,
+          cantidad: 0,
           precio_unitario: producto.precio_producto,
           precio_total: 0
         };
@@ -75,9 +75,9 @@ export class VentasComponent {
   }
   addProduct() {
     if (this.venta !== null) {
-      this.detalleVenta.cantidad_producto = this.cantidadProducto
-      this.detalleVenta.precio_total = this.detalleVenta.precio_unitario * this.detalleVenta.cantidad_producto
-      this.venta.detalleVenta.push(this.detalleVenta);
+      this.detalleVenta.cantidad = this.cantidadProducto
+      this.detalleVenta.precio_total = this.detalleVenta.precio_unitario * this.detalleVenta.cantidad
+      this.venta.detalle_venta.push(this.detalleVenta);
       this.venta.total_venta = this.calcularTotal();
       this.isProduct = true;
     }
@@ -93,7 +93,7 @@ export class VentasComponent {
   }
 
   removeProduct(index: number) {
-    this.venta.detalleVenta.splice(index, 1);
+    this.venta.detalle_venta.splice(index, 1);
     this.venta.total_venta = this.calcularTotal();
   }
 
@@ -136,7 +136,7 @@ export class VentasComponent {
 
   calcularTotal(): number {
     let total = 0;
-    for (const producto of this.venta.detalleVenta){
+    for (const producto of this.venta.detalle_venta){
       total += producto.precio_total;
     }
     return total;
