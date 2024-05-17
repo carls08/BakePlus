@@ -123,7 +123,7 @@
                     <div class="row">
                       <div class="col-md-10">
                         <br><br>
-                        <div class="form-outline mb-4" >
+                        <div class="form-outline mb-4"  >
                           <select formControlName="id_usuario" class="form-select form-select-lg"
                             >
                             <option value="">Seleccione una usuario</option>
@@ -158,6 +158,15 @@
                               <p class="fs-6"></p>
                             </div>
                         </div>
+                           <!---Ultima cantidad-->
+                           <div class="form-outline mb-4" *ngIf="status_form == 1">
+                            <input type="number" placeholder="" formControlName="last_cantidad"
+                              class="form-control form-control-lg"  
+                              readonly
+                              />
+                              
+                          </div>
+                         
                        
                         <div class="form-outline mb-4">
                           <label class="fw-bold">Fecha</label>

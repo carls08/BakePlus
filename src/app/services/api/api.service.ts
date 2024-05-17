@@ -159,6 +159,7 @@ export class ApiService {
           nombre_producto:produccion.nombre_producto,
           cantidad_produccion:produccion.cantidad_produccion,
           fecha_produccion:produccion.fecha_produccion,
+          last_cantidad:produccion.last_cantidad,
           estado_rg:produccion.estado_rg
          
           
