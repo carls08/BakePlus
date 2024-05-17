@@ -10,7 +10,7 @@ export interface ventaCreate{
 
 export interface ventaResponse{
     id_venta: number;
-    id_usuario: number;
+    nombre_usuario: string;
     nombre_cliente: string;
     total_venta: number;
     fecha_venta: Date;

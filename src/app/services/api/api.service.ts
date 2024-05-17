@@ -186,14 +186,13 @@ export class ApiService {
     const direccion = this.url + 'ventas/getAll';
     return this.http.get<any>(direccion, { headers }).pipe(
       map((response) =>
-        response.success.data.map((ventas: any) => ({
+        response.success.data.map((ventas: ventaResponse) => ({
           id_venta:ventas.id_venta,
-          id_usuario:ventas.id_usuario,
+          nombre_usuario:ventas.nombre_usuario,
           nombre_cliente:ventas.nombre_cliente,
           total_venta:ventas.total_venta,
           fecha_venta:ventas.fecha_venta,
           estado_rg:ventas.estado_rg,
-          detalleVenta:ventas.detalleVenta
         }))
       )
     );

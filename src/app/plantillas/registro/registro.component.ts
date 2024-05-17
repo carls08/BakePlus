@@ -72,7 +72,6 @@ export class RegistroComponent {
     if (accion == 1) {
       data['cPassword_usuario'] = data['password_usuario'];
       this.nuevoForm.patchValue(data);
-      console.log(data);
     } else {
       this.nuevoForm.patchValue({
         apellido_usuario: '',

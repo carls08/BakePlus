@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { detalleVenta } from 'src/app/models/detalleVenta.inteface';
-import { ventaResponse } from 'src/app/models/venta.interface';
+import { productosI } from 'src/app/models/productos.interface';
+import { ventaCreate, ventaResponse } from 'src/app/models/venta.interface';
 import { ApiService } from 'src/app/services/api/api.service';
 import Swal from 'sweetalert2';
 
@@ -12,14 +13,22 @@ import Swal from 'sweetalert2';
 export class VerVentasComponent {
   currentPage: number = 1;
   pageSize: number = 10; 
-  ventas: any = []
-  constructor(private api: ApiService,){
+  ventas: any =[]
+  productos: productosI[]
+  venta: ventaCreate = {
+    id_usuario: 0,
+    nombre_cliente: '',
+    total_venta: 0,
+    fecha_venta: this.obtenerFechaFormateada(),
+    detalle_venta: []
+  };
+  constructor(private api: ApiService){
 
   }
   ngOnInit(): void {
 
     this.getVentas()
-
+    console.log(this.ventas)
   }
 
   getVentas(){
@@ -118,5 +127,28 @@ export class VerVentasComponent {
   getTotalPages(): number {
     return Math.ceil(this.ventas.length / this.pageSize);
   }
+  getNombreProducto(id_producto: number): string {
+    let nombre
+    for (const producto of this.productos) {
+      if (producto.id_producto === id_producto) {
+        nombre = producto.nombre_producto;
+      }
+    }
+    return nombre;
+  }
+
+  getProductos() {
+    this.api.getAllProductos().subscribe(data => {
+      this.productos = data;
+    })
+  }
+  obtenerFechaFormateada(): string {
+    const fechaActual = new Date();
+    const dia = fechaActual.getDate().toString().padStart(2, '0');
+    const mes = (fechaActual.getMonth() + 1).toString().padStart(2, '0'); // Se suma 1 porque en JavaScript los meses van de 0 a 11
+    const año = fechaActual.getFullYear();
+    return `${dia}-${mes}-${año}`;
+  }
+  
   
 }

@@ -31,7 +31,7 @@ export class FormularioRecetasComponent {
   }
   nuevoFormReceta: FormGroup;
 
-  recetas: any = [];
+  recetas: RecetaI[] = []
   nuevaReceta: formularioRecetaI
   ingredientes: ingredientesI[] = [];
   unidades: UnidadesI[] = [];
@@ -43,7 +43,7 @@ export class FormularioRecetasComponent {
   cantidadRecetaClicked: boolean = false;
   descripcionClicked: boolean = false;
   cantidadIngedienteClicked: boolean = false;
-  status_form:number=0
+  status_form: number = 0
   datos: any = {
     nombre_receta: '',
     cantidad_receta: 0,
@@ -75,27 +75,26 @@ export class FormularioRecetasComponent {
     this.getAllInngredientes()
     this.getAllUnidades()
   }
-  tipoAccion(accion: number, data: any = []) {
+  tipoAccion(accion: number, id_receta?: number) {
     this.status_form = accion;
     if (accion == 1) {
-      this.nuevoFormReceta.patchValue(data);
-      
+
+
     } else {
       this.nuevoFormReceta.patchValue({
-        'nombre_receta':'',
-        'cantidad_receta':'',
-        'descripcion_receta':'',
-        'cantidad_ingrediente':'',
-        'medida_ingrediente':'',
-        'nombre_ingrediente':''
-      
+        'nombre_receta': '',
+        'cantidad_receta': '',
+        'descripcion_receta': '',
+        'cantidad_ingrediente': '',
+        'medida_ingrediente': '',
+        'nombre_ingrediente': ''
+
       });
     }
   }
- 
+
   getReceta() {
     this.api.getAllRecetas().subscribe((data) => {
-      console.log(data);
       this.recetas = data;
     });
   }
@@ -103,7 +102,6 @@ export class FormularioRecetasComponent {
   getAllUnidades() {
     this.api.getAllUnidades().subscribe(data => {
       this.unidades = data;
-      console.log(this.unidades);
     })
   }
   getAllInngredientes() {
@@ -164,7 +162,7 @@ export class FormularioRecetasComponent {
       cantidad_receta: this.nuevoFormReceta.get('cantidad_receta').value,
       descripcion_receta: this.nuevoFormReceta.get('descripcion_receta').value,
       receta_ingrediente: this.ingredienteReceta,
-      
+
     }
     this.api.postRecetas(this.nuevaReceta).subscribe(() => {
       console.log('Receta insertada correctamente');
@@ -189,7 +187,7 @@ export class FormularioRecetasComponent {
     return (this.currentPage - 1) * this.pageSize + index + 1;
   }
 
-  getCurrentPageItems(): formularioRecetaI[] {
+  getCurrentPageItems(): RecetaI[] {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
     return this.recetas.slice(startIndex, endIndex);
@@ -312,11 +310,11 @@ export class FormularioRecetasComponent {
   fromCompleto(): boolean {
 
     if (this.nuevoFormReceta.get('nombre_receta').valid
-        && this.nuevoFormReceta.get('cantidad_receta').valid
-        && this.nuevoFormReceta.get('descripcion_receta').valid
-        && this.nuevaReceta != null)
+      && this.nuevoFormReceta.get('cantidad_receta').valid
+      && this.nuevoFormReceta.get('descripcion_receta').valid
+      && this.nuevaReceta != null)
       return true
-   return false
+    return false
   }
   onNombreClicked() {
     this.nombreClicked = true; // Marcar como true cuando se hace clic en el campo
@@ -331,7 +329,67 @@ export class FormularioRecetasComponent {
     this.cantidadIngedienteClicked = true; // Marcar como true cuando se hace clic en el campo
   }
 
+  acdesReceta(receta: RecetaI, estado: number) {
+    switch (estado) {
+      case 0:
+        const actualizar1: RecetaI = {
+          ...receta,
+          estado_rg: 0,
+        }
+        this.api.deleteReceta(actualizar1).subscribe(
+          () => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Realizado!',
+              showConfirmButton: false,
+              timer: 1000,
+            });
+            this.getReceta(); // Actualizar la lista de Usuarios después de eliminar
+          },
+          (error) => {
+            console.error('Error en receta:', error);
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'ERROR',
+              footer: '<a href="">Intenta nuevamente</a>',
+            });
+          }
+        );
 
+        break;
+      case 1:
+        const actualizar2: RecetaI = {
+          ...receta,
+          estado_rg: 1,
+        }
+        this.api.deleteReceta(actualizar2).subscribe(
+          () => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Realizado!',
+              showConfirmButton: false,
+              timer: 1000,
+            });
+            this.getReceta(); // Actualizar la lista de Usuarios después de eliminar
+          },
+          (error) => {
+            console.error('Error en receta:', error);
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'ERROR',
+              footer: '<a href="">Intenta nuevamente</a>',
+            });
+          }
+        );
+
+        break;
+
+      default:
+        break;
+    }
+
+  }
 }
-
 

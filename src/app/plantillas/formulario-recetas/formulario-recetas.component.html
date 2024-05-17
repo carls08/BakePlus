@@ -35,12 +35,12 @@
           <table class="table table-hover">
             <thead class="thead-dark">
               <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nombre de receta</th>
-                <th scope="col">Cantidad de receta</th>
-                <th scope="col">Ingredientes</th>
-                <th scope="col">Descricion de Receta</th>
-                <th scope="col" class="d-flex justify-content-center">Opciones</th>
+                <th scope="col" class="text-center justify-content-center">#</th>
+                <th scope="col"class="text-center justify-content-center">Nombre de receta</th>
+                <th scope="col"class="text-center justify-content-center">Cantidad de receta</th>
+                <th scope="col"class="text-center justify-content-center">Descricion de Receta</th>
+                <th scope="col"class="text-center justify-content-center">Estado</th>
+                <th scope="col"class="text-center justify-content-center">Acciones</th>
 
               </tr>
             </thead>
@@ -51,23 +51,32 @@
                 <td><a>{{receta.nombre_receta}}</a></td>
                 <td><a>{{receta.cantidad_receta}}</a></td>
                 <td><a>{{receta.descripcion_receta}}</a></td>
-                <td></td>
                 <td>
-                  <span >
-                    <a class="activar" title="Desactivar usuario" ><svg
+                  <span *ngIf="receta.estado_rg === 1">
+                    <a class="activar" title="Desactivar usuario" (click)="acdesReceta(receta,0)"><svg
                         xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
                         class="bi bi-toggle-on" viewBox="0 0 16 16">
                         <path d="M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10zm6 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8" />
                       </svg></a>
                   </span>
-                  <span >
-                    <a class="desactivar" title="Activar marca" ><svg
+                  <span *ngIf="receta.estado_rg === 0">
+                    <a class="desactivar" title="Activar usuario" (click)="acdesReceta(receta,1)"><svg
                         xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
                         class="bi bi-toggle-off" viewBox="0 0 16 16">
                         <path
                           d="M11 4a4 4 0 0 1 0 8H8a5 5 0 0 0 2-4 5 5 0 0 0-2-4zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8M0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5" />
                       </svg></a>
                   </span>
+                </td>
+                <td class="d-flex justify-content-center">
+                  <a class="edit-a " title="Editar" *ngIf="receta.estado_rg === 1" data-bs-toggle="modal"
+                    data-bs-target="#formReceta"  (click)="tipoAccion(1,receta.id_receta)"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                      fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                      <path
+                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                      <path fill-rule="evenodd"
+                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+                    </svg></a>
                 </td>
               </tr>
             </tbody>
@@ -110,7 +119,6 @@
                     <br><br>
                     <h5 *ngIf="status_form == 0" class="text-center fs-1 fw-bold" style="letter-spacing: 1px;">Registro de Recetas:</h5>
                     <h5 *ngIf="status_form == 1" class="text-center fs-1 fw-bold" style="letter-spacing: 1px;">Actualizar Recetas:</h5>
-                    <input type="password" formControlName="id_marca" hidden readonly>
                     <div class="row">
                       <!---Nombre-->
                       <div class="col-md-9">
