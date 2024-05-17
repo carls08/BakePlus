@@ -27,9 +27,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let producto of venta.detalleVenta">
+                  <tr *ngFor="let producto of venta.detalle_venta">
                     <td>{{ getNombreProducto(producto.id_producto) }}</td>
-                    <td>{{ producto.cantidad_producto }}</td>
+                    <td>{{ producto.cantidad }}</td>
                     <td>{{ producto.precio_unitario | currency }}</td>
                     <td>{{ producto.precio_total | currency }}</td>
                   </tr>
@@ -105,9 +105,9 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let producto of venta.detalleVenta; let i = index">
+                <tr *ngFor="let producto of venta.detalle_venta; let i = index">
                   <td><input type="text" class="form-control" placeholder="Nombre del Producto" [(ngModel)]="producto.id_producto" name="productName{{i}}" disabled required></td>
-                  <td><input type="number" class="form-control" placeholder="Cantidad" [(ngModel)]="producto.cantidad_producto" name="productQuantity{{i}}" disabled required></td>
+                  <td><input type="number" class="form-control" placeholder="Cantidad" [(ngModel)]="producto.cantidad" name="productQuantity{{i}}" disabled required></td>
                   <td><input type="number" class="form-control" placeholder="Precio" [(ngModel)]="producto.precio_unitario" name="productPrice{{i}}"  disabled required></td>
                   <td><button type="button" class="btn btn-danger" (click)="removeProduct(i)">Eliminar</button></td>
                 </tr>
