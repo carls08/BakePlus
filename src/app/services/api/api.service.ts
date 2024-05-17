@@ -17,7 +17,7 @@ import { IngredientesComponent } from 'src/app/plantillas/ingredientes/ingredien
 import { productosI } from 'src/app/models/productos.interface';
 import { EditarItemModalComponent } from 'src/app/plantillas/editar-item-modal/editar-item-modal.component';
 import { produccionI } from 'src/app/models/produccion.interface';
-import { ventaCreate } from 'src/app/models/venta.interface';
+import { ventaCreate, ventaResponse } from 'src/app/models/venta.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -181,6 +181,24 @@ export class ApiService {
     );
   }
 
+  getAllVentas(): Observable<ventaResponse[]> {
+    const headers = this.createHeaders();
+    const direccion = this.url + 'ventas/getAll';
+    return this.http.get<any>(direccion, { headers }).pipe(
+      map((response) =>
+        response.success.data.map((ventas: any) => ({
+          id_venta:ventas.id_venta,
+          id_usuario:ventas.id_usuario,
+          nombre_cliente:ventas.nombre_cliente,
+          total_venta:ventas.total_venta,
+          fecha_venta:ventas.fecha_venta,
+          estado_rg:ventas.estado_rg,
+          detalleVenta:ventas.detalleVenta
+        }))
+      )
+    );
+  }
+
   insertMarca(marca: marcasI): Observable<any> {
     const headers = this.createHeaders();
     const direccion = `${this.url}/marcas/insert`;
@@ -298,6 +316,11 @@ export class ApiService {
     const headers=this.createHeaders();
     const direccion=`${this.url}recetas/delete`;
     return this.http.delete<any>(direccion, { headers, body: receta });
+  }
+  deleteVentas(ventas:ventaResponse):Observable<any>{
+    const headers=this.createHeaders();
+    const direccion=`${this.url}ventas/delete`;
+    return this.http.delete<any>(direccion, { headers, body: ventas });
   }
  
   

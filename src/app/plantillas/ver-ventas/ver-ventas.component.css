@@ -1,0 +1,22 @@
+/* Cambiar el color de los iconos*/
+/* Cambiar el color de los iconos*/
+.desactivar svg {
+    color:rgb(220, 53, 69); /* Cambia el color del ícono SVG */
+  }
+  
+  .activar svg {
+    color: rgb(40, 167, 69); /* Cambia el color del ícono SVG */
+  }
+  
+  .table-row:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  .color{
+    color: #ffa43a;
+  }
+  
+  .clearfix {
+    display: flex;
+    justify-content: center;
+  }

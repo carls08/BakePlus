@@ -27,6 +27,7 @@ import { TableroComponent } from './plantillas/tablero/tablero.component';
 import { ProductosComponent } from './plantillas/productos/productos.component';
 import { ProduccionComponent } from './plantillas/produccion/produccion.component';
 import { DatePipe } from '@angular/common';
+import { VerVentasComponent } from './plantillas/ver-ventas/ver-ventas.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { DatePipe } from '@angular/common';
     EstadisticasComponent,
     TableroComponent,
     ProductosComponent,
-    ProduccionComponent
+    ProduccionComponent,
+    VerVentasComponent
   ],
   imports: [
     BrowserModule,

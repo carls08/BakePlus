@@ -17,6 +17,7 @@ import { EstadisticasComponent } from './plantillas/estadisticas/estadisticas.co
 import { TableroComponent } from './plantillas/tablero/tablero.component';
 import { ProductosComponent } from './plantillas/productos/productos.component';
 import { ProduccionComponent } from './plantillas/produccion/produccion.component';
+import { VerVentasComponent } from './plantillas/ver-ventas/ver-ventas.component';
 
 
 const routes:Routes=[
@@ -35,6 +36,7 @@ const routes:Routes=[
   {path:'dashboard',component:TableroComponent,canActivate: [AuthGuard]},
   {path:'productos',component:ProductosComponent,canActivate:[AuthGuard]},
   {path:'produccion',component:ProduccionComponent,canActivate:[AuthGuard]},
+  {path:'VerVentas',component:VerVentasComponent,canActivate:[AuthGuard]},
   { path: '**', redirectTo: 'home' } // Redireccionar a la página de inicio si la ruta no coincide con ninguna de las anteriores
 ]
 @NgModule({
